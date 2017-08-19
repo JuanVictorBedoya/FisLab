@@ -1,0 +1,19 @@
+{
+  "name": "fislab",
+  "version": "1.0.0",
+  "description": "virtual laboraty for physics",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanVictorBedoya/FisLab.git"
+  },
+  "author": "Juan Victor Bedoya Castro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JuanVictorBedoya/FisLab/issues"
+  },
+  "homepage": "https://github.com/JuanVictorBedoya/FisLab#readme"
+}
