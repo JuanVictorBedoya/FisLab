@@ -30,7 +30,7 @@ var serverConfig = {
 	}
 };
 
-/*var clientConfig = {
+var clientConfig = {
 	target: 'web',
 
 	resolve: {
@@ -41,6 +41,7 @@ var serverConfig = {
 	},
 
 	entry: {
+		"fislab.default": "./src/client/app/default.jsx",
 	},
 
 	output: {
@@ -65,8 +66,8 @@ var serverConfig = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('css/usfx.min.css')
+		new ExtractTextPlugin('css/fislab.min.css')
 	]
-};*/
+};
 
-module.exports = [ serverConfig ];
+module.exports = [ serverConfig, clientConfig ];
