@@ -12,12 +12,12 @@ var serverConfig = {
 	externals: [nodeExternals()],
 
 	entry: {
-		"index": "./src/server/index.js",
+		"index.js": "./src/server/index.js",
 	},
 
 	output: {
 		path: path.join(__dirname, "dist"),
-		filename: "[name].js"
+		filename: "[name]"
 	},
 	
 	module: {
@@ -42,6 +42,8 @@ var clientConfig = {
 
 	entry: {
 		"fislab.default": "./src/client/app/default.jsx",
+
+		"fislab.demos": "./test/demos/client.jsx"
 	},
 
 	output: {

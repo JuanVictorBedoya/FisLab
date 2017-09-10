@@ -8,7 +8,8 @@
     "build-dev": "webpack --watch",
     "start": "node dist/index.js",
     "build": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"test": "",
+	"test-demos": "node test/demos/server.js"
   },
   "repository": {
     "type": "git",
