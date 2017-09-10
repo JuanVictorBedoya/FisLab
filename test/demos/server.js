@@ -19,14 +19,10 @@ var server = http.createServer(testApp);
 
 testApp.use(express.static(path.join(__dirname, '../../dist/assets')));
 
-testApp.use('/', function(req, res){
-	fs.readFile(path.join(__dirname, 'index.html'), "utf8", function(err, data) {
+testApp.use(['/'], function(req, res){
+	fs.readFile(path.join(__dirname, 'index.html'), 'utf8', function(err, data) {
 		res.send(data);
 	});
-});
-
-testApp.use('/text-input', function(req, res){
-	res.send('');
 });
 
 server.listen(8080, function(){

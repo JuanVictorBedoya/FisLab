@@ -32,7 +32,6 @@ class Home extends React.Component {
 	}
 }
 
-
 class App {
 	constructor() {
 		document.addEventListener("DOMContentLoaded", this.onDOMContentLoaded.bind(this));
