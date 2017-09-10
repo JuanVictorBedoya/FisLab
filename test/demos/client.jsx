@@ -10,6 +10,8 @@ import React from 'react';
 import ReactDOM from'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import {TextInput} from '../../src/client/components/text-input.jsx';
+
 /****************************************************************************************/
 
 class Demo extends React.Component {
@@ -32,9 +34,19 @@ class Home extends React.Component {
 	}
 }
 
+class TextInputDemo extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (<div><h3>Text Input Demo</h3><TextInput/></div>);
+	}
+}
+
 class App {
 	constructor() {
-		document.addEventListener("DOMContentLoaded", this.onDOMContentLoaded.bind(this));
+		document.addEventListener('DOMContentLoaded', this.onDOMContentLoaded.bind(this));
 	}
 
 	onDOMContentLoaded() {
@@ -42,11 +54,12 @@ class App {
 	}
 
 	render() {
-		let container = document.createElement("div");
+		let container = document.createElement('div');
 		ReactDOM.render(
 			<BrowserRouter>
 				<Demo>
 					<Route exact={true} path="/" component={Home}/>
+					<Route exact={true} path="/text-input" component={TextInputDemo}/>
 				</Demo>
 			</BrowserRouter>, container);
 		document.body.appendChild(container);
