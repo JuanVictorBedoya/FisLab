@@ -17,11 +17,11 @@ class WebRouter {
 		this.router = express.Router();
 
 		this.controller = {
-            home: new HomeController
-        }
-
-        this.router.get('/', this.controller.home.index);
-    }
+			home: new HomeController
+		};
+		
+		this.router.get('/', this.controller.home.index);
+	}
 }
 
-export {WebRouter}
+export {WebRouter};
