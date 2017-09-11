@@ -17,10 +17,11 @@ class TextInput extends React.Component {
 
 	render() {
 		return (
-		<input type="text">
+			<input type="text">
 
-		</input>)
+			</input>
+		);
 	}
 }
 
-export { TextInput }
+export { TextInput };
