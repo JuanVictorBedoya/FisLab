@@ -9,6 +9,7 @@
 import express from 'express';
 
 import {HomeController} from '../app/web/home-controller';
+import {SignupController} from '../app/web/signup-controller';
 
 /****************************************************************************************/
 
@@ -17,10 +18,12 @@ class WebRouter {
 		this.router = express.Router();
 
 		this.controller = {
-			home: new HomeController
+			home: new HomeController,
+			signup: new SignupController
 		};
 		
 		this.router.get('/', this.controller.home.index);
+		this.router.get('/registro', this.controller.signup.index);
 	}
 }
 
