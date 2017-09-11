@@ -10,24 +10,25 @@ import React from 'react';
 
 /****************************************************************************************/
 
-class HomeView extends React.Component {
+class DefaultView extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
 		return(
-		<html>
-			<head>
-				<title>FisLab</title>
-				<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"/>
-			</head>
-			<body>
-				<div id="app-main"></div>
-				<script src="/js/fislab.default.min.js"/>
-			</body>
-		</html>)
+			<html>
+				<head>
+					<title>FisLab</title>
+					<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"/>
+				</head>
+				<body>
+					<div id="app-main"></div>
+					<script src="/js/fislab.default.min.js"/>
+				</body>
+			</html>
+		);
 	}
 }
 
-export {HomeView}
+export {DefaultView};
