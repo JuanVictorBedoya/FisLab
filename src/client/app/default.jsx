@@ -11,6 +11,7 @@ import ReactDOM from'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import { Home } from '../views/home.jsx';
+import { Signup } from '../views/signup.jsx';
 
 /****************************************************************************************/
 
@@ -28,7 +29,7 @@ class Main extends React.Component {
 
 class App {
 	constructor() {
-		document.addEventListener("DOMContentLoaded", this.onDOMContentLoaded.bind(this));
+		document.addEventListener('DOMContentLoaded', this.onDOMContentLoaded.bind(this));
 	}
 
 	onDOMContentLoaded() {
@@ -39,12 +40,13 @@ class App {
 
 	render() {
 		ReactDOM.render(
-		<BrowserRouter>
-			<Main>
-				<Route exact={true} path="/" component={Home}/>
-			</Main>
-		</BrowserRouter>,
-		this._mainSection);
+			<BrowserRouter>
+				<Main>
+					<Route exact={true} path="/" component={Home}/>
+					<Route exact={true} path="/registro" component={Signup}/>
+				</Main>
+			</BrowserRouter>,
+			this._mainSection);
 	}
 }
 
