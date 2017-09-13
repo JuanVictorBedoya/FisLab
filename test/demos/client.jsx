@@ -64,15 +64,19 @@ class GridDemo extends React.Component {
 
 	render() {
 		return (
-			<div className="row">
-				<div className="col s4">
-
-				</div>
-				<div className="col s4">
-
-				</div>
-				<div className="col s4">
-
+			<div>
+				<h3>Grid Demo</h3>
+			
+				<div className="row">
+					<div className="col s4">
+						<p>We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components.</p>
+					</div>
+					<div className="col s4">
+						<p>By utilizing elements and principles of Material Design, we were able to create a framework that focuses on User Experience.</p>
+					</div>
+					<div className="col s4">
+						<p>We have provided detailed documentation as well as specific code examples to help new users get started.</p>
+					</div>
 				</div>
 			</div>
 		);
@@ -96,6 +100,8 @@ class App {
 					<Route exact={true} path="/" component={Home}/>
 					<Route exact={true} path="/text-input" component={TextInputDemo}/>
 					<Route exact={true} path="/button" component={ButtonDemo}/>
+
+					<Route exact={true} path="/grid" component={GridDemo}/>
 				</Demo>
 			</BrowserRouter>, container);
 		document.body.appendChild(container);
