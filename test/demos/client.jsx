@@ -13,7 +13,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import {TextInput} from '../../src/client/components/text-input.jsx';
 import {Button} from '../../src/client/components/button.jsx';
 
-import GriddCSS from '../../src/client/styles/grid.scss';
+import GridStyle from '../../src/client/styles/grid.scss';
 
 /****************************************************************************************/
 
@@ -43,7 +43,14 @@ class TextInputDemo extends React.Component {
 	}
 
 	render() {
-		return (<div><h3>Text Input Demo</h3><TextInput/></div>);
+		return (
+			<div>
+				<h3>Text Input Demo</h3>
+				<div className='container'>
+					<TextInput/>
+				</div>
+			</div>
+		);
 	}
 }
 
