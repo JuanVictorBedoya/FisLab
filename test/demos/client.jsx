@@ -13,6 +13,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import {TextInput} from '../../src/client/components/text-input.jsx';
 import {Button} from '../../src/client/components/button.jsx';
 
+import GriddCSS from '../../src/client/styles/grid.scss';
+
 /****************************************************************************************/
 
 class Demo extends React.Component {
@@ -52,6 +54,28 @@ class ButtonDemo extends React.Component {
 
 	render() {
 		return (<div><h3>Button Demo</h3><Button text="Demo button"/></div>);
+	}
+}
+
+class GridDemo extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<div className="row">
+				<div className="col s4">
+
+				</div>
+				<div className="col s4">
+
+				</div>
+				<div className="col s4">
+
+				</div>
+			</div>
+		);
 	}
 }
 
