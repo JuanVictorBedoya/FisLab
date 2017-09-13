@@ -8,7 +8,7 @@
 
 import React from 'react';
 
-import {HomeView} from '../../views/home.jsx';
+import {DefaultView} from '../../views/default.jsx';
 
 /****************************************************************************************/
 
@@ -17,8 +17,8 @@ class HomeController {
 	}
 
 	index(req, res) {
-		res.render(<HomeView/>);
+		res.render(<DefaultView/>);
 	}
 }
 
-export {HomeController}
+export {HomeController};
