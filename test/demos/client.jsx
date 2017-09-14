@@ -47,7 +47,10 @@ class TextInputDemo extends React.Component {
 			<div>
 				<h3>Text Input Demo</h3>
 				<div className="container">
-					<TextInput/>
+					<TextInput name="name1" label="First Name" placeholder="Placeholder"/>
+					<TextInput name="name2" label="Last Name" placeholder="Placeholder"/>
+					<TextInput name="pass" label="Password" placeholder="Your password" type="password"/>
+					<TextInput name="email" label="Email" placeholder="Your email" type="email"/>
 				</div>
 			</div>
 		);
@@ -64,7 +67,7 @@ class ButtonDemo extends React.Component {
 			<div>
 				<h3>Button Demo</h3>
 				<div className="container">
-					<TextInput/>
+					<TextInput name="name" label="Nombre" placeholder="Nombre"/>
 					<Button text="Demo button"/>
 					<TextInput/>
 				</div>
