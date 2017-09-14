@@ -46,7 +46,7 @@ class TextInputDemo extends React.Component {
 		return (
 			<div>
 				<h3>Text Input Demo</h3>
-				<div className='container'>
+				<div className="container">
 					<TextInput/>
 				</div>
 			</div>
@@ -60,7 +60,16 @@ class ButtonDemo extends React.Component {
 	}
 
 	render() {
-		return (<div><h3>Button Demo</h3><Button text="Demo button"/></div>);
+		return (
+			<div>
+				<h3>Button Demo</h3>
+				<div className="container">
+					<TextInput/>
+					<Button text="Demo button"/>
+					<TextInput/>
+				</div>
+			</div>
+		);
 	}
 }
 
