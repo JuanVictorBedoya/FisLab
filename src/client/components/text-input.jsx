@@ -8,6 +8,8 @@
 
 import React from 'react';
 
+import TextInputStyle from '../styles/text-input.scss';
+
 /****************************************************************************************/
 
 class TextInput extends React.Component {
@@ -17,11 +19,20 @@ class TextInput extends React.Component {
 
 	render() {
 		return (
-			<input type="text">
-
-			</input>
+			<div className="input-group">
+				{
+					this.props.required ?
+						<input name={this.props.name} type={this.props.type} placeholder={this.props.placeholder} required/>:
+						<input name={this.props.name} type={this.props.type} placeholder={this.props.placeholder}/>
+				}
+				<label className="input-label" htmlFor={this.props.name}>{this.props.label}</label>
+			</div>
 		);
 	}
 }
+
+TextInput.defaultProps = {
+	type: 'text'
+};
 
 export { TextInput };

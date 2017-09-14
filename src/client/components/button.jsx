@@ -8,6 +8,8 @@
 
 import React from 'react';
 
+import TextInputStyle from '../styles/button.scss';
+
 /****************************************************************************************/
 
 class Button extends React.Component {
@@ -17,11 +19,15 @@ class Button extends React.Component {
 
 	render() {
 		return (
-			<button type="button">
+			<button type={this.props.type}>
 				{this.props.text}
 			</button>
 		);
 	}
 }
+
+Button.defaultProps = {
+	type: 'button'
+};
 
 export { Button };
