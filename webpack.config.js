@@ -1,34 +1,6 @@
 
 var path = require('path');
-var nodeExternals = require('webpack-node-externals');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-var serverConfig = {
-	node: {
-		__filename: true,
-		__dirname: false
-	},
-	target: 'node',
-	externals: [nodeExternals()],
-
-	entry: {
-		"index.js": "./src/server/index.js",
-	},
-
-	output: {
-		path: path.join(__dirname, "dist"),
-		filename: "[name]"
-	},
-	
-	module: {
-		loaders: [
-			{
-				exclude: /node_modules/,
-				loader: "babel-loader"
-			}
-		]
-	}
-};
 
 var clientConfig = {
 	target: 'web',
@@ -41,14 +13,12 @@ var clientConfig = {
 	},
 
 	entry: {
-		"fislab.default": "./src/client/app/default.jsx",
-
-		"fislab.demos": "./test/demos/client.jsx"
+		'fislab.demos': './test/demos/client.jsx'
 	},
 
 	output: {
-		path: path.join(__dirname, "dist", "assets"),
-		filename: "js/[name].min.js"
+		path: path.join(__dirname, 'dist', 'assets'),
+		filename: 'js/[name].min.js'
 	},
 
 	module: {
@@ -56,7 +26,7 @@ var clientConfig = {
 			{
 				test: /\.jsx?/,
 				exclude: /node_modules/,
-				use: "babel-loader"
+				use: 'babel-loader'
 			},
 			{
 				test: /\.scss$/,
@@ -72,4 +42,4 @@ var clientConfig = {
 	]
 };
 
-module.exports = [ serverConfig, clientConfig ];
+module.exports = [ clientConfig ];
