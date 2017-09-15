@@ -12,6 +12,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import { Home } from '../views/home.jsx';
 import { Signup } from '../views/signup.jsx';
+import { SignIn } from '../views/signin.jsx';
 
 import GridStyle from '../styles/grid.scss';
 
@@ -46,6 +47,7 @@ class App {
 				<Main>
 					<Route exact={true} path="/" component={Home}/>
 					<Route exact={true} path="/registro" component={Signup}/>
+					<Route exact={true} path="/login" component={SignIn}/>
 				</Main>
 			</BrowserRouter>,
 			this._mainSection);
