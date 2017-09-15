@@ -12,23 +12,24 @@ import React from 'react';
 
 class Home extends React.Component {
 	constructor(props) {
-        super(props);
-    }
+		super(props);
+	}
 
-    render() {
+	render() {
 		return (
-		<div>
-			<header>
-			</header>
-			<main>
-				<div>
-					<h4>FisLab</h4>
-				</div>
-			</main>
-			<footer>
-			</footer>
-		</div>)
+			<div>
+				<header>
+				</header>
+				<main>
+					<div>
+						<h4>FisLab</h4>
+					</div>
+				</main>
+				<footer>
+				</footer>
+			</div>
+		);
 	}
 }
 
-export { Home }
+export { Home };
