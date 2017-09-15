@@ -12,6 +12,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import {TextInput} from '../../src/client/components/text-input.jsx';
 import {Button} from '../../src/client/components/button.jsx';
+import {Form} from '../../src/client/components/form.jsx';
 
 import GridStyle from '../../src/client/styles/grid.scss';
 
@@ -34,6 +35,32 @@ class Home extends React.Component {
 
 	render() {
 		return (<div>FisLab Test Demos</div>);
+	}
+}
+
+class GridDemo extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<div>
+				<h3>Grid Demo</h3>
+			
+				<div className="row">
+					<div className="col s4">
+						<p>We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components.</p>
+					</div>
+					<div className="col s4">
+						<p>By utilizing elements and principles of Material Design, we were able to create a framework that focuses on User Experience.</p>
+					</div>
+					<div className="col s4">
+						<p>We have provided detailed documentation as well as specific code examples to help new users get started.</p>
+					</div>
+				</div>
+			</div>
+		);
 	}
 }
 
@@ -76,27 +103,19 @@ class ButtonDemo extends React.Component {
 	}
 }
 
-class GridDemo extends React.Component {
+class FormDemo extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
 		return (
-			<div>
-				<h3>Grid Demo</h3>
-			
-				<div className="row">
-					<div className="col s4">
-						<p>We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components.</p>
-					</div>
-					<div className="col s4">
-						<p>By utilizing elements and principles of Material Design, we were able to create a framework that focuses on User Experience.</p>
-					</div>
-					<div className="col s4">
-						<p>We have provided detailed documentation as well as specific code examples to help new users get started.</p>
-					</div>
-				</div>
+			<div className="container">
+				<h3>Form Demo</h3>
+				<Form>
+					<TextInput name="name" label="Nombre" placeholder="Nombre"/>
+					<Button text="Submit" type="submit"/>
+				</Form>
 			</div>
 		);
 	}
@@ -119,6 +138,7 @@ class App {
 					<Route exact={true} path="/" component={Home}/>
 					<Route exact={true} path="/text-input" component={TextInputDemo}/>
 					<Route exact={true} path="/button" component={ButtonDemo}/>
+					<Route exact={true} path="/form" component={FormDemo}/>
 
 					<Route exact={true} path="/grid" component={GridDemo}/>
 				</Demo>

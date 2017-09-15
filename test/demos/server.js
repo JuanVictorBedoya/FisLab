@@ -19,7 +19,7 @@ var server = http.createServer(testApp);
 
 testApp.use(express.static(path.join(__dirname, '../../dist/assets')));
 
-testApp.use(['/', '/text-input', '/button', '/grid'], function(req, res){
+testApp.use(['/', '/text-input', '/button', '/form', '/grid'], function(req, res){
 	fs.readFile(path.join(__dirname, 'index.html'), 'utf8', function(err, data) {
 		res.send(data);
 	});
