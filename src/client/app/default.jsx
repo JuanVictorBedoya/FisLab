@@ -13,6 +13,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Home } from '../views/home.jsx';
 import { Signup } from '../views/signup.jsx';
 
+import GridStyle from '../styles/grid.scss';
+
 /****************************************************************************************/
 
 class Main extends React.Component {

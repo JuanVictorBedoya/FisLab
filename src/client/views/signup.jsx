@@ -8,6 +8,9 @@
 
 import React from 'react';
 
+import {TextInput} from '../components/text-input.jsx';
+import {Button} from '../components/button.jsx';
+
 /****************************************************************************************/
 
 class Signup extends React.Component {
@@ -22,10 +25,10 @@ class Signup extends React.Component {
 					
 				</header>
 				<main>
-					<div>
-						<div>
-							<div>
-								<svg version="1.1" viewBox="0 0 210 297" height="297mm" width="210mm">
+					<div className="row">
+						<div className="col s12 l6">
+							<div className="container">
+								<svg version="1.1" viewBox="0 0 210 297" height="32" width="32">
 									<g style="display:inline" id="layer2">
 										<g style="stroke:url(#linearGradient989)" id="symbol">
 											<g id="g932" style="stroke:url(#linearGradient989);stroke-opacity:1">
@@ -70,14 +73,33 @@ class Signup extends React.Component {
 									</g>
 								</svg>
 							</div>
-							<div>
+							<div className="container">
 								<h4>Welcome</h4>
+								<p>Welcome to FisLab, our objetive is to enthuse students to conduct experiments by arousing their curiosity. This would help them in learning basic and advanced concepts through remote experimentation</p>
+							</div>
+
+							<div className="container" style={{marginTop: '8rem'}}>
+								<img src="/images/usfx-logo.png" alt="" style={{width: '5rem'}}/>
+								<img src="/images/facebook-logo.png" alt="" style={{width: '5rem'}}/>
 								<p>Welcome to FisLab, our objetive is to enthuse students to conduct experiments by arousing their curiosity. This would help them in learning basic and advanced concepts through remote experimentation</p>
 							</div>
 						</div>
 
-						<div>
-
+						<div className="col s12 l6">
+							<div className="container">
+								<div>
+									<h2>Datos de registro</h2>
+								</div>
+								<div>
+									<TextInput name="fname" label="Nombre" placeholder="Nombre"/>
+									<TextInput name="lname" label="Apellidos" placeholder="Apellidos"/>
+									<TextInput name="company" label="Organizacion" placeholder="Organizacion"/>
+									<TextInput name="job" label="Ocupacion" placeholder="Ocupacion"/>
+								</div>
+								<div style={{marginTop: '2rem'}}>
+									<Button text="Registrarme"/>
+								</div>
+							</div>
 						</div>
 					</div>
 				</main>

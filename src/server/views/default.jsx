@@ -21,6 +21,7 @@ class DefaultView extends React.Component {
 				<head>
 					<title>FisLab</title>
 					<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"/>
+					<link rel="stylesheet" type="text/css" href="/css/fislab.min.css"/>
 				</head>
 				<body>
 					<div id="app-main"></div>
