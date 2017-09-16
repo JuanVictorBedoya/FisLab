@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
 
 import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
@@ -24,6 +25,10 @@ class SignIn extends React.Component {
 
 	onFormSubmit() {
 
+	}
+
+	onSignInWithFacebook(facebookUser) {
+		console.log(facebookUser);
 	}
 
 	render() {
@@ -44,11 +49,23 @@ class SignIn extends React.Component {
 								<TextInput name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
 								<TextInput name="passw" label="Contraseña" placeholder="Contraseña" type="password" required={true}/>
 							</div>
-							<div style={{marginTop: '2rem'}}>
-								<Button text="Iniciar" type="submit"/>
+							<div style={{marginTop: '1rem'}}>
+								<Button text="Iniciar sesión" type="submit"/>
 							</div>
 							<div>
 								<p className="note">Al hacer clic en "Registrarme", muestras conformidad con nuestras <Link to="/condiciones">Condiciones</Link> y aceptas haber leído nuestra <Link to="/politica-datos">Polica de datos</Link>.</p>
+							</div>
+
+							<div>
+								<button className="kep-login-usfx" type="button">
+									<span>Acceso universitario</span>
+								</button>
+								<FacebookLogin
+									appId="136635746918254"
+									fields="name,email,picture"
+									textButton="Iniciar con facebook"
+									icon="fa-facebook"
+									callback={this.onSignInWithFacebook.bind(this)} />
 							</div>
 						</Form>
 					</div>
