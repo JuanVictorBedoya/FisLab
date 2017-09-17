@@ -29,6 +29,19 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
 
 
 /*****************************************************************************************
+Typography
+*****************************************************************************************/
+
+$off-black: rgba(0, 0, 0, 0.87) !default;
+// Header Styles
+$h1-fontsize: 2.6rem !default;
+$h2-fontsize: 2.2rem !default;
+$h3-fontsize: 1.8rem !default;
+$h4-fontsize: 1.4rem !default;
+$h5-fontsize: 1.2rem !default;
+$h6-fontsize: 1rem !default;
+
+/*****************************************************************************************
 
 *****************************************************************************************/
 
@@ -37,10 +50,6 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
 body {
 	font-family: 'Open Sans', sans-serif;
 	margin: 0;
-}
-
-a {
-	text-decoration: none;
 }
 
 .note {

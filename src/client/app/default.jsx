@@ -14,7 +14,7 @@ import { Home } from '../views/home.jsx';
 import { Signup } from '../views/signup.jsx';
 import { SignIn } from '../views/signin.jsx';
 
-import GridStyle from '../styles/grid.scss';
+import MainStyles from '../styles/app.scss';
 
 /****************************************************************************************/
 
