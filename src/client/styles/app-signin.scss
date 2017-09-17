@@ -1,22 +1,35 @@
 
 @import "global";
 
-.signin {
+.signin-page {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.signin-page-on-transition,
+.signin-page-current {
+	display: inline;
+	z-index: 1;
+}
+
+.signin-container {
 	margin: 0 auto;
 	width: 95%;
 }
 
 @media #{$medium-and-up} {
-	.signin {
+	.signin-container {
 		width: 65%;
 	}
 }
 @media #{$large-and-up} {
-	.signin {
+	.signin-container {
 		width: 35%;
 	}
 }
-
 
 .kep-login-facebook {
 	text-transform: none !important;
@@ -38,4 +51,31 @@
 	background-size: 1.4rem;
 	background-position: 1rem 0.4rem;
 	float: left;
+}
+
+.signin-page-moveToLeft {
+	-webkit-animation: moveToLeft .6s ease both;
+	animation: moveToLeft .6s ease both;
+}
+
+.signin-page-moveFromRight {
+	-webkit-animation: moveFromRight .6s ease both;
+	animation: moveFromRight .6s ease both;
+}
+
+
+@-webkit-keyframes moveToLeft {
+	from { }
+	to { -webkit-transform: translateX(-100%); }
+}
+@keyframes moveToLeft {
+	from { }
+	to { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+
+@-webkit-keyframes moveFromRight {
+	from { -webkit-transform: translateX(100%); }
+}
+@keyframes moveFromRight {
+	from { -webkit-transform: translateX(100%); transform: translateX(100%); }
 }
