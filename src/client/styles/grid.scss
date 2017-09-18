@@ -18,7 +18,6 @@
 }
 
 
-
 @mixin reset-offset {
 	margin-left: auto;
 	left: auto;
@@ -37,11 +36,16 @@
 }
 
 
-
 .row {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 15px;
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
 
 	.col {
 		float: left;
