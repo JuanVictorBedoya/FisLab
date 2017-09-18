@@ -1,24 +1,33 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
 
 import React from 'react';
 
-import {DefaultView} from '../../views/default.jsx';
+import TextInputStyle from '../styles/button.scss';
 
 /****************************************************************************************/
 
-class HomeController {
-	constructor() {
+class Button extends React.Component {
+	constructor(props) {
+		super(props);
 	}
 
-	index(req, res) {
-		res.render(<DefaultView/>);
+	render() {
+		return (
+			<button type={this.props.type}>
+				{this.props.text}
+			</button>
+		);
 	}
 }
 
-export {HomeController};
+Button.defaultProps = {
+	type: 'button'
+};
+
+export { Button };

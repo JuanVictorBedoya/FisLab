@@ -9,6 +9,8 @@
 import express from 'express';
 
 import {HomeController} from '../app/web/home-controller';
+import {SignupController} from '../app/web/signup-controller';
+import {SignInController} from '../app/web/signin-controller';
 
 /****************************************************************************************/
 
@@ -17,11 +19,15 @@ class WebRouter {
 		this.router = express.Router();
 
 		this.controller = {
-            home: new HomeController
-        }
-
-        this.router.get('/', this.controller.home.index);
-    }
+			home: new HomeController,
+			signup: new SignupController,
+			signin: new SignInController
+		};
+		
+		this.router.get('/', this.controller.home.index);
+		this.router.get('/registro', this.controller.signup.index);
+		this.router.get('/login', this.controller.signin.index);
+	}
 }
 
-export {WebRouter}
+export {WebRouter};

@@ -12,7 +12,7 @@ import {DefaultView} from '../../views/default.jsx';
 
 /****************************************************************************************/
 
-class HomeController {
+class SignInController {
 	constructor() {
 	}
 
@@ -21,4 +21,4 @@ class HomeController {
 	}
 }
 
-export {HomeController};
+export {SignInController};

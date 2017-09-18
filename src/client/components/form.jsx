@@ -10,24 +10,29 @@ import React from 'react';
 
 /****************************************************************************************/
 
-class HomeView extends React.Component {
+class Form extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
+	onSubmit(e) {
+		let fn = this.props.onSubmit;
+		e.preventDefault();
+		return fn ? fn(e) : false;
+	}
+
+	onValidate(e) {
+		let fn = this.props.onValidate;
+		return fn ? (fn(e) ? this.onSubmit(e) : false) : this.onSubmit(e);
+	}
+
 	render() {
-		return(
-		<html>
-			<head>
-				<title>FisLab</title>
-				<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"/>
-			</head>
-			<body>
-				<div id="app-main"></div>
-				<script src="/js/fislab.default.min.js"/>
-			</body>
-		</html>)
+		return (
+			<form onSubmit={this.onValidate.bind(this)}>
+				{this.props.children}
+			</form>
+		);
 	}
 }
 
-export {HomeView}
+export { Form };

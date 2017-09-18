@@ -12,19 +12,19 @@ var serverConfig = {
 	externals: [nodeExternals()],
 
 	entry: {
-		"index": "./src/server/index.js",
+		'index.js': './src/server/index.js',
 	},
 
 	output: {
-		path: path.join(__dirname, "dist"),
-		filename: "[name].js"
+		path: path.join(__dirname, 'dist'),
+		filename: '[name]'
 	},
 	
 	module: {
 		loaders: [
 			{
 				exclude: /node_modules/,
-				loader: "babel-loader"
+				loader: 'babel-loader'
 			}
 		]
 	}
@@ -41,12 +41,14 @@ var clientConfig = {
 	},
 
 	entry: {
-		"fislab.default": "./src/client/app/default.jsx",
+		'fislab.default': './src/client/app/default.jsx',
+
+		//'fislab.demos': './test/demos/client.jsx'
 	},
 
 	output: {
-		path: path.join(__dirname, "dist", "assets"),
-		filename: "js/[name].min.js"
+		path: path.join(__dirname, 'dist', 'assets'),
+		filename: 'js/[name].min.js'
 	},
 
 	module: {
@@ -54,7 +56,7 @@ var clientConfig = {
 			{
 				test: /\.jsx?/,
 				exclude: /node_modules/,
-				use: "babel-loader"
+				use: 'babel-loader'
 			},
 			{
 				test: /\.scss$/,

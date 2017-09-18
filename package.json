@@ -8,7 +8,8 @@
     "build-dev": "webpack --watch",
     "start": "node dist/index.js",
     "build": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "",
+    "test-demos": "node test/demos/server.js"
   },
   "repository": {
     "type": "git",
@@ -34,9 +35,12 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.5",
+    "eslint": "^4.6.1",
+    "eslint-plugin-react": "^7.3.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
+    "react-facebook-login": "^3.6.2",
     "react-lite": "^0.15.38",
     "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.6",

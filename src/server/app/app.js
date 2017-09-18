@@ -47,9 +47,9 @@ class App {
 	setRender(req, res, next) {
 		res.render = function(Component) {
 			return res.send(renderToString(Component));
-		}
+		};
 		next();
 	}
 }
 
-export {App}
+export {App};
