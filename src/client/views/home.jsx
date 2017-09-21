@@ -8,6 +8,10 @@
 
 import React from 'react';
 
+import {Navbar, NavBrand, NavLink} from '../components/navbar.jsx';
+
+import {AppLogo_0} from '../components/app-logo.jsx';
+
 /****************************************************************************************/
 
 class Home extends React.Component {
@@ -19,10 +23,13 @@ class Home extends React.Component {
 		return (
 			<div>
 				<header>
+					<Navbar>
+						<NavBrand logoComponent={AppLogo_0} logoStyle={{height: '32px', width: '32px', padding: '0.6rem'}}/>
+						<NavLink text="Inicio"/>
+					</Navbar>
 				</header>
 				<main>
 					<div>
-						<h4>FisLab</h4>
 					</div>
 				</main>
 				<footer>
