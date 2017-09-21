@@ -42,7 +42,7 @@ class Home extends React.Component {
 									</button>
 								</Link>
 							</div>
-							<div>	
+							<div>
 								<Link to="/registro">
 									<button className="fi-home-main-btn" type="button">
 										<span>Registrarme</span>

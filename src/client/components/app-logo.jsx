@@ -95,4 +95,18 @@ class AppLogo_1 extends React.Component {
 	}
 }
 
-export { AppLogo_0, AppLogo_1 };
+class AppLogo_Facebook extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return(
+			<svg viewBox="0 0 1001 1007" style={this.props.style}>
+				<path d="M183 5C82 5 0 86 0 188v635c0 101 81 183 183 183h344V615H424V474h103V354c0-94 61-181 202-181 57 0 99 5 99 5l-3 131h-90c-51 0-59 23-59 62v103h153l-7 141H676v391h142c101 0 183-81 183-183V188C1001 87 920 5 818 5H183z"></path>
+			</svg>
+		);
+	}
+}
+
+export { AppLogo_0, AppLogo_1, AppLogo_Facebook };
