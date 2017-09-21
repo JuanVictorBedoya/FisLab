@@ -1,0 +1,33 @@
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+
+	.input-label {
+		order: -1;
+		font-size: 13px;
+		color: gray;
+	}
+
+	input[type=text],
+	input[type=password],
+	input[type=email], {
+
+		width: 100%;
+		box-sizing: border-box;
+		border: 1px solid lightgrey;
+		border-radius: 3px;
+		font-size: 14px;
+		background-color: white;
+		padding: 10px 10px 10px 10px;
+		margin: 0.2rem 0 0.7rem 0;
+
+		&:focus {
+			border: 1px solid rgb(9, 178, 189);
+		}
+
+		&:focus + .input-label {
+			color: rgb(9, 178, 189);
+		}
+	}
+}
