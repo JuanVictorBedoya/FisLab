@@ -2,6 +2,7 @@
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var serverConfig = {
 	node: {
@@ -27,7 +28,13 @@ var serverConfig = {
 				loader: 'babel-loader'
 			}
 		]
-	}
+	},
+
+	plugins: [
+		new CopyWebpackPlugin([
+			{ from: './src/server/config.json', to: 'config.json' },
+		])
+	]
 };
 
 var clientConfig = {
@@ -68,7 +75,10 @@ var clientConfig = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('css/fislab.min.css')
+		new ExtractTextPlugin('css/fislab.min.css'),
+		new CopyWebpackPlugin([
+			{ from: './src/client/styles/app.scss', to: 'css/file.css' },
+		])
 	]
 };
 
