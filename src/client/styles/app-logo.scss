@@ -1,0 +1,16 @@
+
+@import 'global';
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+
+.fi-brand-text {
+	text-align: center;
+	font-family: 'Audiowide', cursive;
+
+	.fi-first-part {
+		color: $primary-color;
+	}
+	.fi-second-part {
+		color: gray;
+	}
+}

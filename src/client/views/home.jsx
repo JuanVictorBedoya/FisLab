@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 import {Navbar, NavBrand, NavLink} from '../components/navbar.jsx';
 
-import {AppLogo_0} from '../components/app-logo.jsx';
+import {AppLogo_0, AppLogo_1} from '../components/app-logo.jsx';
 
 /****************************************************************************************/
 
@@ -32,10 +32,7 @@ class Home extends React.Component {
 				<main>
 					<div className="fi-home-main">
 						<AppLogo_0 style={{height: '9rem', width: '9rem', padding: '0.6rem', margin: '0 auto', display: 'block'}}/>
-						<h1 className="fi-brand-text">
-							<span className="fi-first-part">fis</span>
-							<span className="fi-second-part">lab</span>
-						</h1>
+						<AppLogo_1 fontSize="4rem"/>
 						<div className="container">
 							<p className="fi-home-welcome">Welcome to FisLab, our objetive is to enthuse students to conduct experiments by arousing their curiosity. This would help them in learning basic and advanced concepts through remote experimentation</p>
 							<div>

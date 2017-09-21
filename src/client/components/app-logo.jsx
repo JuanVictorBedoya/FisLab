@@ -8,6 +8,8 @@
 
 import React from 'react';
 
+import AppLogoStyles from '../styles/app-logo.scss';
+
 /****************************************************************************************/
 
 class AppLogo_0 extends React.Component {
@@ -76,4 +78,21 @@ class AppLogo_0 extends React.Component {
 	}
 }
 
-export { AppLogo_0 };
+class AppLogo_1 extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return(
+			<div>
+				<h1 className="fi-brand-text" style={{fontSize: this.props.fontSize}}>
+					<span className="fi-first-part">fis</span>
+					<span className="fi-second-part">lab</span>
+				</h1>
+			</div>
+		);
+	}
+}
+
+export { AppLogo_0, AppLogo_1 };
