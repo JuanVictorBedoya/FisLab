@@ -1,5 +1,6 @@
 
 var path = require('path');
+var nodeExternals = require('webpack-node-externals');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var serverConfig = {
@@ -40,9 +41,9 @@ var clientConfig = {
 	},
 
 	entry: {
-		'fislab.default': './src/client/app/default.jsx',
+		//'fislab.default': './src/client/app/default.jsx',
 
-		//'fislab.demos': './test/demos/client.jsx'
+		'fislab.demos': './test/demos/client.jsx'
 	},
 
 	output: {
@@ -71,4 +72,4 @@ var clientConfig = {
 	]
 };
 
-module.exports = [ clientConfig ];
+module.exports = [ serverConfig, clientConfig ];
