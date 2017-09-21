@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {Navbar, NavBrand, NavLink} from '../components/navbar.jsx';
 
@@ -29,7 +30,29 @@ class Home extends React.Component {
 					</Navbar>
 				</header>
 				<main>
-					<div>
+					<div className="fi-home-main">
+						<AppLogo_0 style={{height: '9rem', width: '9rem', padding: '0.6rem', margin: '0 auto', display: 'block'}}/>
+						<h1 className="fi-brand-text">
+							<span className="fi-first-part">fis</span>
+							<span className="fi-second-part">lab</span>
+						</h1>
+						<div className="container">
+							<p className="fi-home-welcome">Welcome to FisLab, our objetive is to enthuse students to conduct experiments by arousing their curiosity. This would help them in learning basic and advanced concepts through remote experimentation</p>
+							<div>
+								<Link to="/login">
+									<button className="fi-home-main-btn" type="button">
+										<span>Iniciar sesión</span>
+									</button>
+								</Link>
+							</div>
+							<div>	
+								<Link to="/registro">
+									<button className="fi-home-main-btn" type="button">
+										<span>Registrarme</span>
+									</button>
+								</Link>
+							</div>
+						</div>
 					</div>
 				</main>
 				<footer>

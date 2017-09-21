@@ -1,0 +1,30 @@
+
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+
+.fi-brand-text {
+	text-align: center;
+	font-size: 6rem;
+	font-family: 'Audiowide', cursive;
+
+	.fi-first-part {
+		color: $primary-color;
+	}
+	.fi-second-part {
+		color: gray;
+	}
+}
+
+.fi-home-main {
+	margin-top: 1rem;
+}
+
+.fi-home-welcome {
+	text-shadow: 2px 2px 8px lightgray;
+}
+
+.fi-home-main-btn {
+	max-width: 20rem;
+	margin: 1rem auto;
+	display: block;
+}

@@ -32,7 +32,7 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
 Colors
 *****************************************************************************************/
 
-$primary-color: #424242 !default;
+$primary-color: rgb(9, 178, 189) !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
