@@ -41,7 +41,7 @@ class Http404View extends React.Component {
 						</div>
 						<div className="row" style={{margin: '3rem 0'}}>
 							<div className="col s8 m6 l4">
-								<button>Ir al inicio</button>
+								<a className="btn" style={{display: 'block'}} href="/">Ir al inicio</a>
 							</div>
 						</div>
 					</div>

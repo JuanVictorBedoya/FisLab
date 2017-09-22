@@ -36,17 +36,13 @@ class Home extends React.Component {
 						<div className="container">
 							<p className="fi-home-welcome">Welcome to FisLab, our objetive is to enthuse students to conduct experiments by arousing their curiosity. This would help them in learning basic and advanced concepts through remote experimentation</p>
 							<div>
-								<Link to="/login">
-									<button className="fi-home-main-btn" type="button">
-										<span>Iniciar sesión</span>
-									</button>
+								<Link to="/login" className="btn fi-home-main-btn">
+									Iniciar sesión
 								</Link>
 							</div>
 							<div>
-								<Link to="/registro">
-									<button className="fi-home-main-btn" type="button">
-										<span>Registrarme</span>
-									</button>
+								<Link to="/registro" className="btn fi-home-main-btn">
+									<span>Registrarme</span>
 								</Link>
 							</div>
 						</div>

@@ -108,7 +108,7 @@ class SignIn extends React.Component {
 											<p className="note">Si aún no tienes una cuenta, puedes <Link to="/registro"><b>Registrarte aquí</b></Link>. También puedes iniciar sesión usando uno de los siguientes servicios</p>
 										</div>
 										<div>
-											<button className="kep-login-usfx" type="button" onClick={this.onUsfxSignIn.bind(this)}>
+											<button className="btn kep-login-usfx" type="button" onClick={this.onUsfxSignIn.bind(this)}>
 												<span>Acceso universitario</span>
 											</button>
 											<FacebookLogin
@@ -142,7 +142,7 @@ class SignIn extends React.Component {
 											<TextInput name="ci" label="Cédula de identidad" placeholder="CI" type="password" required={true}/>
 										</div>
 										<div>
-											<button className="kep-login-usfx" type="submit">
+											<button className="btn kep-login-usfx" type="submit">
 												<span>Iniciar sesión</span>
 											</button>
 										</div>
@@ -150,7 +150,7 @@ class SignIn extends React.Component {
 											<p className="note">Introduce tu numero de carnet universitario ej. (35-666), y tu numero de carnet de identidad ej. (4374391)</p>
 										</div>
 										<div>
-											<button className="" type="button" onClick={this.onBackToSignIn.bind(this)}>
+											<button className="btn" type="button" onClick={this.onBackToSignIn.bind(this)}>
 												<span>Volver</span>
 											</button>
 										</div>
