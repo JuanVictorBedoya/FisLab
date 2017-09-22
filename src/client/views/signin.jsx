@@ -14,6 +14,8 @@ import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
 import {TextInput} from '../components/text-input.jsx';
 
+import {AppLogo_0, AppLogo_1} from '../components/app-logo.jsx';
+
 import SignInStyle from '../styles/app-signin.scss';
 
 /****************************************************************************************/
@@ -85,14 +87,15 @@ class SignIn extends React.Component {
 						<div className="signin-container">
 							<div className="row" style={{paddingTop: '1rem'}}>
 								<div className="col s12">
-									<img src="/images/fislab-logo-128x128.png" alt="" style={{margin: '0 auto', display: 'block'}}/>
+									<AppLogo_0 id="app_logo_0" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
+									<AppLogo_1 fontSize="3rem"/>
 								</div>
 							</div>
 							<div className="row">
 								<div className="col s12">
 									<Form onSubmit={this.onMainFormSubmit.bind(this)}>
 										<div>
-											<h3 style={{textAlign: 'center'}}>Iniciar sesión</h3>
+											<h4>Iniciar sesión</h4>
 										</div>
 										<div>
 											<TextInput name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
@@ -102,7 +105,7 @@ class SignIn extends React.Component {
 											<Button text="Iniciar sesión" type="submit"/>
 										</div>
 										<div>
-											<p className="note">Si aún no tienes una cuenta, puedes <Link to="/registro">Registrarte aquí</Link>. También puedes iniciar sesión usando uno de los siguientes servicios</p>
+											<p className="note">Si aún no tienes una cuenta, puedes <Link to="/registro"><b>Registrarte aquí</b></Link>. También puedes iniciar sesión usando uno de los siguientes servicios</p>
 										</div>
 										<div>
 											<button className="kep-login-usfx" type="button" onClick={this.onUsfxSignIn.bind(this)}>
@@ -124,14 +127,15 @@ class SignIn extends React.Component {
 						<div className="signin-container">
 							<div className="row" style={{paddingTop: '1rem'}}>
 								<div className="col s12">
-									<img src="/images/fislab-logo-128x128.png" alt="" style={{margin: '0 auto', display: 'block'}}/>
+									<AppLogo_0 id="app_logo_1" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
+									<AppLogo_1 fontSize="3rem"/>
 								</div>
 							</div>
 							<div className="row">
 								<div className="col s12">
 									<Form onSubmit={this.onUsfxFormSubmit.bind(this)}>
 										<div>
-											<h3 style={{textAlign: 'center'}}>Acceso universitario</h3>
+											<h4>Acceso universitario</h4>
 										</div>
 										<div>
 											<TextInput name="cu" label="Carnet universitario" placeholder="CU" required={true}/>

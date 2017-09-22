@@ -77,7 +77,7 @@ var clientConfig = {
 	plugins: [
 		new ExtractTextPlugin('css/fislab.min.css'),
 		new CopyWebpackPlugin([
-			{ from: './resources/images/usfx-logo-300x300.png', to: 'images/usfx-logo-300x300' },
+			{ from: './resources/images/usfx-logo-300x300.png', to: 'images' },
 		])
 	]
 };

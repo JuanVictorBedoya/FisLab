@@ -11,9 +11,10 @@
 
 .signin-page-on-transition,
 .signin-page-current {
-	display: inline;
+	display: block;
 	z-index: 1;
 }
+
 
 .signin-container {
 	margin: 0 auto;
@@ -46,10 +47,10 @@
 	margin: 1rem 0;
 	color: rgb(60, 60, 70);
 
-	background-image: url('/images/usfx-icon.png');
+	background-image: url('/images/usfx-logo-300x300.png');
 	background-repeat: no-repeat;
 	background-size: 1.4rem;
-	background-position: 1rem 0.4rem;
+	background-position: 1rem 0.6rem;
 	float: left;
 }
 
