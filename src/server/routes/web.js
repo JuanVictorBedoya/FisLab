@@ -8,6 +8,7 @@
 
 import express from 'express';
 
+import {ErrorsController} from '../app/web/errors-controller';
 import {HomeController} from '../app/web/home-controller';
 import {SignupController} from '../app/web/signup-controller';
 import {SignInController} from '../app/web/signin-controller';
@@ -19,6 +20,7 @@ class WebRouter {
 		this.router = express.Router();
 
 		this.controller = {
+			errors: new ErrorsController,
 			home: new HomeController,
 			signup: new SignupController,
 			signin: new SignInController
@@ -27,6 +29,8 @@ class WebRouter {
 		this.router.get('/', this.controller.home.index);
 		this.router.get('/registro', this.controller.signup.index);
 		this.router.get('/login', this.controller.signin.index);
+
+		this.router.use(this.controller.errors.http404);
 	}
 }
 
