@@ -14,11 +14,11 @@ class WebRouter {
 	constructor(app) {
 		this.router = express.Router();
 
-		this.router.get('/', app.controllers.home.index);
-		this.router.get('/registro', app.controllers.signup.index);
-		this.router.get('/login', app.controllers.signin.index);
+		this.router.get('/', app.controllers.web.default.index);
+		this.router.get('/registro', app.controllers.web.default.index);
+		this.router.get('/login', app.controllers.web.default.index);
 
-		this.router.use(app.controllers.errors.http404);
+		this.router.use(app.controllers.web.errors.http404);
 	}
 }
 

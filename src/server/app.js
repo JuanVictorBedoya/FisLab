@@ -13,13 +13,14 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import jsonfile from 'jsonfile';
 
-import {WebRouter} from '../routes/web';
-import {ApiRouter} from '../routes/api';
+import {WebRouter} from './routes/web';
+import {ApiRouter} from './routes/api';
 
-import {ErrorsController} from './web/errors-controller';
-import {HomeController} from './web/home-controller';
-import {SignupController} from './web/signup-controller';
-import {SignInController} from './web/signin-controller';
+import {ErrorsController} from './controllers/web/errors';
+import {DefaultController} from './controllers/web/default';
+
+import {SignUpController} from './controllers/api/signup';
+import {SignInController} from './controllers/api/signin';
 
 /****************************************************************************************/
 
@@ -37,10 +38,14 @@ class App {
 
 	onLoad() {
 		this.controllers = {
-			errors: new ErrorsController,
-			home: new HomeController,
-			signup: new SignupController,
-			signin: new SignInController
+			web: {
+				errors: new ErrorsController,
+				default: new DefaultController
+			},
+			api: {
+				signup: new SignUpController,
+				signin: new SignInController
+			}
 		};
 
 		let webRouter = new WebRouter(this),

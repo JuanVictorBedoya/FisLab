@@ -8,17 +8,18 @@
 
 import React from 'react';
 
-import {DefaultView} from '../../views/default.jsx';
-
 /****************************************************************************************/
 
-class SignInController {
+class SignUpController {
 	constructor() {
 	}
 
 	index(req, res) {
-		res.render(<DefaultView/>);
+	}
+
+	create(req, res) {
+		res.json({msg:'from signup api'});
 	}
 }
 
-export {SignInController};
+export {SignUpController};

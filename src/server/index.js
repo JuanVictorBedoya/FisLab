@@ -3,7 +3,7 @@
 	For conditions of distribution and use, see copyright notice in LICENSE
 ****************************************************************************************/
 
-import {App} from './app/app';
+import {App} from './app';
 
 /****************************************************************************************/
 

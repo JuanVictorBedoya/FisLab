@@ -17,6 +17,8 @@ class ApiRouter {
 		this.router.get('/', (req, res)=>{
 			res.send('Im in the API');
 		});
+
+		this.router.post('/user/signup', app.controllers.api.signup.create);
 	}
 }
 
