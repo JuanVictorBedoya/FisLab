@@ -44,6 +44,7 @@
     "react-facebook-login": "^3.6.2",
     "react-lite": "^0.15.38",
     "react-router-dom": "^4.2.2",
+    "reflux": "^6.4.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.5.5",

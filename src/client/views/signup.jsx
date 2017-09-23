@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import React from 'react';
+import Reflux from 'reflux';
 import { Link } from 'react-router-dom';
 
 import {Button} from '../components/button.jsx';
@@ -15,15 +16,21 @@ import {TextInput} from '../components/text-input.jsx';
 
 import {AppLogo_0, AppLogo_1, AppLogo_Facebook} from '../components/app-logo.jsx';
 
+import {SignUpActions, SignUpStore} from '../flux/signup';
+
 /****************************************************************************************/
 
-class Signup extends React.Component {
+class Signup extends Reflux.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {};
+
+		this.store = SignUpStore;
 	}
 
 	onFormSubmit() {
-
+		SignUpActions.signup();
 	}
 
 	render() {
