@@ -14,6 +14,12 @@ import { renderToString } from 'react-dom/server';
 import jsonfile from 'jsonfile';
 
 import {WebRouter} from '../routes/web';
+import {ApiRouter} from '../routes/api';
+
+import {ErrorsController} from './web/errors-controller';
+import {HomeController} from './web/home-controller';
+import {SignupController} from './web/signup-controller';
+import {SignInController} from './web/signin-controller';
 
 /****************************************************************************************/
 
@@ -26,13 +32,24 @@ class App {
 		this.express.use(express.static(path.join(__dirname, 'assets')));
 		this.express.use(this.setRender);
 
-		let webRouter = new WebRouter();
-		this.express.use('/', webRouter.router);
-
 		this.onLoad();
 	}
 
 	onLoad() {
+		this.controllers = {
+			errors: new ErrorsController,
+			home: new HomeController,
+			signup: new SignupController,
+			signin: new SignInController
+		};
+
+		let webRouter = new WebRouter(this),
+			apiRouter = new ApiRouter(this);
+
+		this.express.use('/api', apiRouter.router);
+		this.express.use('/', webRouter.router);
+
+
 		this.server = http.createServer(this.express);
 		this.server.listen(this.config.port, this.onStart.bind(this));
 	}

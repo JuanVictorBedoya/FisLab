@@ -10,16 +10,14 @@ import express from 'express';
 
 /****************************************************************************************/
 
-class WebRouter {
+class ApiRouter {
 	constructor(app) {
 		this.router = express.Router();
 
-		this.router.get('/', app.controllers.home.index);
-		this.router.get('/registro', app.controllers.signup.index);
-		this.router.get('/login', app.controllers.signin.index);
-
-		this.router.use(app.controllers.errors.http404);
+		this.router.get('/', (req, res)=>{
+			res.send('Im in the API');
+		});
 	}
 }
 
-export {WebRouter};
+export {ApiRouter};
