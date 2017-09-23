@@ -8,10 +8,12 @@
 
 import Reflux from 'reflux';
 
+import api from '../api';
+
 /****************************************************************************************/
 
 var SignUpActions = Reflux.createActions([
-	'signup'
+	'create'
 ]);
 
 class SignUpStore extends Reflux.Store {
@@ -24,7 +26,12 @@ class SignUpStore extends Reflux.Store {
 		this.listenables = SignUpActions;
 	}
 
-	onSignup(data) {
+	onCreate(data) {
+		api.account.create(data)
+			.then(response => {
+			})
+			.catch(error => {
+			});
 	}
 }
 

@@ -12,6 +12,7 @@ import path from 'path';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import jsonfile from 'jsonfile';
+import bodyParser from 'body-parser';
 
 import {WebRouter} from './routes/web';
 import {ApiRouter} from './routes/api';
@@ -31,6 +32,10 @@ class App {
 		this.express = express();
 
 		this.express.use(express.static(path.join(__dirname, 'assets')));
+
+		this.express.use(bodyParser.urlencoded({ extended: false }));
+		this.express.use(bodyParser.json());
+
 		this.express.use(this.setRender);
 
 		this.onLoad();

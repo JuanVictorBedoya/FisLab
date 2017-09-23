@@ -30,7 +30,7 @@ class Signup extends Reflux.Component {
 	}
 
 	onFormSubmit() {
-		SignUpActions.signup({
+		SignUpActions.create({
 			firstName: this.refs.fname.getValue(),
 			lastName: this.refs.lname.getValue(),
 			email: this.refs.email.getValue(),
