@@ -30,7 +30,12 @@ class Signup extends Reflux.Component {
 	}
 
 	onFormSubmit() {
-		SignUpActions.signup();
+		SignUpActions.signup({
+			firstName: this.refs.fname.getValue(),
+			lastName: this.refs.lname.getValue(),
+			email: this.refs.email.getValue(),
+			company: this.refs.company.getValue()
+		});
 	}
 
 	render() {
@@ -68,10 +73,10 @@ class Signup extends Reflux.Component {
 										<h2>Datos de registro</h2>
 									</div>
 									<div>
-										<TextInput name="fname" label="Nombre" placeholder="Nombre" required={true}/>
-										<TextInput name="lname" label="Apellidos" placeholder="Apellidos" required={true}/>
-										<TextInput name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
-										<TextInput name="company" label="Organizacion" placeholder="Organizacion" required={true}/>
+										<TextInput ref="fname" name="fname" label="Nombre" placeholder="Nombre" required={true}/>
+										<TextInput ref="lname" name="lname" label="Apellidos" placeholder="Apellidos" required={true}/>
+										<TextInput ref="email" name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
+										<TextInput ref="company" name="company" label="Organizacion" placeholder="Organizacion" required={true}/>
 									</div>
 									<div style={{marginTop: '2rem'}}>
 										<Button text="Registrarme" type="submit"/>

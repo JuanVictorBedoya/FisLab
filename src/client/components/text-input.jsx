@@ -17,13 +17,17 @@ class TextInput extends React.Component {
 		super(props);
 	}
 
+	getValue() {
+		return this.refs.input.value;
+	}
+
 	render() {
 		return (
 			<div className="input-group">
 				{
 					this.props.required ?
-						<input name={this.props.name} type={this.props.type} placeholder={this.props.placeholder} required/>:
-						<input name={this.props.name} type={this.props.type} placeholder={this.props.placeholder}/>
+						<input ref="input" name={this.props.name} type={this.props.type} placeholder={this.props.placeholder} required/>:
+						<input ref="input" name={this.props.name} type={this.props.type} placeholder={this.props.placeholder}/>
 				}
 				<label className="input-label" htmlFor={this.props.name}>{this.props.label}</label>
 			</div>

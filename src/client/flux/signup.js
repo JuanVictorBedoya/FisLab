@@ -24,7 +24,7 @@ class SignUpStore extends Reflux.Store {
 		this.listenables = SignUpActions;
 	}
 
-	onSignup() {
+	onSignup(data) {
 	}
 }
 
