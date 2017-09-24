@@ -8,6 +8,8 @@
 
 import mongoose from 'mongoose';
 
+import {EmailModel} from './models/email';
+
 /****************************************************************************************/
 
 class DB {
@@ -24,11 +26,11 @@ class DB {
 
 		mongoose.connect(cnnstr, { useMongoClient: true, promiseLibrary: global.Promise });
 
-		cnn.on('error', ()=>{
+		this.connection = mongoose.connection;
+		this.connection.on('error', ()=>{
 			console.error('connection error:');
 		});
-		
-		cnn.once('open', ()=>{
+		this.connection.once('open', ()=>{
 			console.log('connection OK:');
 		});
 
@@ -37,7 +39,7 @@ class DB {
 
 	initModels() {
 		this.models = {
-			
+			email: new EmailModel(this)
 		};
 	}
 }
