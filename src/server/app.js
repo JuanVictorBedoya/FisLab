@@ -17,6 +17,8 @@ import bodyParser from 'body-parser';
 import {WebRouter} from './routes/web';
 import {ApiRouter} from './routes/api';
 
+import {DB} from './database/db';
+
 import {ErrorsController} from './controllers/web/errors';
 import {DefaultController} from './controllers/web/default';
 
@@ -42,6 +44,8 @@ class App {
 	}
 
 	onLoad() {
+		this.db = new DB(this.config.db);
+
 		this.controllers = {
 			web: {
 				errors: new ErrorsController,
