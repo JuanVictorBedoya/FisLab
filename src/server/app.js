@@ -38,7 +38,7 @@ class App {
 		this.express.use(bodyParser.urlencoded({ extended: false }));
 		this.express.use(bodyParser.json());
 
-		this.express.use(this.mwApp);
+		this.express.use(this.mwApp.bind(this));
 
 		this.onLoad();
 	}
@@ -76,9 +76,7 @@ class App {
 	 * 
 	 */
 	mwApp(req, res, next) {
-		req.app = {
-			db: this.db
-		};
+		req.db = this.db;
 
 		res.render = function(Component) {
 			return res.send(renderToString(Component));

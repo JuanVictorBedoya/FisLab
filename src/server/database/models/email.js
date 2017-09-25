@@ -11,6 +11,7 @@ import randomstring from 'randomstring';
 import validator from 'validator';
 
 import {AppDate} from '../../common/date';
+import {Transaction} from '../transaction';
 
 /****************************************************************************************/
 
@@ -38,6 +39,10 @@ class EmailModel {
 	constructor(db) {
 		this.schema = new EmailSchema();
 		this.model = db.connection.model('Email', this.schema);
+	}
+
+	findOne(q, lastly) {
+		return Transaction.execTimeout(4000, ()=>{ return this.model.findOne(q); }, lastly);
 	}
 }
 

@@ -18,6 +18,7 @@ class SignUpController {
 	}
 
 	create(req, res) {
+		req.db.models.user.insertOne(req.body);
 		res.json({msg:'from signup api'});
 	}
 }

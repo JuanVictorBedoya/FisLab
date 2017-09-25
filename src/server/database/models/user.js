@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 import randomstring from 'randomstring';
 
 import {AppDate} from '../../common/date';
+import {Transaction} from '../transaction';
 
 /****************************************************************************************/
 
@@ -60,8 +61,24 @@ class UserSchema extends mongoose.Schema {
 
 class UserModel {
 	constructor(db) {
+		this.db = db;
 		this.schema = new UserSchema();
 		this.model = db.connection.model('User', this.schema);
+	}
+
+	insertOne(data) {
+		let db = this.db,
+			transaction = new Transaction();
+		return transaction.run(function*(){
+			let existsEmail = yield db.models.email.findOne({email: data.email});
+			if(existsEmail){
+				throw 'El correo electrónico ' + data.email + ' ya fue registrado. Porfavor intente usar un correo electrónico diferente';
+			}
+			
+			let insertedEmail = yield transaction.insert(db.models.email.model, {email: data.email});
+
+			return insertedEmail;
+		});
 	}
 }
 
