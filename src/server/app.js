@@ -38,7 +38,7 @@ class App {
 		this.express.use(bodyParser.urlencoded({ extended: false }));
 		this.express.use(bodyParser.json());
 
-		this.express.use(this.setRender);
+		this.express.use(this.mwApp);
 
 		this.onLoad();
 	}
@@ -73,12 +73,17 @@ class App {
 	}
 
 	/**
-	 * Render Overrider Midleware
+	 * 
 	 */
-	setRender(req, res, next) {
+	mwApp(req, res, next) {
+		req.app = {
+			db: this.db
+		};
+
 		res.render = function(Component) {
 			return res.send(renderToString(Component));
 		};
+
 		next();
 	}
 }

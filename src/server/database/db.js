@@ -9,6 +9,7 @@
 import mongoose from 'mongoose';
 
 import {EmailModel} from './models/email';
+import {UserModel} from './models/user';
 
 /****************************************************************************************/
 
@@ -39,7 +40,8 @@ class DB {
 
 	initModels() {
 		this.models = {
-			email: new EmailModel(this)
+			email: new EmailModel(this),
+			user: new UserModel(this)
 		};
 	}
 }
