@@ -15,6 +15,7 @@ import jsonfile from 'jsonfile';
 import bodyParser from 'body-parser';
 
 import {Validator} from './common/validator';
+import {Mailer} from './common/mailer';
 
 import {WebRouter} from './routes/web';
 import {ApiRouter} from './routes/api';
@@ -47,6 +48,7 @@ class App {
 
 	onLoad() {
 		this.db = new DB(this.config.db);
+		this.mailer = new Mailer(this.config.mail);
 
 		this.controllers = {
 			web: {
@@ -79,14 +81,15 @@ class App {
 	 */
 	mwApp(req, res, next) {
 		req.db = this.db;
-
-		res.render = function(Component) {
-			return res.send(renderToString(Component));
-		};
+		req.mailer = this.mailer;
 
 		req.body.validate = function(options) {
 			let validator = new Validator(options);
 			return validator.validate(req.body);
+		};
+
+		res.render = function(Component) {
+			return res.send(renderToString(Component));
 		};
 
 		next();

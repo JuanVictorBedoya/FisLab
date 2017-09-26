@@ -68,7 +68,7 @@ class UserModel {
 		return transaction.run(function*(){
 			let existsEmail = yield db.models.email.findOne({email: data.email});
 			if(existsEmail){
-				throw 'El correo electrónico ' + data.email + ' ya fue registrado. Porfavor intente usar un correo electrónico diferente';
+				throw { msg: 'El correo electrónico ' + data.email + ' ya fue registrado. Porfavor intente usar un correo electrónico diferente' };
 			}
 			let insertedEmail = yield transaction.insert(db.models.email.model, {email: data.email});
 

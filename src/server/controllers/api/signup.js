@@ -49,15 +49,19 @@ class SignUpController {
 				}
 			});
 
-			let user = yield req.db.models.user.insertOne(req.body);
-
-			let email = user.emails.find(email=>{ return email.current; });
-			return {verificationHash: email.verificationHash};
+			let user = yield req.db.models.user.insertOne(req.body),
+				remail = user.emails.find(email=>{return email.current;}),
+				cemail = yield req.db.models.email.findOne({_id: remail.email}),
+				msg = req.mailer.buildMessage('acountVerification', {name: user.firstName, verificationHash: remail.verificationHash});
 			
+			yield req.mailer.send(msg, cemail.email);
+
+			return {userID: user._id};
+
 		}).then(obj=>{
 			res.json(obj);
 		}).catch(err=>{
-			console.log(err);
+			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
 		});
 	}
