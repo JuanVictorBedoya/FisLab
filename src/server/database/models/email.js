@@ -7,7 +7,6 @@
 ****************************************************************************************/
 
 import mongoose from 'mongoose';
-import randomstring from 'randomstring';
 import validator from 'validator';
 
 import {AppDate} from '../../common/date';
@@ -18,7 +17,6 @@ import {Transaction} from '../transaction';
 class EmailSchema extends mongoose.Schema {
 	constructor() {
 		super({
-			code: { type: String, required: true, unique: true, default: EmailSchema.generateCode },
 			email: { type: String, required: true, unique: true },
 			creationDate: { type: String, default: AppDate.now },
 			modifiedDate: { type: String, default: AppDate.now }
@@ -27,11 +25,6 @@ class EmailSchema extends mongoose.Schema {
 		this.path('email').validate(function(value) {
 			return validator.isEmail(value);
 		},'El campo \'email\' no es válido');
-	}
-
-	static generateCode() {
-		let gen = randomstring.generate;
-		return gen(8) + '-' + gen(8) + '-' + gen(8) + '-' + gen(8);
 	}
 }
 

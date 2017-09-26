@@ -17,7 +17,7 @@ import {Transaction} from '../transaction';
 class UserSchema extends mongoose.Schema {
 	constructor() {
 		let emailSchema = new mongoose.Schema({
-			code: { type: String, ref: 'Email', required: true, unique: true },
+			email: { type: mongoose.Schema.Types.ObjectId, ref: 'Email', required: true, unique: true },
 			current: { type: Boolean, required: true, default: true },
 			verified: { type: Boolean, required: true, default: false  },
 			verificationHash: { type: String, required: true, unique: true, default: UserSchema.generateEmailVerificationHash },
@@ -33,12 +33,11 @@ class UserSchema extends mongoose.Schema {
 		});
 
 		super({
-			code: { type: String, required: true, unique: true, default: UserSchema.generateCode },
 			firstName: { type: String, required: true },
-			lastName: { type: String },
+			lastName: { type: String, required: true },
 			emails: [emailSchema],
 			passwords: [passwordSchema],
-			companies: { type: String, required: true },
+			company: { type: String },
 			creationDate: { type: String, default: AppDate.now },
 			modifiedDate: { type: String, default: AppDate.now }
 		});
@@ -48,14 +47,10 @@ class UserSchema extends mongoose.Schema {
 		},'El campo \'emails\' no puede ser un array vacío');
 	}
 
-	static generateCode() {
-		let gen = randomstring.generate;
-		return gen(8) + '-' + gen(4) + '-' + gen(8);
-	}
 
 	static generateEmailVerificationHash() {
 		let gen = randomstring.generate;
-		return gen(32) + '-' + gen(32) + '-' + gen(32);
+		return gen(16) + '-' + gen(16) + '-' + gen(16);
 	}
 }
 
@@ -68,16 +63,23 @@ class UserModel {
 
 	insertOne(data) {
 		let db = this.db,
+			self = this,
 			transaction = new Transaction();
 		return transaction.run(function*(){
 			let existsEmail = yield db.models.email.findOne({email: data.email});
 			if(existsEmail){
 				throw 'El correo electrónico ' + data.email + ' ya fue registrado. Porfavor intente usar un correo electrónico diferente';
 			}
-			
 			let insertedEmail = yield transaction.insert(db.models.email.model, {email: data.email});
 
-			return insertedEmail;
+			let inserted = yield transaction.insert(self.model, {
+				firstName: data.firstName,
+				lastName: data.lastName,
+				company: data.company,
+				emails: [{email: insertedEmail._id}]
+			});
+
+			return inserted;
 		});
 	}
 }

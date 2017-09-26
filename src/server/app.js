@@ -14,6 +14,8 @@ import { renderToString } from 'react-dom/server';
 import jsonfile from 'jsonfile';
 import bodyParser from 'body-parser';
 
+import {Validator} from './common/validator';
+
 import {WebRouter} from './routes/web';
 import {ApiRouter} from './routes/api';
 
@@ -80,6 +82,11 @@ class App {
 
 		res.render = function(Component) {
 			return res.send(renderToString(Component));
+		};
+
+		req.body.validate = function(options) {
+			let validator = new Validator(options);
+			return validator.validate(req.body);
 		};
 
 		next();
