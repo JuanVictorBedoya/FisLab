@@ -14,6 +14,7 @@ import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
 import {TextInput} from '../components/text-input.jsx';
 
+import {AppError} from '../components/app-error.jsx';
 import {AppLogo_0, AppLogo_1, AppLogo_Facebook} from '../components/app-logo.jsx';
 
 import {SignUpActions, SignUpStore} from '../flux/signup';
@@ -69,8 +70,11 @@ class Signup extends Reflux.Component {
 						<div className="col s12 l6">
 							<Form onSubmit={this.onFormSubmit.bind(this)}>
 								<div className="container">
+									{
+										this.state.error ? <AppError data={this.state.error}/> : null
+									}
 									<div>
-										<h2>Datos de registro</h2>
+										<h3>Datos de registro</h3>
 									</div>
 									<div>
 										<TextInput ref="fname" name="fname" label="Nombre" placeholder="Nombre" required={true}/>

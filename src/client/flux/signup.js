@@ -21,16 +21,20 @@ class SignUpStore extends Reflux.Store {
 		super();
 
 		this.state = {
+			error: null
 		};
 
 		this.listenables = SignUpActions;
 	}
 
 	onCreate(data) {
+		this.setState({error: null});
 		api.account.create(data)
 			.then(response => {
+				
 			})
 			.catch(error => {
+				this.setState({error: error.response.data});
 			});
 	}
 }
