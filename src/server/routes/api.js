@@ -19,6 +19,12 @@ class ApiRouter {
 		});
 
 		this.router.post('/account/create', app.controllers.api.signup.create);
+		this.router.get('/account/:id/status', app.mwValidateParam, app.controllers.api.signup.showStatus);
+		this.router.get('/account/verify/:uvid/:evid', app.controllers.api.signup.verify);
+
+		this.router.use((req, res)=>{
+			res.status(404).send({msg: 'Recurso no encontrado'});
+		});
 	}
 }
 

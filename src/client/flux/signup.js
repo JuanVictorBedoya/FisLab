@@ -35,11 +35,7 @@ class SignUpStore extends Reflux.Store {
 		this.setState({error: null});
 		api.account.create(data)
 			.then(response => {
-				let user = {
-					id: response.data.user.id,
-					email: response.data.user.email,
-					status: 'unverified'
-				};
+				let user = response.data.user;
 				this.setState({user});
 				localStorage.setItem('user', JSON.stringify(user));
 			})

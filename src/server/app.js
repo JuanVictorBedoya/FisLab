@@ -94,6 +94,15 @@ class App {
 
 		next();
 	}
+
+	mwValidateParam(req, res, next) {
+		req.params.validate = function(options) {
+			let validator = new Validator(options);
+			return validator.validate(req.params);
+		};
+
+		next();
+	}
 }
 
 export {App};

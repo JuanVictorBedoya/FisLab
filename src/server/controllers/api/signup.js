@@ -52,18 +52,53 @@ class SignUpController {
 			let user = yield req.db.models.user.insertOne(req.body),
 				remail = user.emails.find(email=>{return email.current;}),
 				cemail = yield req.db.models.email.findOne({_id: remail.email}),
-				msg = req.mailer.buildMessage('acountVerification', {name: user.firstName, verificationHash: remail.verificationHash});
+				msg = req.mailer.buildMessage('acountVerification', {
+					name: user.firstName,
+					accountVerificationID: user.verificationID,
+					emailVerificationID: remail.verificationID
+				});
 			
 			yield req.mailer.send(msg, cemail.email);
 
-			return {user: {id: user._id, email: cemail.email}};
+			return {user: {id: user._id, email: cemail.email, status: user.status}};
 
-		}).then(obj=>{
-			res.json(obj);
+		}).then(user=>{
+			res.json(user);
 		}).catch(err=>{
 			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
 		});
+	}
+
+	showStatus(req, res) {
+		co(function*(){
+			yield req.params.validate({
+				attributes: {
+					id: { required: true, type: 'string', alphanumeric: true },
+				},
+				validationMessages: {
+					id: {
+						required: 'Debes proporcionar el parámetro \'id\'',
+						type: 'El parámetro \'id\' debe ser una cadena de carateres',
+						alphanumeric: 'El parámetro \'id\' debe ser alfanumérico'
+					}
+				}
+			});
+
+			let user = yield req.db.models.user.findOneWithEmail({_id: req.params.id});
+			return {user: {id: user._id, email: user.email.email, status: user.status}};
+
+		}).then(user=>{
+			res.json(user);
+		}).catch(err=>{
+			if(!err.status) {err.status = 500;}
+			res.status(err.status).json(err);
+		});
+	}
+
+	verify(req, res) {
+		console.log(req.params);
+		res.redirect('/registro');
 	}
 }
 

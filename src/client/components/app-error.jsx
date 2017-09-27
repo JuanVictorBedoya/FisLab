@@ -26,7 +26,7 @@ class AppError extends React.Component {
 				</div>
 				<div>
 					<ul>
-						{ this.props.data.msg ? <li><span>{this.props.data.msg}</span></li>:null }
+						{ this.props.data.message ? <li><span>{this.props.data.message}</span></li>:null }
 						{
 							this.props.data.messages ?
 								this.props.data.messages.map(msg=>{
