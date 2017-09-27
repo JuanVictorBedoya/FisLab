@@ -56,7 +56,7 @@ class SignUpController {
 			
 			yield req.mailer.send(msg, cemail.email);
 
-			return {userID: user._id};
+			return {user: {id: user._id, email: cemail.email}};
 
 		}).then(obj=>{
 			res.json(obj);

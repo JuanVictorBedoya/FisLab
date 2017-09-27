@@ -20,8 +20,12 @@ class SignUpStore extends Reflux.Store {
 	constructor() {
 		super();
 
+		//localStorage.removeItem('user');
+		let usr = JSON.parse(localStorage.getItem('user'));
+
 		this.state = {
-			error: null
+			error: null,
+			user: usr || { status: 'unregistered' }
 		};
 
 		this.listenables = SignUpActions;
@@ -31,7 +35,13 @@ class SignUpStore extends Reflux.Store {
 		this.setState({error: null});
 		api.account.create(data)
 			.then(response => {
-				
+				let user = {
+					id: response.data.user.id,
+					email: response.data.user.email,
+					status: 'unverified'
+				};
+				this.setState({user});
+				localStorage.setItem('user', JSON.stringify(user));
 			})
 			.catch(error => {
 				this.setState({error: error.response.data});

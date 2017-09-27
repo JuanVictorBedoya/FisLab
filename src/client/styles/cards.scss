@@ -19,3 +19,13 @@
 		}
 	}
 }
+
+.card-panel {
+	transition: box-shadow .25s;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+	padding: 0.8rem;
+	//margin: $element-top-margin 0 $element-bottom-margin 0;
+
+	//background-color: $card-bg-color;
+}
