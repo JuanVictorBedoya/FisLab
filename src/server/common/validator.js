@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import validator from 'validator';
+import mongoose from 'mongoose';
 
 /****************************************************************************************/
 
@@ -22,6 +23,7 @@ var validators = {
 	type: function(param, value) {
 		switch(param) {
 		case 'string': return (typeof value == 'string');
+		case 'mongoObjectId': return mongoose.Types.ObjectId.isValid(value);
 		default: return false;
 		}
 	},

@@ -74,13 +74,12 @@ class SignUpController {
 		co(function*(){
 			yield req.params.validate({
 				attributes: {
-					id: { required: true, type: 'string', alphanumeric: true },
+					id: { required: true, type: 'mongoObjectId' },
 				},
 				validationMessages: {
 					id: {
 						required: 'Debes proporcionar el parámetro \'id\'',
-						type: 'El parámetro \'id\' debe ser una cadena de carateres',
-						alphanumeric: 'El parámetro \'id\' debe ser alfanumérico'
+						type: 'El parámetro \'id\' no es un identificador válido'
 					}
 				}
 			});
