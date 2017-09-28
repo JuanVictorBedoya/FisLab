@@ -140,11 +140,13 @@ class UserModel {
 			});
 			if(!remail){ throw { message: 'No se ha encontrado el email para el usuario' }; }
 
-			remail.verified = true;
-			remail.modifiedDate = AppDate.now();
-			user.status = 'verified';
-			user.modifiedDate = AppDate.now();
-			yield user.save();
+			if(user.status === 'unverified') {
+				remail.verified = true;
+				remail.modifiedDate = AppDate.now();
+				user.status = 'verified';
+				user.modifiedDate = AppDate.now();
+				yield user.save();
+			}
 
 			let cemail = yield self.db.models.email.findOne({_id: remail.email});
 			user.email = cemail;

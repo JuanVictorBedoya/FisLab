@@ -13,7 +13,7 @@ import api from '../api';
 /****************************************************************************************/
 
 var SignUpActions = Reflux.createActions([
-	'create', 'verify'
+	'create', 'verify', 'showStatus'
 ]);
 
 class SignUpStore extends Reflux.Store {
@@ -45,6 +45,7 @@ class SignUpStore extends Reflux.Store {
 	}
 
 	onVerify(data) {
+		this.setState({error: null});
 		api.account.verify(data)
 			.then(response => {
 				let user = response.data.user;
@@ -56,7 +57,20 @@ class SignUpStore extends Reflux.Store {
 			});
 	}
 
-
+	onShowStatus() {
+		if(this.state.user && this.state.user.id) {
+			this.setState({error: null});
+			api.account.showStatus(this.state.user.id)
+				.then(response => {
+					let user = response.data.user;
+					this.setState({user});
+					localStorage.setItem('user', JSON.stringify(user));
+				})
+				.catch(error => {
+					this.setState({error: error.response.data});
+				});
+		}
+	}
 }
 
 export { SignUpActions, SignUpStore };

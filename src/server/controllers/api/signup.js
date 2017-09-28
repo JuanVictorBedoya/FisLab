@@ -111,10 +111,8 @@ class SignUpController {
 			let user = yield req.db.models.user.verify(req.body);
 			return {user: {id: user._id, email: user.email.email, status: user.status}};
 		}).then(user=>{
-			console.log(user);
 			res.json(user);
 		}).catch(err=>{
-			console.log(err);
 			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
 		});

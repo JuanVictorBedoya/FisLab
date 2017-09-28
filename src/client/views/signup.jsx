@@ -17,6 +17,8 @@ import {TextInput} from '../components/text-input.jsx';
 import {AppError} from '../components/app-error.jsx';
 import {AppLogo_0, AppLogo_1, AppLogo_Facebook} from '../components/app-logo.jsx';
 
+import {Switch, Case} from '../../both/components/switch.jsx';
+
 import {SignUpActions, SignUpStore} from '../flux/signup';
 
 /****************************************************************************************/
@@ -111,23 +113,74 @@ class SignupVerifyMessage extends Reflux.Component {
 	}
 }
 
+class SignupPassword extends Reflux.Component {
+	constructor(props) {
+		super(props);
+		this.store = SignUpStore;
+	}
+
+	onFormSubmit() {
+
+	}
+
+	render() {
+		return (
+			<div className="signin-container">
+				{ this.state.error ? <AppError data={this.state.error}/> : null }
+				<div className="row" style={{paddingTop: '1rem'}}>
+					<div className="col s12">
+						<AppLogo_0 id="app_logo_0" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
+						<AppLogo_1 fontSize="3rem"/>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col s12">
+						<Form onSubmit={this.onFormSubmit.bind(this)}>
+							<div>
+								<h4>Establecer contraseña</h4>
+							</div>
+							<div>
+								<TextInput name="passw1" label="Contraseña" placeholder="Tu contraseña" type="password" required={true}/>
+								<TextInput name="passw2" label="Confirmar contraseña" placeholder="Confirmar contraseña" type="password" required={true}/>
+							</div>
+							<div style={{marginTop: '1rem'}}>
+								<Button text="Finalizar" type="submit"/>
+							</div>
+						</Form>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+
 class Signup extends Reflux.Component {
 	constructor(props) {
 		super(props);
 		this.store = SignUpStore;
 	}
 
+	componentWillMount() {
+		super.componentWillMount();
+		SignUpActions.showStatus();
+	}
+
 	render() {
-		let SComp = null;
-		switch(this.state.user.status) {
-		case 'unregistered': SComp = SignupForm; break;
-		case 'unverified': SComp = SignupVerifyMessage; break;
-		}
 		return (
 			<div>
 				<header></header>
 				<main>
-					<SComp/>
+					<Switch match={this.state.user.status}>
+						<Case path="unregistered">
+							<SignupForm/>
+						</Case>
+						<Case path="unverified">
+							<SignupVerifyMessage/>
+						</Case>
+						<Case path="verified">
+							<SignupPassword/>
+						</Case>
+					</Switch>
 				</main>
 			</div>
 		);
@@ -135,18 +188,6 @@ class Signup extends Reflux.Component {
 }
 
 /****************************************************************************************/
-
-class SignupPassword extends Reflux.Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<div>SET PASSWORD</div>
-		);
-	}
-}
 
 class SignupVerify extends Reflux.Component {
 	constructor(props) {
@@ -159,16 +200,35 @@ class SignupVerify extends Reflux.Component {
 		SignUpActions.verify(this.props.match.params);
 	}
 
-	render() {
-		let SComp = null;
-		switch(this.state.user.status) {
-		case 'verified': SComp = SignupPassword; break;
+	componentWillUpdate(nextProps, nextState) {
+		if(!nextState.error) {
+			this.props.history.push('/registro');
 		}
+	}
+
+	render() {
 		return (
 			<div>
 				<header></header>
 				<main>
-					<SComp/>
+					<div className="signin-container">
+						<div className="row" style={{paddingTop: '1rem'}}>
+							<div className="col s12">
+								<AppLogo_0 id="app_logo_0" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
+								<AppLogo_1 fontSize="3rem"/>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col s12">
+								{
+									this.state.error ?
+										<AppError data={this.state.error}/>
+										:
+										<div>Enviando datos...</div>
+								}
+							</div>
+						</div>
+					</div>
 				</main>
 			</div>
 		);

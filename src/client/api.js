@@ -19,6 +19,10 @@ var account = {
 
 	verify: function(data) {
 		return axios.put(url + '/api/account/verify', data);
+	},
+
+	showStatus: function(id) {
+		return axios.get(url + '/api/account/' + id + '/status');
 	}
 };
 
