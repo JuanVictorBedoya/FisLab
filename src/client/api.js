@@ -15,6 +15,10 @@ var url = 'http://localhost:8080';
 var account = {
 	create: function(data) {
 		return axios.post(url + '/api/account/create', data);
+	},
+
+	verify: function(data) {
+		return axios.put(url + '/api/account/verify', data);
 	}
 };
 

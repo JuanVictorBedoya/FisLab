@@ -13,7 +13,7 @@ import api from '../api';
 /****************************************************************************************/
 
 var SignUpActions = Reflux.createActions([
-	'create'
+	'create', 'verify'
 ]);
 
 class SignUpStore extends Reflux.Store {
@@ -43,6 +43,20 @@ class SignUpStore extends Reflux.Store {
 				this.setState({error: error.response.data});
 			});
 	}
+
+	onVerify(data) {
+		api.account.verify(data)
+			.then(response => {
+				let user = response.data.user;
+				this.setState({user});
+				localStorage.setItem('user', JSON.stringify(user));
+			})
+			.catch(error => {
+				this.setState({error: error.response.data});
+			});
+	}
+
+
 }
 
 export { SignUpActions, SignUpStore };

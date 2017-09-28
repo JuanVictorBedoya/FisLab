@@ -14,8 +14,8 @@
 			"name": "FisLab",
 			"domain": "http://localhost:8080"
 		},
-		"email": "pao.xaq@gmail.com",
-		"password": "pandora132",
-		"service": "Gmail"
+		"email": "company@mail.com",
+		"password": "",
+		"service": ""
 	}
 }

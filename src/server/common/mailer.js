@@ -18,9 +18,9 @@ class AcountVerificationMessage extends React.Component {
 	}
 
 	render() {
-		let url =	this.props.site.domain+'/account/verify/' +
-					this.props.user.accountVerificationID +
-					this.props.user.emailVerificationID,
+		let url =	this.props.site.domain+'/registro/' +
+					this.props.user.accountVerificationID + '/' +
+					this.props.user.emailVerificationID + '/verificar',
 			company = this.props.site.name;
 		return(
 			<div>

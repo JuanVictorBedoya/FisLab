@@ -16,6 +16,7 @@ class WebRouter {
 
 		this.router.get('/', app.controllers.web.default.index);
 		this.router.get('/registro', app.controllers.web.default.index);
+		this.router.get('/registro/:uvid/:evid/verificar', app.controllers.web.default.index);
 		this.router.get('/login', app.controllers.web.default.index);
 
 		this.router.use(app.controllers.web.errors.http404);

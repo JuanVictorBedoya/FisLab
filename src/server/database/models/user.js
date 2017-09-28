@@ -125,6 +125,32 @@ class UserModel {
 			return user;
 		});
 	}*/
+
+	verify(params) {
+		let self = this,
+			transaction = new Transaction();
+		return transaction.run(function*(){
+			let user = yield Transaction.execTimeout(4000, ()=>{
+				return self.model.findOne({verificationID: params.uvid});
+			});
+			if(!user){ throw { message: 'No se ha encontrado el usuario' }; }
+
+			let remail = user.emails.find(email=>{
+				return (email.verificationID === params.evid) && email.current;
+			});
+			if(!remail){ throw { message: 'No se ha encontrado el email para el usuario' }; }
+
+			remail.verified = true;
+			remail.modifiedDate = AppDate.now();
+			user.status = 'verified';
+			user.modifiedDate = AppDate.now();
+			yield user.save();
+
+			let cemail = yield self.db.models.email.findOne({_id: remail.email});
+			user.email = cemail;
+			return user;
+		});
+	}
 }
 
 export {UserModel};

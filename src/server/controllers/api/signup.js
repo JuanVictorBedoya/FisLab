@@ -96,8 +96,28 @@ class SignUpController {
 	}
 
 	verify(req, res) {
-		console.log(req.params);
-		res.redirect('/registro');
+		co(function*(){
+			yield req.body.validate({
+				attributes: {
+					uvid: { required: true },
+					evid: { required: true },
+				},
+				validationMessages: {
+					uvid: { required: 'Debes proporcionar el parámetro \'uvid\'' },
+					evid: { required: 'Debes proporcionar el parámetro \'evid\'' }
+				}
+			});
+
+			let user = yield req.db.models.user.verify(req.body);
+			return {user: {id: user._id, email: user.email.email, status: user.status}};
+		}).then(user=>{
+			console.log(user);
+			res.json(user);
+		}).catch(err=>{
+			console.log(err);
+			if(!err.status) {err.status = 500;}
+			res.status(err.status).json(err);
+		});
 	}
 }
 

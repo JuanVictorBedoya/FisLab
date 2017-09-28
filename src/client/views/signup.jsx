@@ -88,7 +88,7 @@ class SignupForm extends Reflux.Component {
 	}
 }
 
-class SignupVerify extends Reflux.Component {
+class SignupVerifyMessage extends Reflux.Component {
 	constructor(props) {
 		super(props);
 		this.store = SignUpStore;
@@ -121,7 +121,7 @@ class Signup extends Reflux.Component {
 		let SComp = null;
 		switch(this.state.user.status) {
 		case 'unregistered': SComp = SignupForm; break;
-		case 'unverified': SComp = SignupVerify; break;
+		case 'unverified': SComp = SignupVerifyMessage; break;
 		}
 		return (
 			<div>
@@ -134,4 +134,45 @@ class Signup extends Reflux.Component {
 	}
 }
 
-export { Signup };
+/****************************************************************************************/
+
+class SignupPassword extends Reflux.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<div>SET PASSWORD</div>
+		);
+	}
+}
+
+class SignupVerify extends Reflux.Component {
+	constructor(props) {
+		super(props);
+		this.store = SignUpStore;
+	}
+
+	componentWillMount() {
+		super.componentWillMount();
+		SignUpActions.verify(this.props.match.params);
+	}
+
+	render() {
+		let SComp = null;
+		switch(this.state.user.status) {
+		case 'verified': SComp = SignupPassword; break;
+		}
+		return (
+			<div>
+				<header></header>
+				<main>
+					<SComp/>
+				</main>
+			</div>
+		);
+	}
+}
+
+export { Signup, SignupVerify };
