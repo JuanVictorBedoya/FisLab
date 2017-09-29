@@ -15,6 +15,7 @@ import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
 import {TextInput} from '../components/text-input.jsx';
 import {Progress} from '../components/progress.jsx';
+import {Loader} from '../components/loader.jsx';
 
 import {AppError} from '../components/app-error.jsx';
 import {AppLogo_0, AppLogo_1, AppLogo_Facebook} from '../components/app-logo.jsx';
@@ -29,6 +30,8 @@ class SignupForm extends Reflux.Component {
 	constructor(props) {
 		super(props);
 		this.store = SignUpStore;
+
+		this.loading = false;
 	}
 
 	onFormSubmit() {
@@ -38,11 +41,22 @@ class SignupForm extends Reflux.Component {
 			email: this.refs.email.getValue(),
 			company: this.refs.company.getValue()
 		});
+
+		this.loading = true;
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		if(nextState.error) {
+			this.loading = false;
+		}
 	}
 
 	render() {
+		let e = this.state.error;
 		return (
 			<div className="row" style={{marginTop: '2rem'}}>
+				<Loader visible={this.loading}/>
+
 				<div className="col s12 l6">
 					<div className="container">
 						<div>
@@ -65,7 +79,7 @@ class SignupForm extends Reflux.Component {
 				<div className="col s12 l6">
 					<Form onSubmit={this.onFormSubmit.bind(this)}>
 						<div className="container">
-							{ this.state.error ? <AppError data={this.state.error}/> : null }
+							{ e ? <AppError data={e}/> : null }
 							<div>
 								<h3>Datos de registro</h3>
 							</div>
@@ -124,6 +138,8 @@ class SignupPassword extends Reflux.Component {
 		};
 
 		this.store = SignUpStore;
+
+		this.loading = false;
 	}
 
 	onFormSubmit() {
@@ -134,8 +150,16 @@ class SignupPassword extends Reflux.Component {
 
 		if(data.passw0 !== data.passw1)
 			this.setState({error: {message: 'Contraseñas diferentes'}});
-		else
+		else {
 			SignUpActions.setPassword(data);
+			this.loading = true;
+		}
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		if(nextState.error) {
+			this.loading = false;
+		}
 	}
 
 	onPasswordChange(value) {
@@ -158,12 +182,15 @@ class SignupPassword extends Reflux.Component {
 			btnDisabled = psth.percent ? false : true;
 		return (
 			<div className="signin-container">
+				<Loader visible={this.loading}/>
+
 				<div className="row" style={{paddingTop: '1rem'}}>
 					<div className="col s12">
 						<AppLogo_0 id="app_logo_0" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
 						<AppLogo_1 fontSize="3rem"/>
 					</div>
 				</div>
+
 				<div className="row">
 					<div className="col s12">
 						{ this.state.error ? <AppError data={this.state.error}/> : null }
@@ -197,6 +224,12 @@ class Signup extends Reflux.Component {
 	componentWillMount() {
 		super.componentWillMount();
 		SignUpActions.showStatus();
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		if(this.state.user.status === 'active') {
+			this.props.history.push('/cuenta');
+		}
 	}
 
 	render() {
