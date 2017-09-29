@@ -9,10 +9,12 @@
 import React from 'react';
 import Reflux from 'reflux';
 import { Link } from 'react-router-dom';
+import valid from 'password-strength';
 
 import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
 import {TextInput} from '../components/text-input.jsx';
+import {Progress} from '../components/progress.jsx';
 
 import {AppError} from '../components/app-error.jsx';
 import {AppLogo_0, AppLogo_1, AppLogo_Facebook} from '../components/app-logo.jsx';
@@ -47,7 +49,6 @@ class SignupForm extends Reflux.Component {
 							<AppLogo_0 style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
 							<AppLogo_1 fontSize="3rem"/>
 						</div>
-								
 					</div>
 					<div className="container">
 						<h2>Bienvenido</h2>
@@ -64,9 +65,7 @@ class SignupForm extends Reflux.Component {
 				<div className="col s12 l6">
 					<Form onSubmit={this.onFormSubmit.bind(this)}>
 						<div className="container">
-							{
-								this.state.error ? <AppError data={this.state.error}/> : null
-							}
+							{ this.state.error ? <AppError data={this.state.error}/> : null }
 							<div>
 								<h3>Datos de registro</h3>
 							</div>
@@ -99,7 +98,6 @@ class SignupVerifyMessage extends Reflux.Component {
 	render() {
 		return (
 			<div className="signin-container">
-				
 				<div className="card-panel" style={{marginTop: '2rem'}}>
 					<div style={{padding: '1.6rem'}}>
 						<AppLogo_0 id="app_logo_0" style={{height: '3rem', width: '3rem'}}/>
@@ -116,17 +114,50 @@ class SignupVerifyMessage extends Reflux.Component {
 class SignupPassword extends Reflux.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			passwordStrength: {
+				percent: 0,
+				color: '',
+				text: ''
+			}
+		};
+
 		this.store = SignUpStore;
 	}
 
 	onFormSubmit() {
+		let data = {
+			passw0: this.refs.passw0.getValue(),
+			passw1: this.refs.passw1.getValue()
+		};
 
+		if(data.passw0 !== data.passw1)
+			this.setState({error: {message: 'Contraseñas diferentes'}});
+		else
+			SignUpActions.setPassword(data);
+	}
+
+	onPasswordChange(value) {
+		let sth = valid(value),
+			psth = this.state.passwordStrength;
+		if(sth.valid) {
+			switch(sth.strength) {
+			case 'simple': psth = {percent: 25, color: '#e53935', text: 'Débil'}; break;
+			case 'medium': psth = {percent: 50, color: '#ffb300', text: 'Medio'}; break;
+			case 'strong': psth = {percent: 80, color: '#43a047', text: 'Fuerte'}; break;
+			}
+		}else{
+			psth = { percent: 0, color: '', text: '' };
+		}
+		this.setState({passwordStrength: psth});
 	}
 
 	render() {
+		let psth = this.state.passwordStrength,
+			btnDisabled = psth.percent ? false : true;
 		return (
 			<div className="signin-container">
-				{ this.state.error ? <AppError data={this.state.error}/> : null }
 				<div className="row" style={{paddingTop: '1rem'}}>
 					<div className="col s12">
 						<AppLogo_0 id="app_logo_0" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
@@ -135,16 +166,19 @@ class SignupPassword extends Reflux.Component {
 				</div>
 				<div className="row">
 					<div className="col s12">
+						{ this.state.error ? <AppError data={this.state.error}/> : null }
 						<Form onSubmit={this.onFormSubmit.bind(this)}>
 							<div>
 								<h4>Establecer contraseña</h4>
 							</div>
 							<div>
-								<TextInput name="passw1" label="Contraseña" placeholder="Tu contraseña" type="password" required={true}/>
-								<TextInput name="passw2" label="Confirmar contraseña" placeholder="Confirmar contraseña" type="password" required={true}/>
+								<TextInput ref="passw0" name="passw0" label="Nueva contraseña" placeholder="Nueva contraseña" type="password" required={true}
+									onChange={this.onPasswordChange.bind(this)}/>
+								<Progress progress={psth.percent} color={psth.color} text={psth.text}/>
+								<TextInput ref="passw1" name="passw1" label="Confirmar contraseña" placeholder="Confirmar contraseña" type="password" required={true}/>
 							</div>
 							<div style={{marginTop: '1rem'}}>
-								<Button text="Finalizar" type="submit"/>
+								<Button text="Finalizar" type="submit" disabled={btnDisabled}/>
 							</div>
 						</Form>
 					</div>

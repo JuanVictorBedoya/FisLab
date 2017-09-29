@@ -50,7 +50,7 @@ var clientConfig = {
 	entry: {
 		'fislab.default': './src/client/app/default.jsx',
 
-		'fislab.demos': './test/demos/client.jsx'
+		//'fislab.demos': './test/demos/client.jsx'
 	},
 
 	output: {

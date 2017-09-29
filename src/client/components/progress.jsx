@@ -8,32 +8,33 @@
 
 import React from 'react';
 
-import TextInputStyle from '../styles/button.scss';
+import TextInputStyle from '../styles/progress.scss';
 
 /****************************************************************************************/
 
-class Button extends React.Component {
+class Progress extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-		return this.props.disabled ?
-			(
-				<button className="btn disabled" type={this.props.type} disabled>
-					{this.props.text}
-				</button>
-			) :
-			(
-				<button className="btn" type={this.props.type}>
-					{this.props.text}
-				</button>
-			);
+		let style = {
+			width: this.props.progress + '%',
+			backgroundColor: this.props.color
+		};
+		return (
+			<div className="progress-wrapper">
+				<div className="progress" style={style}>
+					<span className="progress-text"><b>{this.props.text}</b></span>
+				</div>
+			</div>
+		);
 	}
 }
 
-Button.defaultProps = {
-	type: 'button'
+Progress.defaultProps = {
+	progress: 0,
+	color: '#b3e5fc'
 };
 
-export { Button };
+export {Progress};

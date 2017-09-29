@@ -13,7 +13,7 @@ import api from '../api';
 /****************************************************************************************/
 
 var SignUpActions = Reflux.createActions([
-	'create', 'verify', 'showStatus'
+	'create', 'verify', 'showStatus', 'setPassword'
 ]);
 
 class SignUpStore extends Reflux.Store {
@@ -69,6 +69,12 @@ class SignUpStore extends Reflux.Store {
 				.catch(error => {
 					this.setState({error: error.response.data});
 				});
+		}
+	}
+
+	onSetPassword() {
+		if(this.state.user && this.state.user.id) {
+			this.setState({error: null});
 		}
 	}
 }
