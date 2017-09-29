@@ -10,19 +10,19 @@ import axios from 'axios';
 
 /****************************************************************************************/
 
-var url = 'http://localhost:8080';
+var origin = window.location.origin;
 
 var account = {
 	create: function(data) {
-		return axios.post(url + '/api/account/create', data);
+		return axios.post(origin + '/api/account/create', data);
 	},
 
 	verify: function(data) {
-		return axios.put(url + '/api/account/verify', data);
+		return axios.put(origin + '/api/account/verify', data);
 	},
 
 	showStatus: function(id) {
-		return axios.get(url + '/api/account/' + id + '/status');
+		return axios.get(origin + '/api/account/' + id + '/status');
 	}
 };
 
