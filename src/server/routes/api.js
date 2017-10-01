@@ -18,9 +18,12 @@ class ApiRouter {
 			res.send('Im in the API');
 		});
 
-		this.router.post('/account/create', app.controllers.api.signup.create);
-		this.router.get('/account/:id/status', app.mwValidateParam, app.controllers.api.signup.showStatus);
-		this.router.put('/account/verify', app.controllers.api.signup.verify);
+		let api = app.controllers.api;
+
+		this.router.post('/account/create', api.signup.create);
+		this.router.get('/account/:id/status', app.mwValidateParam, api.signup.showStatus);
+		this.router.put('/account/verify', api.signup.verify);
+		this.router.post('/account/:id/password/create', app.mwValidateParam, api.signup.createPassword);
 
 		this.router.use((req, res)=>{
 			res.status(404).send({msg: 'Recurso no encontrado'});

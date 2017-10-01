@@ -35,6 +35,8 @@ class DB {
 			console.log('connection OK:');
 		});
 
+		this.cryptUserPassword = config.cryptUserPassword;
+
 		this.initModels();
 	}
 

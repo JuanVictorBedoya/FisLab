@@ -21,9 +21,16 @@ var account = {
 		return axios.put(origin + '/api/account/verify', data);
 	},
 
-	showStatus: function(id) {
-		return axios.get(origin + '/api/account/' + id + '/status');
+	showStatus: function(data) {
+		return axios.get(origin + '/api/account/' + data.id + '/status');
+	},
+
+	password: {
+		create: function(data) {
+			return axios.post(origin + '/api/account/' + data.id + '/password/create', data);
+		},
 	}
+	
 };
 
 module.exports = {

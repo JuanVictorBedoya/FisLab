@@ -19,7 +19,7 @@ class SignUpController {
 	}
 
 	create(req, res) {
-		co(function*(){
+		co(function*() {
 			yield req.body.validate({
 				attributes: {
 					firstName: { required: true, type: 'string', alphaSpace: true },
@@ -71,7 +71,7 @@ class SignUpController {
 	}
 
 	showStatus(req, res) {
-		co(function*(){
+		co(function*() {
 			yield req.params.validate({
 				attributes: {
 					id: { required: true, type: 'mongoObjectId' },
@@ -96,7 +96,7 @@ class SignUpController {
 	}
 
 	verify(req, res) {
-		co(function*(){
+		co(function*() {
 			yield req.body.validate({
 				attributes: {
 					uvid: { required: true },
@@ -113,6 +113,39 @@ class SignUpController {
 		}).then(user=>{
 			res.json(user);
 		}).catch(err=>{
+			if(!err.status) {err.status = 500;}
+			res.status(err.status).json(err);
+		});
+	}
+
+	createPassword(req, res) {
+		co(function*() {
+			yield req.params.validate({
+				attributes: {
+					id: { required: true, type: 'mongoObjectId' },
+				},
+				validationMessages: {
+					id: {
+						required: 'Debes proporcionar el parámetro \'id\'',
+						type: 'El parámetro \'id\' no es un identificador válido'
+					}
+				}
+			});
+			yield req.body.validate({
+				attributes: {
+					password: { required: true }
+				},
+				validationMessages: {
+					password: { required: 'Debes proporcionar el parámetro \'password\'' }
+				}
+			});
+
+			let user = yield req.db.models.user.insertPassword(req.body);
+			return {user: {id: user._id, email: user.email.email, status: user.status}};
+		}).then(user=>{
+			res.json(user);
+		}).catch(err=>{
+			console.log(err);
 			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
 		});

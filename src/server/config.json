@@ -7,6 +7,10 @@
 			"user": "",
 			"pass": "",
 			"db": "fislab"
+		},
+		"cryptUserPassword": {
+			"algorithm": "",
+			"secret": ""
 		}
 	},
 	"mail": {

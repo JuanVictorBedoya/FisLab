@@ -32,7 +32,8 @@ class SignUpStore extends Reflux.Store {
 	}
 
 	onCreate(data) {
-		this.setState({error: null});
+		this._call(api.account.create, data);
+		/*this.setState({error: null});
 		api.account.create(data)
 			.then(response => {
 				let user = response.data.user;
@@ -41,11 +42,12 @@ class SignUpStore extends Reflux.Store {
 			})
 			.catch(error => {
 				this.setState({error: error.response.data});
-			});
+			});*/
 	}
 
 	onVerify(data) {
-		this.setState({error: null});
+		this._call(api.account.verify, data);
+		/*this.setState({error: null});
 		api.account.verify(data)
 			.then(response => {
 				let user = response.data.user;
@@ -54,12 +56,13 @@ class SignUpStore extends Reflux.Store {
 			})
 			.catch(error => {
 				this.setState({error: error.response.data});
-			});
+			});*/
 	}
 
 	onShowStatus() {
 		if(this.state.user && this.state.user.id) {
-			this.setState({error: null});
+			this._call(api.account.showStatus, {id: this.state.user.id});
+			/*this.setState({error: null});
 			api.account.showStatus(this.state.user.id)
 				.then(response => {
 					let user = response.data.user;
@@ -68,14 +71,28 @@ class SignUpStore extends Reflux.Store {
 				})
 				.catch(error => {
 					this.setState({error: error.response.data});
-				});
+				});*/
 		}
 	}
 
-	onSetPassword() {
+	onSetPassword(data) {
 		if(this.state.user && this.state.user.id) {
-			this.setState({error: null});
+			data.id = this.state.user.id;
+			this._call(api.account.password.create, data);
 		}
+	}
+
+	_call(fn, data) {
+		this.setState({error: null});
+		fn(data)
+			.then(response => {
+				let user = response.data.user;
+				this.setState({user});
+				localStorage.setItem('user', JSON.stringify(user));
+			})
+			.catch(error => {
+				this.setState({error: error.response.data});
+			});
 	}
 }
 

@@ -144,11 +144,11 @@ class SignupPassword extends Reflux.Component {
 
 	onFormSubmit() {
 		let data = {
-			passw0: this.refs.passw0.getValue(),
-			passw1: this.refs.passw1.getValue()
+			password: this.refs.passw0.getValue(),
+			passval: this.refs.passw1.getValue()
 		};
 
-		if(data.passw0 !== data.passw1)
+		if(data.password !== data.passval)
 			this.setState({error: {message: 'Contraseñas diferentes'}});
 		else {
 			SignUpActions.setPassword(data);
@@ -228,7 +228,7 @@ class Signup extends Reflux.Component {
 
 	componentWillUpdate(nextProps, nextState) {
 		if(this.state.user.status === 'active') {
-			this.props.history.push('/cuenta');
+			this.props.history.push('/perfil');
 		}
 	}
 

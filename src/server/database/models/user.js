@@ -9,6 +9,7 @@
 import mongoose from 'mongoose';
 import randomstring from 'randomstring';
 import co from 'co';
+import crypto from 'crypto';
 
 import {AppDate} from '../../common/date';
 import {Transaction} from '../transaction';
@@ -48,6 +49,28 @@ class UserSchema extends mongoose.Schema {
 		this.path('emails').validate(function(value) {
 			return value.length;
 		},'El campo \'emails\' no puede ser un array vacío');
+
+		this.methods.insertPassword = this.insertPassword;
+	}
+
+	/**
+	 * 
+	 * @param {*} data = {
+	 * 		password: String
+	 * 	}
+	 */
+	insertPassword(text, cryptParams) {
+		return Transaction.execTimeout(4000, ()=>{
+			let foundPass = this.passwords.find(pass=>{return pass.current === true;});
+			if(foundPass) {
+				foundPass.current = false;
+				foundPass.modifiedDate = AppDate.now();
+			}
+			this.passwords.push({
+				encrypted: UserSchema.encryptPassword(text, cryptParams)
+			});
+			return this.save();
+		});
 	}
 
 
@@ -59,6 +82,20 @@ class UserSchema extends mongoose.Schema {
 	static generateEmailVerificationID() {
 		let gen = randomstring.generate;
 		return gen(16) + '-' + gen(16) + '-' + gen(16);
+	}
+
+	static encryptPassword(text, params){
+		var cipher = crypto.createCipher(params.algorithm, params.secret);
+		var crypted = cipher.update(text, 'utf8', 'hex');
+		crypted += cipher.final('hex');
+		return crypted;
+	}
+
+	static decryptPassword(text, params){
+		var decipher = crypto.createDecipher(params.algorithm, params.secret);
+		var dec = decipher.update(text, 'hex', 'utf8');
+		dec += decipher.final('utf8');
+		return dec;
 	}
 }
 
@@ -150,6 +187,30 @@ class UserModel {
 
 			let cemail = yield self.db.models.email.findOne({_id: remail.email});
 			user.email = cemail;
+			return user;
+		});
+	}
+
+	insertPassword(data) {
+		let self = this,
+			transaction = new Transaction();
+		return transaction.run(function*(){
+			let user = yield Transaction.execTimeout(4000, ()=>{
+				return self.model.findOne({_id: data.id});
+			});
+			if(!user){ throw { message: 'No se ha encontrado el usuario' }; }
+
+			yield user.insertPassword(data.password, self.db.cryptUserPassword);
+
+			user.status = 'active';
+			user.modifiedDate = AppDate.now();
+			yield user.save();
+
+			let remail = user.emails.find(email=>{return email.current;}),
+				cemail = yield self.db.models.email.findOne({_id: remail.email});
+
+			user.email = cemail;
+
 			return user;
 		});
 	}
