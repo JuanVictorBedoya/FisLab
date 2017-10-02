@@ -31,8 +31,11 @@ var account = {
 				{headers: {authorization: data.auth}}
 			);
 		},
-	}
+	},
 	
+	signin: function(data) {
+		return axios.post(origin + '/api/account/signin', data);
+	},
 };
 
 module.exports = {

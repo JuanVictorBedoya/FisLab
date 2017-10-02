@@ -14,12 +14,14 @@ import FacebookLogin from 'react-facebook-login';
 import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
 import {TextInput} from '../components/text-input.jsx';
+import {Loader} from '../components/loader.jsx';
 
+import {AppError} from '../components/app-error.jsx';
 import {AppLogo_0, AppLogo_1} from '../components/app-logo.jsx';
 
 import SignInStyle from '../styles/app-signin.scss';
 
-import {SignUpActions, SignUpStore} from '../flux/signup';
+import {SignInActions, SignInStore} from '../flux/signin';
 
 /****************************************************************************************/
 
@@ -33,17 +35,22 @@ class SignIn extends Reflux.Component {
 			currentPageClass: 'signin-page signin-page-current'
 		};
 
-		this.store = SignUpStore;
+		this.store = SignInStore;
+
+		this.loading = false;
 	}
 
 	componentWillMount() {
 		super.componentWillMount();
-		SignUpActions.showStatus();
+		SignInActions.showStatus();
 	}
 
 	componentWillUpdate(nextProps, nextState) {
-		if(this.state.user.status === 'active') {
+		if(nextState.user.status === 'active') {
 			this.props.history.push('/perfil');
+		}
+		if(nextState.error) {
+			this.loading = false;
 		}
 	}
 
@@ -52,7 +59,12 @@ class SignIn extends Reflux.Component {
 	}
 
 	onMainFormSubmit() {
+		SignInActions.in({
+			email: this.refs.email.getValue(),
+			password: this.refs.passw.getValue()
+		});
 
+		this.loading = true;
 	}
 
 	onUsfxFormSubmit() {
@@ -93,12 +105,15 @@ class SignIn extends Reflux.Component {
 	}
 
 	render() {
+		let e = this.state.error;
 		return (
 			<div>
 				<header>
 					
 				</header>
 				<main>
+					<Loader visible={this.loading}/>
+
 					<div ref="signinMain" className="signin-page signin-page-current">
 						<div className="signin-container">
 							<div className="row" style={{paddingTop: '1rem'}}>
@@ -109,13 +124,14 @@ class SignIn extends Reflux.Component {
 							</div>
 							<div className="row">
 								<div className="col s12">
+									{ e ? <AppError data={e}/> : null }
 									<Form onSubmit={this.onMainFormSubmit.bind(this)}>
 										<div>
 											<h4>Iniciar sesión</h4>
 										</div>
 										<div>
-											<TextInput name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
-											<TextInput name="passw" label="Contraseña" placeholder="Contraseña" type="password" required={true}/>
+											<TextInput ref="email" name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
+											<TextInput ref="passw" name="passw" label="Contraseña" placeholder="Contraseña" type="password" required={true}/>
 										</div>
 										<div style={{marginTop: '1rem'}}>
 											<Button text="Iniciar sesión" type="submit"/>

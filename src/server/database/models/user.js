@@ -52,6 +52,7 @@ class UserSchema extends mongoose.Schema {
 		},'El campo \'emails\' no puede ser un array vacío');
 
 		this.methods.insertPassword = this.insertPassword;
+		this.methods.auth = this.auth;
 	}
 
 	/**
@@ -71,6 +72,23 @@ class UserSchema extends mongoose.Schema {
 				encrypted: UserSchema.encryptPassword(text, cryptParams)
 			});
 			return this.save();
+		});
+	}
+
+	auth(password, cryptParams) {
+		let self = this;
+		return new Promise(function(resolve, reject){
+			let thepass = self.passwords.find(pass=>{return pass.current;});
+			if(thepass){
+				let decrypted = UserSchema.decryptPassword(thepass.encrypted, cryptParams);
+				if(decrypted === password){
+					resolve(thepass);
+				}else{
+					reject({message: 'Contraseña incorrecta'});
+				}
+			}else{
+				reject({message: 'El usuario no tiene contraseña'});
+			}
 		});
 	}
 
@@ -164,22 +182,23 @@ class UserModel {
 		});
 	}
 
-	/*findOneByEmail(data) {
+	findOneByEmail(data) {
 		let self = this;
 		return co(function*(){
 			let existsEmail = yield self.db.models.email.findOne({email: data.email});
 
 			if(!existsEmail){
-				throw { msg: 'El correo electrónico ' + data.email + ' no está registrado' };
+				throw { message: 'El correo electrónico ' + data.email + ' no está registrado' };
 			}
 
 			let user = yield Transaction.execTimeout(4000, ()=>{
-				return self.model.findOne({'emails._id': existsEmail._id});
+				return self.model.findOne({'emails.email': existsEmail._id});
 			});
 
+			user.email = existsEmail;
 			return user;
 		});
-	}*/
+	}
 
 	verify(session, params) {
 		let self = this,
@@ -221,6 +240,21 @@ class UserModel {
 			yield user.insertPassword(data.password, self.db.cryptUserPassword);
 
 			user.status = 'active';
+			user.modifiedDate = AppDate.now();
+			yield user.save();
+
+			return user;
+		});
+	}
+
+	auth(data) {
+		let self = this,
+			transaction = new Transaction();
+		return transaction.run(function*(){
+			let user = yield self.findOneByEmail(data);
+			yield user.auth(data.password, self.db.cryptUserPassword);
+
+			user.sessionId = UserSchema.generateSessionId();
 			user.modifiedDate = AppDate.now();
 			yield user.save();
 
