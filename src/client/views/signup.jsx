@@ -227,7 +227,7 @@ class Signup extends Reflux.Component {
 	}
 
 	componentWillUpdate(nextProps, nextState) {
-		if(this.state.user.status === 'active') {
+		if(nextState.user.status === 'active') {
 			this.props.history.push('/perfil');
 		}
 	}
@@ -264,7 +264,9 @@ class SignupVerify extends Reflux.Component {
 
 	componentWillMount() {
 		super.componentWillMount();
-		SignUpActions.verify(this.props.match.params);
+		let data = this.props.match.params;
+		data.id = data.session;
+		SignUpActions.verify(data);
 	}
 
 	componentWillUpdate(nextProps, nextState) {

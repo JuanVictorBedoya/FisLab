@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import express from 'express';
+import passport from 'passport';
 
 /****************************************************************************************/
 
@@ -18,12 +19,13 @@ class ApiRouter {
 			res.send('Im in the API');
 		});
 
-		let api = app.controllers.api;
+		let api = app.controllers.api,
+			auth = passport.authenticate('jwt', {session: false});
 
 		this.router.post('/account/create', api.signup.create);
-		this.router.get('/account/:id/status', app.mwValidateParam, api.signup.showStatus);
-		this.router.put('/account/verify', api.signup.verify);
-		this.router.post('/account/:id/password/create', app.mwValidateParam, api.signup.createPassword);
+		this.router.put('/account/:id/verify', app.mwValidateParams, api.signup.verify);
+		this.router.get('/account/:id/status', app.mwValidateParams, api.signup.showStatus);
+		this.router.post('/account/:id/password/create', auth, app.mwValidateParams, api.signup.createPassword);
 
 		this.router.use((req, res)=>{
 			res.status(404).send({msg: 'Recurso no encontrado'});

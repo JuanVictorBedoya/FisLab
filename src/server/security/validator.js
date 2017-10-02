@@ -24,6 +24,7 @@ var validators = {
 		switch(param) {
 		case 'string': return (typeof value == 'string');
 		case 'mongoObjectId': return mongoose.Types.ObjectId.isValid(value);
+		case 'sessionId': return validator.isAlphanumeric(value) && (value.length == 24);
 		default: return false;
 		}
 	},

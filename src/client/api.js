@@ -18,7 +18,7 @@ var account = {
 	},
 
 	verify: function(data) {
-		return axios.put(origin + '/api/account/verify', data);
+		return axios.put(origin + '/api/account/' + data.id + '/verify', data);
 	},
 
 	showStatus: function(data) {
@@ -27,7 +27,9 @@ var account = {
 
 	password: {
 		create: function(data) {
-			return axios.post(origin + '/api/account/' + data.id + '/password/create', data);
+			return axios.post(origin + '/api/account/' + data.id + '/password/create', data,
+				{headers: {authorization: data.auth}}
+			);
 		},
 	}
 	

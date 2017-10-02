@@ -22,7 +22,7 @@ class UserSchema extends mongoose.Schema {
 			email: { type: mongoose.Schema.Types.ObjectId, ref: 'Email', required: true, unique: true },
 			current: { type: Boolean, required: true, default: true },
 			verified: { type: Boolean, required: true, default: false  },
-			verificationID: { type: String, required: true, unique: true, default: UserSchema.generateEmailVerificationID },
+			verificationId: { type: String, required: true, unique: true, default: UserSchema.generateEmailVerificationId },
 			creationDate: { type: String, default: AppDate.now },
 			modifiedDate: { type: String, default: AppDate.now }
 		});
@@ -41,7 +41,8 @@ class UserSchema extends mongoose.Schema {
 			passwords: [passwordSchema],
 			company: { type: String },
 			status: { type: String, required: true, default: 'unverified' },
-			verificationID: { type: String, required: true, unique: true, default: UserSchema.generateAccountVerificationID },
+			verificationId: { type: String, required: true, unique: true, default: UserSchema.generateAccountVerificationId },
+			sessionId: { type: String, required: true, unique: true, default: UserSchema.generateSessionId },
 			creationDate: { type: String, default: AppDate.now },
 			modifiedDate: { type: String, default: AppDate.now }
 		});
@@ -74,12 +75,16 @@ class UserSchema extends mongoose.Schema {
 	}
 
 
-	static generateAccountVerificationID() {
+	static generateSessionId() {
+		return randomstring.generate(24);
+	}
+
+	static generateAccountVerificationId() {
 		let gen = randomstring.generate;
 		return gen(32) + '-' + gen(32);
 	}
 
-	static generateEmailVerificationID() {
+	static generateEmailVerificationId() {
 		let gen = randomstring.generate;
 		return gen(16) + '-' + gen(16) + '-' + gen(16);
 	}
@@ -128,6 +133,19 @@ class UserModel {
 		});
 	}
 
+	findOne(q) {
+		let self = this;
+		return co(function*() {
+			let user = yield Transaction.execTimeout(4000, ()=>{
+				return self.model.findOne(q);
+			});
+
+			if(!user){ throw { message: 'No se ha encontrado el usuario' }; }
+
+			return user;
+		});
+	}
+
 	findOneWithEmail(q) {
 		let self = this;
 		return co(function*() {
@@ -163,17 +181,17 @@ class UserModel {
 		});
 	}*/
 
-	verify(params) {
+	verify(session, params) {
 		let self = this,
 			transaction = new Transaction();
 		return transaction.run(function*(){
 			let user = yield Transaction.execTimeout(4000, ()=>{
-				return self.model.findOne({verificationID: params.uvid});
+				return self.model.findOne({sessionId: session, verificationId: params.uvid});
 			});
 			if(!user){ throw { message: 'No se ha encontrado el usuario' }; }
 
 			let remail = user.emails.find(email=>{
-				return (email.verificationID === params.evid) && email.current;
+				return (email.verificationId === params.evid) && email.current;
 			});
 			if(!remail){ throw { message: 'No se ha encontrado el email para el usuario' }; }
 
@@ -191,12 +209,12 @@ class UserModel {
 		});
 	}
 
-	insertPassword(data) {
+	insertPassword(session, data) {
 		let self = this,
 			transaction = new Transaction();
 		return transaction.run(function*(){
 			let user = yield Transaction.execTimeout(4000, ()=>{
-				return self.model.findOne({_id: data.id});
+				return self.model.findOne({sessionId: session});
 			});
 			if(!user){ throw { message: 'No se ha encontrado el usuario' }; }
 
@@ -205,11 +223,6 @@ class UserModel {
 			user.status = 'active';
 			user.modifiedDate = AppDate.now();
 			yield user.save();
-
-			let remail = user.emails.find(email=>{return email.current;}),
-				cemail = yield self.db.models.email.findOne({_id: remail.email});
-
-			user.email = cemail;
 
 			return user;
 		});

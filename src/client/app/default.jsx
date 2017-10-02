@@ -48,7 +48,7 @@ class App {
 				<Main>
 					<Route exact={true} path="/" component={Home}/>
 					<Route exact={true} path="/registro" component={Signup}/>
-					<Route exact={true} path="/registro/:uvid/:evid/verificar" component={SignupVerify}/>
+					<Route exact={true} path="/registro/verificar/:session/:uvid/:evid/" component={SignupVerify}/>
 					<Route exact={true} path="/login" component={SignIn}/>
 					<Route exact={true} path="/perfil" component={Profile}/>
 				</Main>

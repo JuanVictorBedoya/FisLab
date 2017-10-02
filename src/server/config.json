@@ -21,5 +21,12 @@
 		"email": "company@mail.com",
 		"password": "",
 		"service": ""
+	},
+	"auth": {
+		"rsa": {
+			"public": "",
+			"private": ""
+		},
+		"algorithm": ""
 	}
 }

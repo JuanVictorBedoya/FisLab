@@ -54,41 +54,15 @@ class SignUpController {
 				cemail = yield req.db.models.email.findOne({_id: remail.email}),
 				msg = req.mailer.buildMessage('acountVerification', {
 					name: user.firstName,
-					accountVerificationID: user.verificationID,
-					emailVerificationID: remail.verificationID
+					sessionId: user.sessionId,
+					accountVerificationId: user.verificationId,
+					emailVerificationId: remail.verificationId
 				});
 			
 			yield req.mailer.send(msg, cemail.email);
-
-			return {user: {id: user._id, email: cemail.email, status: user.status}};
-
-		}).then(user=>{
-			res.json(user);
-		}).catch(err=>{
-			if(!err.status) {err.status = 500;}
-			res.status(err.status).json(err);
-		});
-	}
-
-	showStatus(req, res) {
-		co(function*() {
-			yield req.params.validate({
-				attributes: {
-					id: { required: true, type: 'mongoObjectId' },
-				},
-				validationMessages: {
-					id: {
-						required: 'Debes proporcionar el parámetro \'id\'',
-						type: 'El parámetro \'id\' no es un identificador válido'
-					}
-				}
-			});
-
-			let user = yield req.db.models.user.findOneWithEmail({_id: req.params.id});
-			return {user: {id: user._id, email: user.email.email, status: user.status}};
-
-		}).then(user=>{
-			res.json(user);
+			return {user: {id: user.sessionId, status: user.status}};
+		}).then(obj=>{
+			res.json(obj);
 		}).catch(err=>{
 			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
@@ -97,6 +71,17 @@ class SignUpController {
 
 	verify(req, res) {
 		co(function*() {
+			yield req.params.validate({
+				attributes: {
+					id: { required: true, type: 'sessionId' },
+				},
+				validationMessages: {
+					id: {
+						required: 'Debes proporcionar el parámetro \'id\'',
+						type: 'El parámetro \'id\' no es un identificador válido'
+					}
+				}
+			});
 			yield req.body.validate({
 				attributes: {
 					uvid: { required: true },
@@ -108,10 +93,38 @@ class SignUpController {
 				}
 			});
 
-			let user = yield req.db.models.user.verify(req.body);
-			return {user: {id: user._id, email: user.email.email, status: user.status}};
-		}).then(user=>{
-			res.json(user);
+			let user = yield req.db.models.user.verify(req.params.id, req.body),
+				token = yield req.auth.sign({id: user.sessionId, firstName: user.firstName, email: user.email.email});
+			return {
+				user: { id: user.sessionId, status: user.status, },
+				authorization: token
+			};
+		}).then(obj=>{
+			res.json(obj);
+		}).catch(err=>{
+			if(!err.status) {err.status = 500;}
+			res.status(err.status).json(err);
+		});
+	}
+
+	showStatus(req, res) {
+		co(function*() {
+			yield req.params.validate({
+				attributes: {
+					id: { required: true, type: 'sessionId' },
+				},
+				validationMessages: {
+					id: {
+						required: 'Debes proporcionar el parámetro \'id\'',
+						type: 'El parámetro \'id\' no es un identificador válido'
+					}
+				}
+			});
+
+			let user = yield req.db.models.user.findOne({sessionId: req.params.id});
+			return {user: {id: user.sessionId, status: user.status}};
+		}).then(obj=>{
+			res.json(obj);
 		}).catch(err=>{
 			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
@@ -122,7 +135,7 @@ class SignUpController {
 		co(function*() {
 			yield req.params.validate({
 				attributes: {
-					id: { required: true, type: 'mongoObjectId' },
+					id: { required: true, type: 'sessionId' },
 				},
 				validationMessages: {
 					id: {
@@ -140,12 +153,11 @@ class SignUpController {
 				}
 			});
 
-			let user = yield req.db.models.user.insertPassword(req.body);
-			return {user: {id: user._id, email: user.email.email, status: user.status}};
-		}).then(user=>{
-			res.json(user);
+			let user = yield req.db.models.user.insertPassword(req.params.id, req.body);
+			return {user: {id: user.sessionId, status: user.status}};
+		}).then(obj=>{
+			res.json(obj);
 		}).catch(err=>{
-			console.log(err);
 			if(!err.status) {err.status = 500;}
 			res.status(err.status).json(err);
 		});

@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import React from 'react';
+import Reflux from 'reflux';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 
@@ -18,9 +19,11 @@ import {AppLogo_0, AppLogo_1} from '../components/app-logo.jsx';
 
 import SignInStyle from '../styles/app-signin.scss';
 
+import {SignUpActions, SignUpStore} from '../flux/signup';
+
 /****************************************************************************************/
 
-class SignIn extends React.Component {
+class SignIn extends Reflux.Component {
 	constructor(props) {
 		super(props);
 
@@ -29,6 +32,19 @@ class SignIn extends React.Component {
 			pageClass: 'signin-page',
 			currentPageClass: 'signin-page signin-page-current'
 		};
+
+		this.store = SignUpStore;
+	}
+
+	componentWillMount() {
+		super.componentWillMount();
+		SignUpActions.showStatus();
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		if(this.state.user.status === 'active') {
+			this.props.history.push('/perfil');
+		}
 	}
 
 	componentDidMount() {

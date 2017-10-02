@@ -14,7 +14,8 @@ import { renderToString } from 'react-dom/server';
 import jsonfile from 'jsonfile';
 import bodyParser from 'body-parser';
 
-import {Validator} from './common/validator';
+import {Validator} from './security/validator';
+import {Auth} from './security/auth';
 import {Mailer} from './common/mailer';
 
 import {WebRouter} from './routes/web';
@@ -49,6 +50,7 @@ class App {
 	onLoad() {
 		this.db = new DB(this.config.db);
 		this.mailer = new Mailer(this.config.mail);
+		this.auth = new Auth(this.config.auth);
 
 		this.controllers = {
 			web: {
@@ -82,6 +84,7 @@ class App {
 	mwApp(req, res, next) {
 		req.db = this.db;
 		req.mailer = this.mailer;
+		req.auth = this.auth;
 
 		req.body.validate = function(options) {
 			let validator = new Validator(options);
@@ -95,7 +98,7 @@ class App {
 		next();
 	}
 
-	mwValidateParam(req, res, next) {
+	mwValidateParams(req, res, next) {
 		req.params.validate = function(options) {
 			let validator = new Validator(options);
 			return validator.validate(req.params);

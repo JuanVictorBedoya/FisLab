@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import Reflux from 'reflux';
+import jwtDecode from 'jwt-decode';
 
 import api from '../api';
 
@@ -21,6 +22,8 @@ class SignUpStore extends Reflux.Store {
 		super();
 
 		//localStorage.removeItem('user');
+		//localStorage.removeItem('authorization');
+
 		let usr = JSON.parse(localStorage.getItem('user'));
 
 		this.state = {
@@ -33,62 +36,48 @@ class SignUpStore extends Reflux.Store {
 
 	onCreate(data) {
 		this._call(api.account.create, data);
-		/*this.setState({error: null});
-		api.account.create(data)
-			.then(response => {
-				let user = response.data.user;
-				this.setState({user});
-				localStorage.setItem('user', JSON.stringify(user));
-			})
-			.catch(error => {
-				this.setState({error: error.response.data});
-			});*/
 	}
 
 	onVerify(data) {
 		this._call(api.account.verify, data);
-		/*this.setState({error: null});
-		api.account.verify(data)
-			.then(response => {
-				let user = response.data.user;
-				this.setState({user});
-				localStorage.setItem('user', JSON.stringify(user));
-			})
-			.catch(error => {
-				this.setState({error: error.response.data});
-			});*/
 	}
 
 	onShowStatus() {
-		if(this.state.user && this.state.user.id) {
-			this._call(api.account.showStatus, {id: this.state.user.id});
-			/*this.setState({error: null});
-			api.account.showStatus(this.state.user.id)
-				.then(response => {
-					let user = response.data.user;
-					this.setState({user});
-					localStorage.setItem('user', JSON.stringify(user));
-				})
-				.catch(error => {
-					this.setState({error: error.response.data});
-				});*/
+		let auth = localStorage.getItem('authorization');
+		if(auth) {
+			let user = jwtDecode(auth),
+				data = { id: user.id };
+			this._call(api.account.showStatus, data);
 		}
 	}
 
 	onSetPassword(data) {
-		if(this.state.user && this.state.user.id) {
-			data.id = this.state.user.id;
+		let auth = localStorage.getItem('authorization');
+		if(auth) {
+			let user = jwtDecode(auth);
+			data.auth = auth;
+			data.id = user.id;
 			this._call(api.account.password.create, data);
 		}
+		else
+			this.setState({error: {message: 'No tienes credenciales'}});
 	}
 
 	_call(fn, data) {
 		this.setState({error: null});
 		fn(data)
 			.then(response => {
-				let user = response.data.user;
-				this.setState({user});
-				localStorage.setItem('user', JSON.stringify(user));
+				let user = response.data.user,
+					auth = response.data.authorization;
+
+				if(auth) {
+					localStorage.setItem('authorization', auth);
+				}
+				
+				if(user) {
+					this.setState({user});
+					localStorage.setItem('user', JSON.stringify(user));
+				}
 			})
 			.catch(error => {
 				this.setState({error: error.response.data});

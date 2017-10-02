@@ -18,6 +18,16 @@ class AppError extends React.Component {
 	}
 
 	render() {
+		let data = this.props.data,
+			msg = null,
+			msgs = null;
+
+		if(typeof(data) === 'string') {
+			msg = data;
+		} else {
+			msg = data.message;
+			msgs = data.messages;
+		}
 		return (
 			<div className="error-card">
 				<div style={{display: 'block'}}>
@@ -26,11 +36,11 @@ class AppError extends React.Component {
 				</div>
 				<div>
 					<ul>
-						{ this.props.data.message ? <li><span>{this.props.data.message}</span></li>:null }
+						{ msg ? <li><span>{msg}</span></li>:null }
 						{
-							this.props.data.messages ?
-								this.props.data.messages.map(msg=>{
-									return (<li><span>{msg}</span></li>);
+							msgs ?
+								msgs.map(_msg=>{
+									return (<li><span>{_msg}</span></li>);
 								}) : null
 						}
 					</ul>
