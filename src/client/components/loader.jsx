@@ -1,24 +1,33 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
 
 import React from 'react';
 
-import {DefaultView} from '../../views/default.jsx';
+import TextInputStyle from '../styles/loader.scss';
 
 /****************************************************************************************/
 
-class SignInController {
-	constructor() {
+class Loader extends React.Component {
+	constructor(props) {
+		super(props);
 	}
 
-	index(req, res) {
-		res.render(<DefaultView/>);
+	render() {
+		return this.props.visible ? (
+			<div className="loader-modal">
+				<div className="loader"></div>
+			</div>
+		) : null;
 	}
 }
 
-export {SignInController};
+Loader.defaultProps = {
+	visible: false
+};
+
+export {Loader};

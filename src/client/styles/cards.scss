@@ -1,0 +1,31 @@
+
+.error-card {
+	background-color: #e53935;
+	border-radius: 3px;
+	padding: 0.8rem;
+
+	.error-card-title {
+		color: white;
+		padding-left: 1rem;
+	}
+
+	ul {
+		padding-left: 1rem;
+		margin: 0.2rem 0;
+
+		li {
+			color: white;
+			font-size: 0.9rem;
+		}
+	}
+}
+
+.card-panel {
+	transition: box-shadow .25s;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+	padding: 0.8rem;
+	//margin: $element-top-margin 0 $element-bottom-margin 0;
+
+	//background-color: $card-bg-color;
+}

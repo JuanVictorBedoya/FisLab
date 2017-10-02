@@ -1,24 +1,22 @@
 
 /****************************************************************************************
-
 	Copyright (c) 2016-2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
-
 ****************************************************************************************/
 
 import React from 'react';
 
-import {DefaultView} from '../../views/default.jsx';
+import {Http404View} from '../../views/errors.jsx';
 
 /****************************************************************************************/
 
-class HomeController {
+class ErrorsController {
 	constructor() {
 	}
 
-	index(req, res) {
-		res.render(<DefaultView/>);
+	http404(req, res, next) {
+		res.status(404).render(<Http404View/>);
 	}
 }
 
-export {HomeController};
+export {ErrorsController};

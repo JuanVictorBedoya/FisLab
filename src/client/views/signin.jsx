@@ -7,18 +7,25 @@
 ****************************************************************************************/
 
 import React from 'react';
+import Reflux from 'reflux';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 
 import {Button} from '../components/button.jsx';
 import {Form} from '../components/form.jsx';
 import {TextInput} from '../components/text-input.jsx';
+import {Loader} from '../components/loader.jsx';
+
+import {AppError} from '../components/app-error.jsx';
+import {AppLogo_0, AppLogo_1} from '../components/app-logo.jsx';
 
 import SignInStyle from '../styles/app-signin.scss';
 
+import {SignInActions, SignInStore} from '../flux/signin';
+
 /****************************************************************************************/
 
-class SignIn extends React.Component {
+class SignIn extends Reflux.Component {
 	constructor(props) {
 		super(props);
 
@@ -27,6 +34,24 @@ class SignIn extends React.Component {
 			pageClass: 'signin-page',
 			currentPageClass: 'signin-page signin-page-current'
 		};
+
+		this.store = SignInStore;
+
+		this.loading = false;
+	}
+
+	componentWillMount() {
+		super.componentWillMount();
+		SignInActions.showStatus();
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		if(nextState.user.status === 'active') {
+			this.props.history.push('/perfil');
+		}
+		if(nextState.error) {
+			this.loading = false;
+		}
 	}
 
 	componentDidMount() {
@@ -34,7 +59,12 @@ class SignIn extends React.Component {
 	}
 
 	onMainFormSubmit() {
+		SignInActions.in({
+			email: this.refs.email.getValue(),
+			password: this.refs.passw.getValue()
+		});
 
+		this.loading = true;
 	}
 
 	onUsfxFormSubmit() {
@@ -75,37 +105,42 @@ class SignIn extends React.Component {
 	}
 
 	render() {
+		let e = this.state.error;
 		return (
 			<div>
 				<header>
 					
 				</header>
 				<main>
+					<Loader visible={this.loading}/>
+
 					<div ref="signinMain" className="signin-page signin-page-current">
 						<div className="signin-container">
 							<div className="row" style={{paddingTop: '1rem'}}>
 								<div className="col s12">
-									<img src="/images/fislab-logo-128x128.png" alt="" style={{margin: '0 auto', display: 'block'}}/>
+									<AppLogo_0 id="app_logo_0" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
+									<AppLogo_1 fontSize="3rem"/>
 								</div>
 							</div>
 							<div className="row">
 								<div className="col s12">
+									{ e ? <AppError data={e}/> : null }
 									<Form onSubmit={this.onMainFormSubmit.bind(this)}>
 										<div>
-											<h3 style={{textAlign: 'center'}}>Iniciar sesión</h3>
+											<h4>Iniciar sesión</h4>
 										</div>
 										<div>
-											<TextInput name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
-											<TextInput name="passw" label="Contraseña" placeholder="Contraseña" type="password" required={true}/>
+											<TextInput ref="email" name="email" label="E-mail" placeholder="Tu email" type="email" required={true}/>
+											<TextInput ref="passw" name="passw" label="Contraseña" placeholder="Contraseña" type="password" required={true}/>
 										</div>
 										<div style={{marginTop: '1rem'}}>
 											<Button text="Iniciar sesión" type="submit"/>
 										</div>
 										<div>
-											<p className="note">Si aún no tienes una cuenta, puedes <Link to="/registro">Registrarte aquí</Link>. También puedes iniciar sesión usando uno de los siguientes servicios</p>
+											<p className="note">Si aún no tienes una cuenta, puedes <Link to="/registro"><b>Registrarte aquí</b></Link>. También puedes iniciar sesión usando uno de los siguientes servicios</p>
 										</div>
 										<div>
-											<button className="kep-login-usfx" type="button" onClick={this.onUsfxSignIn.bind(this)}>
+											<button className="btn kep-login-usfx" type="button" onClick={this.onUsfxSignIn.bind(this)}>
 												<span>Acceso universitario</span>
 											</button>
 											<FacebookLogin
@@ -124,21 +159,22 @@ class SignIn extends React.Component {
 						<div className="signin-container">
 							<div className="row" style={{paddingTop: '1rem'}}>
 								<div className="col s12">
-									<img src="/images/fislab-logo-128x128.png" alt="" style={{margin: '0 auto', display: 'block'}}/>
+									<AppLogo_0 id="app_logo_1" style={{height: '5rem', width: '5rem', margin: '0 auto', display: 'block'}}/>
+									<AppLogo_1 fontSize="3rem"/>
 								</div>
 							</div>
 							<div className="row">
 								<div className="col s12">
 									<Form onSubmit={this.onUsfxFormSubmit.bind(this)}>
 										<div>
-											<h3 style={{textAlign: 'center'}}>Acceso universitario</h3>
+											<h4>Acceso universitario</h4>
 										</div>
 										<div>
 											<TextInput name="cu" label="Carnet universitario" placeholder="CU" required={true}/>
 											<TextInput name="ci" label="Cédula de identidad" placeholder="CI" type="password" required={true}/>
 										</div>
 										<div>
-											<button className="kep-login-usfx" type="submit">
+											<button className="btn kep-login-usfx" type="submit">
 												<span>Iniciar sesión</span>
 											</button>
 										</div>
@@ -146,7 +182,7 @@ class SignIn extends React.Component {
 											<p className="note">Introduce tu numero de carnet universitario ej. (35-666), y tu numero de carnet de identidad ej. (4374391)</p>
 										</div>
 										<div>
-											<button className="" type="button" onClick={this.onBackToSignIn.bind(this)}>
+											<button className="btn" type="button" onClick={this.onBackToSignIn.bind(this)}>
 												<span>Volver</span>
 											</button>
 										</div>

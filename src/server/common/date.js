@@ -1,24 +1,23 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
 
-import React from 'react';
-
-import {DefaultView} from '../../views/default.jsx';
+import moment from 'moment';
+moment.locale('es');
 
 /****************************************************************************************/
 
-class SignupController {
-	constructor() {
+class AppDate {
+	constructor(connection) {
 	}
 
-	index(req, res) {
-		res.render(<DefaultView/>);
+	static now() {
+		return moment().format('L LTS');
 	}
 }
 
-export {SignupController};
+export {AppDate};

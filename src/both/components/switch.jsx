@@ -8,32 +8,31 @@
 
 import React from 'react';
 
-import TextInputStyle from '../styles/button.scss';
-
 /****************************************************************************************/
 
-class Button extends React.Component {
+class Switch extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-		return this.props.disabled ?
-			(
-				<button className="btn disabled" type={this.props.type} disabled>
-					{this.props.text}
-				</button>
-			) :
-			(
-				<button className="btn" type={this.props.type}>
-					{this.props.text}
-				</button>
-			);
+		let match = (this.props.children && this.props.children.find) ?
+			this.props.children.find((child)=>{
+				return child.props.path === this.props.match;
+			}) : this.props.children;
+
+		return match ? match : null;
 	}
 }
 
-Button.defaultProps = {
-	type: 'button'
-};
+class Case extends React.Component {
+	constructor(props) {
+		super(props);
+	}
 
-export { Button };
+	render() {
+		return(<div className={this.props.className}>{this.props.children}</div>);
+	}
+}
+
+export { Switch, Case };

@@ -1,0 +1,32 @@
+{
+	"port":"8080",
+	"db": {
+		"connection": {
+			"host": "localhost",
+			"port": "27017",
+			"user": "",
+			"pass": "",
+			"db": "fislab"
+		},
+		"cryptUserPassword": {
+			"algorithm": "",
+			"secret": ""
+		}
+	},
+	"mail": {
+		"site": {
+			"name": "FisLab",
+			"domain": "http://localhost:8080"
+		},
+		"email": "company@mail.com",
+		"password": "",
+		"service": ""
+	},
+	"auth": {
+		"rsa": {
+			"public": "",
+			"private": ""
+		},
+		"algorithm": ""
+	}
+}

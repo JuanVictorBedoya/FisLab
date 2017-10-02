@@ -7,15 +7,14 @@
 ****************************************************************************************/
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import {Navbar, NavBrand, NavLink} from '../components/navbar.jsx';
 
-import {AppLogo_0, AppLogo_1} from '../components/app-logo.jsx';
+import {AppLogo_0} from '../components/app-logo.jsx';
 
 /****************************************************************************************/
 
-class Home extends React.Component {
+class Profile extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -30,20 +29,26 @@ class Home extends React.Component {
 					</Navbar>
 				</header>
 				<main>
-					<div className="fi-home-main">
-						<AppLogo_0 style={{height: '9rem', width: '9rem', padding: '0.6rem', margin: '0 auto', display: 'block'}}/>
-						<AppLogo_1 fontSize="4rem"/>
-						<div className="container">
-							<p className="fi-home-welcome">Welcome to FisLab, our objetive is to enthuse students to conduct experiments by arousing their curiosity. This would help them in learning basic and advanced concepts through remote experimentation</p>
-							<div>
-								<Link to="/login" className="btn fi-home-main-btn">
-									Iniciar sesión
-								</Link>
+					<div className="container">
+						<div className="row">
+							<div className="col s12 l3 no-padding">
+								<div className="row">
+									<div className="col s5 l12 no-padding">
+										<div style={{backgroundColor: 'red', width: '100%', height: '5rem'}}>
+
+										</div>
+									</div>
+									<div className="col s7 l12 no-padding">
+										<div style={{backgroundColor: 'yellow', width: '100%', height: '5rem'}}>
+
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<Link to="/registro" className="btn fi-home-main-btn">
-									<span>Registrarme</span>
-								</Link>
+							<div className="col s12 l9 no-padding">
+								<div style={{backgroundColor: 'green', width: '100%', height: '20rem'}}>
+
+								</div>
 							</div>
 						</div>
 					</div>
@@ -55,4 +60,4 @@ class Home extends React.Component {
 	}
 }
 
-export { Home };
+export { Profile };

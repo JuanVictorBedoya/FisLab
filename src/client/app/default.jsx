@@ -11,8 +11,9 @@ import ReactDOM from'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import { Home } from '../views/home.jsx';
-import { Signup } from '../views/signup.jsx';
+import { Signup, SignupVerify } from '../views/signup.jsx';
 import { SignIn } from '../views/signin.jsx';
+import { Profile } from '../views/profile.jsx';
 
 import MainStyles from '../styles/app.scss';
 
@@ -47,7 +48,9 @@ class App {
 				<Main>
 					<Route exact={true} path="/" component={Home}/>
 					<Route exact={true} path="/registro" component={Signup}/>
+					<Route exact={true} path="/registro/verificar/:session/:uvid/:evid/" component={SignupVerify}/>
 					<Route exact={true} path="/login" component={SignIn}/>
+					<Route exact={true} path="/perfil" component={Profile}/>
 				</Main>
 			</BrowserRouter>,
 			this._mainSection);
