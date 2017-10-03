@@ -21,8 +21,8 @@ class SignUpStore extends Reflux.Store {
 	constructor() {
 		super();
 
-		//localStorage.removeItem('user');
-		//localStorage.removeItem('authorization');
+		localStorage.removeItem('user');
+		localStorage.removeItem('authorization');
 
 		let usr = JSON.parse(localStorage.getItem('user'));
 

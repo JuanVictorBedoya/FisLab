@@ -77,4 +77,32 @@ class IconCancel extends React.Component {
 	}
 }
 
-export {IconFislab, IconCancel};
+class IconMail extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<svg viewBox="0 0 20 20" className={this.props.className} style={this.props.style}>
+				<path d="M1.574 5.286l7.5 4.03c.252.134.578.198.906.198.328 0 .654-.064.906-.2l7.5-4.028c.49-.263.95-1.286.054-1.286H1.52c-.896 0-.434 1.023.054 1.286zm17.04 2.203c-.556.288-7.388 3.848-7.728 4.026s-.578.2-.906.2-.566-.022-.906-.2-7.133-3.74-7.688-4.028c-.39-.204-.386.035-.386.22V15c0 .42.566 1 1 1h16c.434 0 1-.58 1-1V7.708s.004-.423-.387-.22z"></path>
+			</svg>
+		);
+	}
+}
+
+class IconWork extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<svg viewBox="0 0 512 512" className={this.props.className} style={this.props.style}>
+				<path d="M299 128V85h-86v43h86zm128 0q18 0 30 12.5t12 30.5v234q0 18-12 30.5T427 448H85q-18 0-30-12.5T43 405V171q0-18 12-30.5T85 128h86V85q0-18 12-30t30-12h86q18 0 30 12t12 30v43h86z"></path>
+			</svg>
+		);
+	}
+}
+
+export {IconFislab, IconCancel, IconMail, IconWork};

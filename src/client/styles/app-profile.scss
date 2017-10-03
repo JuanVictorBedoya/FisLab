@@ -1,0 +1,69 @@
+
+.fi-profile-container {
+	margin-top: 1.5rem;
+}
+
+.fi-profile-person {
+	padding: 0 !important;
+}
+
+.fi-profile-picture {
+	padding: 0 1rem 0 0 !important;
+	img {
+		border-radius: 0.5rem;
+		width: 100%;
+	}
+}
+
+.fi-profile-title {
+	padding: 0.2rem 0;
+}
+
+.fi-profile-details {
+	list-style-type: none;
+	padding: 1rem 0;
+	border-top: 1px solid #ccc!important;
+
+	li {
+		.fi-profile-details-icon-wrapper{
+			float: left;
+			width: 2rem;
+
+			.fi-profile-details-icon {
+				width: 1.3rem;
+				height: 1.3rem;
+				padding-top: 0.1rem;
+				fill: gray;
+			}
+		}
+		
+		.fi-profile-details-data {
+			padding: 0 0 0 2rem;
+
+			p {
+				margin: 0.5rem 0;
+			}
+		}
+	}
+}
+
+@media #{$large-and-up} {
+	.fi-profile-person {
+		padding: 0 1rem 0 0 !important;
+	}
+
+	.fi-profile-picture {
+		padding: 0 !important;
+	}
+}
+
+
+
+.fi-profile-history-item {
+	border: 1px solid #ccc!important;
+	border-radius: 0.5rem;
+	//width: 100%;
+	margin-bottom: 1rem;
+	padding: 1rem;
+	display: block;
+}

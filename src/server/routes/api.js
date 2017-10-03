@@ -29,6 +29,8 @@ class ApiRouter {
 
 		this.router.post('/account/signin', api.signin.login);
 
+		this.router.get('/account/:id/show', auth, app.mwValidateParams, api.profile.show);
+
 		this.router.use((req, res)=>{
 			res.status(404).send({msg: 'Recurso no encontrado'});
 		});
