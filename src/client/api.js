@@ -36,6 +36,10 @@ var account = {
 	signin: function(data) {
 		return axios.post(origin + '/api/account/signin', data);
 	},
+
+	show: function(data) {
+		return axios.get(origin + '/api/account/' + data.id + '/show', {headers: {authorization: data.auth}});
+	},
 };
 
 module.exports = {

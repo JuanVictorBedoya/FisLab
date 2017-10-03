@@ -28,6 +28,7 @@ import {DefaultController} from './controllers/web/default';
 
 import {SignUpController} from './controllers/api/signup';
 import {SignInController} from './controllers/api/signin';
+import {ProfileController} from './controllers/api/profile';
 
 /****************************************************************************************/
 
@@ -59,7 +60,8 @@ class App {
 			},
 			api: {
 				signup: new SignUpController,
-				signin: new SignInController
+				signin: new SignInController,
+				profile: new ProfileController,
 			}
 		};
 
