@@ -123,6 +123,20 @@ class NavUserLink extends React.Component {
 	}
 }
 
+class NavUserActionButton extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<a className="nav-user-link" onClick={this.props.onClick}>
+				<span>{this.props.text}</span>
+			</a>
+		);
+	}
+}
+
 class Navbar extends React.Component {
 	constructor(props) {
 		super(props);
@@ -139,4 +153,4 @@ class Navbar extends React.Component {
 	}
 }
 
-export { Navbar, NavLink, NavBrand, NavUser, NavUserLink };
+export { Navbar, NavLink, NavBrand, NavUser, NavUserLink, NavUserActionButton };

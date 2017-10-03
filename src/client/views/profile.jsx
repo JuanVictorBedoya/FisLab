@@ -10,7 +10,7 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import {Button} from '../components/button.jsx';
-import {Navbar, NavBrand, NavLink, NavUser, NavUserLink} from '../components/navbar.jsx';
+import {Navbar, NavBrand, NavLink, NavUser, NavUserLink, NavUserActionButton} from '../components/navbar.jsx';
 
 import {AppError} from '../components/app-error.jsx';
 import {AppLogo_0} from '../components/app-logo.jsx';
@@ -45,6 +45,12 @@ class Profile extends Reflux.Component {
 
 	}
 
+	onLogoutClick() {
+		ProfileActions.logout(()=>{
+			this.props.history.push('/login');
+		});
+	}
+
 	render() {
 		let u = (this.state.user && this.state.user.status === 'active') ? this.state.user : null,
 			e = this.state.error;
@@ -65,6 +71,7 @@ class Profile extends Reflux.Component {
 								<NavUser user={u}>
 									<NavUserLink href="#home" text="Ver mi perfil"/>
 									<NavUserLink href="#about" text="Configuración"/>
+									<NavUserActionButton text="Salir" onClick={this.onLogoutClick.bind(this)}/>
 								</NavUser>
 								: null
 						}

@@ -14,7 +14,7 @@ import api from '../api';
 /****************************************************************************************/
 
 var ProfileActions = Reflux.createActions([
-	'load'
+	'load', 'logout'
 ]);
 
 class ProfileStore extends Reflux.Store {
@@ -46,6 +46,15 @@ class ProfileStore extends Reflux.Store {
 		} else {
 			this.setState({user});
 		}
+	}
+
+	onLogout(callback) {
+		localStorage.removeItem('user');
+		localStorage.removeItem('authorization');
+
+		this.setState({user: { status: 'unregistered' }});
+
+		callback();
 	}
 }
 
