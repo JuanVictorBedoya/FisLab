@@ -15,7 +15,7 @@ import jsonfile from 'jsonfile';
 import bodyParser from 'body-parser';
 
 import {Validator} from './security/validator';
-import {Auth} from './security/auth';
+import {Authenticator} from './security/auth';
 import {Mailer} from './common/mailer';
 
 import {WebRouter} from './routes/web';
@@ -51,7 +51,7 @@ class App {
 	onLoad() {
 		this.db = new DB(this.config.db);
 		this.mailer = new Mailer(this.config.mail);
-		this.auth = new Auth(this.config.auth);
+		this.authenticator = new Authenticator(this, this.config.auth);
 
 		this.controllers = {
 			web: {

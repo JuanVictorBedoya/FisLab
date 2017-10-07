@@ -20,7 +20,7 @@ class ApiRouter {
 		});
 
 		let api = app.controllers.api,
-			auth = passport.authenticate('jwt', {session: false});
+			auth = app.auth;
 
 		this.router.post('/account/create', api.signup.create);
 		this.router.put('/account/:id/verify', app.mwValidateParams, api.signup.verify);
