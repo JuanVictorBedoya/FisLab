@@ -1,7 +1,7 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
@@ -14,14 +14,17 @@ class WebRouter {
 	constructor(app) {
 		this.router = express.Router();
 
-		this.router.get('/', app.controllers.web.default.index);
-		this.router.get('/registro', app.controllers.web.default.index);
-		this.router.get('/registro/verificar/:session/:uvid/:evid/', app.controllers.web.default.index);
-		this.router.get('/login', app.controllers.web.default.index);
+		let web = app.controllers.web;
 
-		this.router.get('/perfil', app.controllers.web.default.index);
+		this.router.get('/', web.default.index);
+		this.router.get('/registro', web.default.index);
+		this.router.get('/registro/verificar/:session/:uvid/:evid/', web.default.index);
+		this.router.get('/login', web.default.index);
+		this.router.get('/perfil', web.default.index);
 
-		this.router.use(app.controllers.web.errors.http404);
+		this.router.get('/simulacion/:experiment', web.experiment.index);
+
+		this.router.use(web.errors.http404);
 	}
 }
 

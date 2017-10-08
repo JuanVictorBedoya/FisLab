@@ -1,7 +1,7 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
@@ -25,6 +25,7 @@ import {DB} from './database/db';
 
 import {ErrorsController} from './controllers/web/errors';
 import {DefaultController} from './controllers/web/default';
+import {ExperimentController} from './controllers/web/experiment';
 
 import {SignUpController} from './controllers/api/signup';
 import {SignInController} from './controllers/api/signin';
@@ -56,7 +57,8 @@ class App {
 		this.controllers = {
 			web: {
 				errors: new ErrorsController,
-				default: new DefaultController
+				default: new DefaultController,
+				experiment: new ExperimentController
 			},
 			api: {
 				signup: new SignUpController,

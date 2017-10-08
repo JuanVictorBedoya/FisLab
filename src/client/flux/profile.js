@@ -41,6 +41,7 @@ class ProfileStore extends Reflux.Store {
 					this.setState({user});
 				})
 				.catch(error => {
+					console.log(error);
 					this.setState({error: error.response.data});
 				});
 		} else {

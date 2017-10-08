@@ -8,17 +8,17 @@
 
 import React from 'react';
 
-import {DefaultView} from '../../views/default.jsx';
+import {SimulationView} from '../../views/simulation.jsx';
 
 /****************************************************************************************/
 
-class DefaultController {
+class ExperimentController {
 	constructor() {
 	}
 
 	index(req, res) {
-		res.render(<DefaultView/>);
+		res.render(<SimulationView/>);
 	}
 }
 
-export {DefaultController};
+export {ExperimentController};
