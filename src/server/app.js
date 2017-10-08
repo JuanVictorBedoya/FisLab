@@ -86,7 +86,7 @@ class App {
 	mwApp(req, res, next) {
 		req.db = this.db;
 		req.mailer = this.mailer;
-		req.auth = this.auth;
+		req.authenticator = this.authenticator;
 
 		req.body.validate = function(options) {
 			let validator = new Validator(options);

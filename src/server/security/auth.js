@@ -51,6 +51,7 @@ class Authenticator {
 			if(!user) {
 				return res.status(401).json(info);
 			}
+			next();
 			return user;
 		})(req, res, next);
 	}
