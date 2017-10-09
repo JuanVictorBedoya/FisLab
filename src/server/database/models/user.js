@@ -108,17 +108,25 @@ class UserSchema extends mongoose.Schema {
 	}
 
 	static encryptPassword(text, params){
-		var cipher = crypto.createCipher(params.algorithm, params.secret);
-		var crypted = cipher.update(text, 'utf8', 'hex');
-		crypted += cipher.final('hex');
-		return crypted;
+		try {
+			var cipher = crypto.createCipher(params.algorithm, params.secret);
+			var crypted = cipher.update(text, 'utf8', 'hex');
+			crypted += cipher.final('hex');
+			return crypted;
+		} catch(e) {
+			throw {message: 'No se pudo encriptar el texto clave'};
+		}
 	}
 
 	static decryptPassword(text, params){
-		var decipher = crypto.createDecipher(params.algorithm, params.secret);
-		var dec = decipher.update(text, 'hex', 'utf8');
-		dec += decipher.final('utf8');
-		return dec;
+		try {
+			var decipher = crypto.createDecipher(params.algorithm, params.secret);
+			var dec = decipher.update(text, 'hex', 'utf8');
+			dec += decipher.final('utf8');
+			return dec;
+		} catch(e) {
+			throw {message: 'No se pudo desencriptar el texto clave'};
+		}
 	}
 }
 
