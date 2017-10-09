@@ -9,7 +9,11 @@
 import React from 'react';
 import Reflux from 'reflux';
 
+import {Button} from '../components/button.jsx';
+import {TextInput} from '../components/text-input.jsx';
+
 import {Navbar, NavBrand, NavLink, NavUser, NavUserLink, NavUserActionButton} from '../components/navbar.jsx';
+import {Renderer} from '../components/render.jsx';
 
 import {AppLogo_0} from '../components/app-logo.jsx';
 
@@ -71,19 +75,32 @@ class Experiment extends Reflux.Component {
 				<main>
 					<div className="fi-experiment-container">
 						<div className="row">
-							<div className="col s12">
-								<h4><b>Experimento n1</b></h4>
-							</div>
-						</div>
-						<div className="row">
 							<div className="col s12 l9">
-								<div style={{width: '100%', height: '20rem', backgroundColor: 'gray'}}>
-
+								<div>
+									<Renderer/>
+								</div>
+								<div className="fi-experiment-title">
+									<h5><b>Experimento n1</b></h5>
 								</div>
 							</div>
 							<div className="col s12 l3">
-								<div style={{width: '100%', height: '20rem', backgroundColor: 'green'}}>
+								{/*<div style={{width: '100%', height: '20rem', backgroundColor: 'green'}}>
 
+								</div>*/}
+
+								<div className="card-panel">
+									<h6><b>Opciones del experimento</b></h6>
+									<TextInput ref="email1" name="email1" label="E-mail" placeholder="Tu email" type="email" required={true}/>
+									<TextInput ref="email2" name="email2" label="E-mail" placeholder="Tu email" type="email" required={true}/>
+									<Button text="Iniciar sesión"/>
+								</div>
+							</div>
+						</div>
+
+						<div className="row">
+							<div className="col s12 l9">
+								<div>
+									<p>As every site can vary a lot, your first-steps with the plugin will vary depending on the nature of your site. However, we would recommend thinking about how many different user roles you will require on your site and creating the roles you need.</p>
 								</div>
 							</div>
 						</div>
