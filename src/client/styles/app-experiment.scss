@@ -21,11 +21,25 @@
 	padding: 0.8rem 0;
 }
 
+
+
+.render {
+	position: relative;
+}
+
 .render-container {
 	position: relative;
 	width: 100%;
 	padding-top: 56.25%; /* 16:9 Aspect Ratio */
 	background-color: red;
+}
+
+.render-controls {
+	position: absolute;
+	bottom: 0;
+	background-color: rgba(100, 100, 100, 0.5);
+	color: white;
+	width: 100%;
 }
 
 .render-view {
@@ -34,4 +48,17 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
+}
+
+
+.timekeeper-label {
+	float: left;
+}
+
+.render-control-start {
+	float: left;
+	width: auto;
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	cursor: pointer;
 }

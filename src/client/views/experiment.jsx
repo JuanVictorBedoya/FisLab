@@ -15,6 +15,8 @@ import {TextInput} from '../components/text-input.jsx';
 import {Navbar, NavBrand, NavLink, NavUser, NavUserLink, NavUserActionButton} from '../components/navbar.jsx';
 import {Renderer} from '../components/render.jsx';
 
+import {IconPlay, IconStop} from '../../both/components/icons.jsx';
+
 import {AppLogo_0} from '../components/app-logo.jsx';
 
 import {ProfileActions, ProfileStore} from '../flux/profile';
@@ -60,7 +62,7 @@ class Experiment extends Reflux.Component {
 				<header>
 					<Navbar>
 						<NavBrand logoComponent={AppLogo_0} logoStyle={{height: '32px', width: '32px', padding: '0.6rem'}}/>
-					
+
 						{
 							u ?
 								<NavUser user={u}>
@@ -77,7 +79,7 @@ class Experiment extends Reflux.Component {
 						<div className="row">
 							<div className="col s12 l9">
 								<div>
-									<Renderer/>
+									<Renderer playIcon={IconPlay} stopIcon={IconStop}/>
 								</div>
 								<div className="fi-experiment-title">
 									<h5><b>Experimento n1</b></h5>

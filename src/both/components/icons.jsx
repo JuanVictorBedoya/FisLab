@@ -105,4 +105,32 @@ class IconWork extends React.Component {
 	}
 }
 
-export {IconFislab, IconCancel, IconMail, IconWork};
+class IconPlay extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<svg viewBox="0 0 320 512" className={this.props.className} style={this.props.style}>
+				<path d="M309 233c7 6 11 14 11 23s-4 17-11 23L31 445c-4 2-7 3-11 3-11 0-20-9-20-20V84c0-11 9-20 20-20 4 0 8 1 11 3z"></path>
+			</svg>
+		);
+	}
+}
+
+class IconStop extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<svg viewBox="0 0 1064.428 1234" className={this.props.className} style={this.props.style}>
+				<path d="M168.428 5h768q53 0 90.5 37.5t37.5 90.5v768q0 53-37.5 90.5t-90.5 37.5h-768q-53 0-90.5-37.5t-37.5-90.5V133q0-53 37.5-90.5t90.5-37.5z"></path>
+			</svg>
+		);
+	}
+}
+
+export {IconFislab, IconCancel, IconMail, IconWork, IconPlay, IconStop};

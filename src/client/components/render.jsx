@@ -24,20 +24,20 @@ class World {
 			width: this.params.element.offsetWidth,
 			height: this.params.element.offsetHeight
 		};
-		
+
 		this.clock = new THREE.Clock();
 
 		this.scene = new THREE.Scene();
 		this.camera = new THREE.PerspectiveCamera(75, view.width / view.height, 1, 10000);
 		this.camera.position.z = 500;
 		this.camera.position.y = 100;
-		
+
 
 
 		var sphere = new THREE.SphereGeometry(10, 8, 8);
 		this.light1 = new THREE.PointLight(0xff0040, 1, 500);
 		this.light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xff0040 })));
-		
+
 		this.scene.add(this.light1);
 		this.light1.position.y = 200;
 
@@ -53,6 +53,13 @@ class World {
 
 		this.renderer = new THREE.WebGLRenderer();
 		//this.renderer.setSize(view.width, view.height);
+
+
+		/*var para = document.createElement('P');
+		var t = document.createTextNode('This is a paragraph.');
+		para.appendChild(t);
+		this.renderer.domElement.appendChild(para);*/
+
 		this.renderer.domElement.classList.add('render-view');
 
 		params.element.appendChild(this.renderer.domElement);
@@ -83,9 +90,73 @@ class World {
 	}
 }
 
+
+class Timekeeper extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.clock = {
+			m: 0, s: 0, c: 0
+		};
+	}
+
+	componentDidMount() {
+
+	}
+
+	play() {
+		this.control = setInterval(this.onClock.bind(this), 10);
+	}
+
+	stop() {
+		clearInterval(this.control);
+	}
+
+	onClock() {
+		if (this.clock.c < 99) {
+			this.clock.c++;
+			if (this.clock.c < 10) { this.clock.c = '0'+this.clock.c; }
+			this.refs.cen.innerHTML = ':'+this.clock.c;
+		}
+		if (this.clock.c == 99) {
+			this.clock.c = -1;
+		}
+		if (this.clock.c == 0) {
+			this.clock.s ++;
+			if (this.clock.s < 10) { this.clock.s = '0'+this.clock.s; }
+			this.refs.sec.innerHTML = ':'+this.clock.s;
+		}
+		if (this.clock.s == 59) {
+			this.clock.s = -1;
+		}
+		if ( (this.clock.c == 0)&&(this.clock.s == 0) ) {
+			this.clock.m++;
+			if (this.clock.m < 10) { this.clock.m = '0'+this.clock.m; }
+			this.refs.min.innerHTML = ':'+this.clock.m;
+		}
+		if (this.clock.m == 59) {
+			this.clock.m = -1;
+		}
+	}
+
+	render() {
+		return (
+			<div className="">
+				<div ref="min" className="timekeeper-label">00</div>
+				<div ref="sec" className="timekeeper-label">:00</div>
+				<div ref="cen" className="timekeeper-label">:00</div>
+			</div>
+		);
+	}
+}
+
 class Renderer extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			status: 'stop'
+		};
 
 		this.world = new World;
 	}
@@ -101,10 +172,40 @@ class Renderer extends React.Component {
 		this.world.init({element});
 	}
 
+	onStartStop() {
+		switch (this.state.status) {
+		case 'play':
+			this.refs.timer.stop();
+			this.setState({status: 'stop'});
+			break;
+		case 'stop':
+			this.refs.timer.play();
+			this.setState({status: 'play'});
+			break;
+		default:
+			break;
+		}
+	}
+
 	render() {
+		let IconStop = this.props.stopIcon,
+			IconPlay = this.props.playIcon;
+
 		return (
-			<div>
+			<div className="render">
 				<div ref="viewport" className="render-container">
+				</div>
+				<div className="render-controls">
+					<button className="render-control-start" onClick={this.onStartStop.bind(this)}>
+						{
+							this.state.status === 'play' ? <IconStop style={{width: '1rem', fill: 'white'}}/> : null
+						}
+						{
+							this.state.status === 'stop' ? <IconPlay style={{width: '1rem', fill: 'white'}}/> : null
+						}
+
+					</button>
+					<Timekeeper ref="timer"/>
 				</div>
 			</div>
 		);
