@@ -20,7 +20,7 @@ var serverConfig = {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name]'
 	},
-	
+
 	module: {
 		loaders: [
 			{
@@ -48,6 +48,7 @@ var clientConfig = {
 	},
 
 	entry: {
+		'fislab.physics-worker': './src/client/workers/physics.js',
 		'fislab.default': './src/client/app/default.jsx',
 		'fislab.simulation': './src/client/app/simulation.jsx',
 		//'fislab.demos': './test/demos/client.jsx'

@@ -9,9 +9,7 @@
 import React from 'react';
 
 var THREE = require('three');
-var OIMO = require('oimo');
 var TrackballControls = require('three-trackballcontrols');
-
 
 /****************************************************************************************/
 
@@ -31,8 +29,8 @@ class World {
 
 		this.scene = new THREE.Scene();
 		this.camera = new THREE.PerspectiveCamera(45, view.width / view.height, 1, 10000);
-		this.camera.position.z = 500;
-		this.camera.position.y = 100;
+		this.camera.position.z = 1000;
+		this.camera.position.y = 1000;
 
 		this.trackball = new TrackballControls(this.camera, params.element);
 
@@ -41,7 +39,7 @@ class World {
 
 
 		var sphere = new THREE.SphereGeometry(10, 8, 8);
-		this.light1 = new THREE.PointLight(0xff0040, 1, 1000);
+		this.light1 = new THREE.PointLight(0xffffff, 1, 1000);
 		this.light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xff0040 })));
 
 		this.scene.add(this.light1);
@@ -52,20 +50,24 @@ class World {
 		groundMat.color.setHSL(0.095, 1, 0.75);
 		var ground = new THREE.Mesh(groundGeo, groundMat);
 		ground.rotation.x = -Math.PI/2;
-		ground.position.y = -50;
+		ground.position.y = 0;
 		this.scene.add(ground);
 		//ground.receiveShadow = true;
 
 		var boxGeo = new THREE.BoxGeometry(100, 100, 100);
 		var boxMat = new THREE.MeshPhongMaterial({color: 0xffffff});
-		var box = new THREE.Mesh(boxGeo, boxMat);
+		this.box = new THREE.Mesh(boxGeo, boxMat);
 		//box.castShadow = true;
 		//box.receiveShadow = true;
-		this.scene.add(box);
+		this.scene.add(this.box);
 
 
 
 
+
+		this.physics = new Worker('/js/fislab.physics-worker.min.js');
+		this.physics.onmessage = this.onPhysicsUpdate.bind(this);
+		this.physics.postMessage({action: 'create', dt: 1/60});
 
 		this.renderer = new THREE.WebGLRenderer();
 		this.renderer.domElement.classList.add('render-view');
@@ -90,14 +92,28 @@ class World {
 
 		//this.camera.aspect = view.width/view.height;
 
+		//this.world.step();
 		if(this.trackball) {
 			this.trackball.update();
 		}
+
+
+
+		//this.box.position.copy(this.boxBody.getPosition());
 
 		this.renderer.setSize(view.width, view.height);
 		this.renderer.render(this.scene, this.camera);
 
 		requestAnimationFrame(this.render.bind(this));
+	}
+
+	reset() {
+		this.physics.postMessage({action: 'reset'});
+	}
+
+	onPhysicsUpdate(e) {
+		this.box.position.copy(e.data.box1.position);
+		this.box.quaternion.copy(e.data.box1.quaternion);
 	}
 }
 
@@ -175,11 +191,6 @@ class Renderer extends React.Component {
 	componentDidMount() {
 		let element = this.refs.viewport;
 
-		/*console.log(element.offsetWidth, element.offsetHeight);
-		window.addEventListener("resize", ()=>{
-			console.log(element.offsetWidth, element.offsetHeight);
-		});*/
-
 		this.world.init({element});
 	}
 
@@ -191,6 +202,7 @@ class Renderer extends React.Component {
 			break;
 		case 'stop':
 			this.refs.timer.play();
+			this.world.reset();
 			this.setState({status: 'play'});
 			break;
 		default:
