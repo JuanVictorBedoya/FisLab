@@ -8,12 +8,12 @@
 
 import React from 'react';
 
-var THREE = require('three');
-var TrackballControls = require('three-trackballcontrols');
+//var THREE = require('three');
+//var TrackballControls = require('three-trackballcontrols');
 
 /****************************************************************************************/
 
-class World {
+/*class World {
 	constructor(props) {
 	}
 
@@ -115,8 +115,7 @@ class World {
 		this.box.position.copy(e.data.box1.position);
 		this.box.quaternion.copy(e.data.box1.quaternion);
 	}
-}
-
+}*/
 
 class Timekeeper extends React.Component {
 	constructor(props) {
@@ -184,14 +183,44 @@ class Renderer extends React.Component {
 		this.state = {
 			status: 'stop'
 		};
-
-		this.world = new World;
 	}
 
 	componentDidMount() {
 		let element = this.refs.viewport;
+		this.loadScript('/js/fislab.render-worker.min.js', ()=>{
+			//console.log(window.fislab);
+			this.renderer = new window.fislab.RenderEngine;
+			this.physics = new Worker('/js/fislab.physics-worker.min.js');
 
-		this.world.init({element});
+			this.renderer.create({viewElement: element});
+
+			this.physics.onmessage = this.onPhysicsUpdate.bind(this);
+			this.physics.postMessage({action: 'create', dt: 1/60});
+		});
+	}
+
+	loadScript(url, callback){
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+
+		if(script.readyState){  //IE
+			script.onreadystatechange = function(){
+				if(script.readyState == 'loaded' || script.readyState == 'complete'){
+					script.onreadystatechange = null;
+					callback();
+				}
+			};
+		} else {  //Others
+			script.onload = function(){
+				setTimeout(()=>{
+					callback();
+				}, 2000);
+			};
+		}
+
+		script.src = url;
+		//document.getElementsByTagName('head')[0].appendChild(script);
+		document.body.appendChild(script);
 	}
 
 	onStartStop() {
@@ -202,12 +231,16 @@ class Renderer extends React.Component {
 			break;
 		case 'stop':
 			this.refs.timer.play();
-			this.world.reset();
+			this.physics.postMessage({action: 'reset'});
 			this.setState({status: 'play'});
 			break;
 		default:
 			break;
 		}
+	}
+
+	onPhysicsUpdate(e) {
+		this.renderer.update(e.data);
 	}
 
 	render() {
@@ -217,19 +250,20 @@ class Renderer extends React.Component {
 		return (
 			<div className="render">
 				<div ref="viewport" className="render-container">
+					Cargando
 				</div>
-				<div className="render-controls">
+				{/*<div className="render-controls">
 					<button className="render-control-start" onClick={this.onStartStop.bind(this)}>
 						{
-							this.state.status === 'play' ? <IconStop style={{width: '1rem', fill: 'white'}}/> : null
+							//this.state.status === 'play' ? <IconStop style={{width: '1rem', fill: 'white'}}/> : null
 						}
 						{
-							this.state.status === 'stop' ? <IconPlay style={{width: '1rem', fill: 'white'}}/> : null
+							//this.state.status === 'stop' ? <IconPlay style={{width: '1rem', fill: 'white'}}/> : null
 						}
-
+						click
 					</button>
 					<Timekeeper ref="timer"/>
-				</div>
+				</div>*/}
 			</div>
 		);
 	}

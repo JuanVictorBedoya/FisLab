@@ -49,6 +49,7 @@ var clientConfig = {
 
 	entry: {
 		'fislab.physics-worker': './src/client/workers/physics.js',
+		'fislab.render-worker': './src/client/workers/render.js',
 		'fislab.default': './src/client/app/default.jsx',
 		'fislab.simulation': './src/client/app/simulation.jsx',
 		//'fislab.demos': './test/demos/client.jsx'

@@ -53,4 +53,8 @@ class App {
 
 /****************************************************************************************/
 
-var app = new App();
+var fislabApp = new App();
+
+window.fislab = {
+	title: ''
+};
