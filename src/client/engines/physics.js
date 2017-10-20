@@ -33,9 +33,9 @@ class Physics {
 			pos:[0,700,0], // start position in degree
 			rot:[0,5,10], // start rotation in degree
 			move:true, // dynamic or statique
-			density: 1,
+			density: 10,
 			friction: 0.2,
-			restitution: 2,
+			restitution: 1,
 			belongsTo: 1, // The bits of the collision groups to which the shape belongs.
 			collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
 		});
@@ -46,6 +46,7 @@ class Physics {
 	reset(opt) {
 		this.box1.resetPosition(0, 700, 0);
 		this.box1.resetRotation(Math.floor(Math.random() * 90), Math.floor(Math.random() * 90), Math.floor(Math.random() * 90));
+		//this.box1.resetRotation(0, 5, 10);
 	}
 
 	onTick() {
