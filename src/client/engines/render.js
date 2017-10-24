@@ -38,6 +38,12 @@ class RenderEngine {
 
 
 
+		/*var model = new THREE.JSONLoader();
+		model.load('/models/js/table.json', (geo, mat)=>{
+			var fl_table = new THREE.Mesh(geo, mat);
+			this.scene.add(fl_table);
+		});*/
+
 		var sphere = new THREE.SphereGeometry(10, 8, 8);
 		this.light1 = new THREE.PointLight(0xffffff, 1, 1000);
 		this.light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xff0040 })));

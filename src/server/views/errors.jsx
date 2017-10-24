@@ -29,7 +29,7 @@ class Http404View extends React.Component {
 					<div className="container">
 						<div className="row" style={{margin: '3rem 0'}}>
 							<div className="col s12 m3">
-								<IconFislab style={{width: '5rem', height: '5rem', margin: '0 auto', display: 'block'}}/>
+								<IconFislab style={{width: '6rem', height: '6rem', margin: '0 auto', display: 'block'}}/>
 							</div>
 							<div className="col s12 m9">
 								<h3 style={{marginTop: '2rem', textAlign: 'center'}}>404 - The page cannot be found</h3>
