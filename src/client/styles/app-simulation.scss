@@ -1,23 +1,23 @@
 
 @import "global";
 
-.fi-experiment-container {
+.fi-simulation-container {
 	margin: 1.4rem auto 0 auto;
 	width: 100%;
 }
 
 @media #{$medium-and-up} {
-	.fi-experiment-container {
+	.fi-simulation-container {
 		width: 98%;
 	}
 }
 @media #{$large-and-up} {
-	.fi-experiment-container {
+	.fi-simulation-container {
 		width: 95%;
 	}
 }
 
-.fi-experiment-title {
+.fi-simulation-title {
 	padding: 0.8rem 0;
 }
 

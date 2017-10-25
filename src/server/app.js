@@ -25,7 +25,6 @@ import {DB} from './database/db';
 
 import {ErrorsController} from './controllers/web/errors';
 import {DefaultController} from './controllers/web/default';
-import {ExperimentController} from './controllers/web/experiment';
 
 import {SignUpController} from './controllers/api/signup';
 import {SignInController} from './controllers/api/signin';
@@ -58,8 +57,7 @@ class App {
 		this.controllers = {
 			web: {
 				errors: new ErrorsController,
-				default: new DefaultController,
-				experiment: new ExperimentController
+				default: new DefaultController
 			},
 			api: {
 				signup: new SignUpController,

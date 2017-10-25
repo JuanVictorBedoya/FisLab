@@ -14,7 +14,7 @@ import { Home } from '../views/home.jsx';
 import { Signup, SignupVerify } from '../views/signup.jsx';
 import { SignIn } from '../views/signin.jsx';
 import { Profile } from '../views/profile.jsx';
-import { Experiment } from '../views/experiment.jsx';
+import { Simulation } from '../views/simulation.jsx';
 
 import MainStyles from '../styles/app.scss';
 
@@ -57,7 +57,7 @@ class App {
 					<Route exact={true} path="/login" component={SignIn}/>
 					<Route exact={true} path="/perfil" component={Profile}/>
 
-					<Route exact={true} path="/temas/:id/simulacion" component={Experiment}/>
+					<Route exact={true} path="/temas/:id/simulacion" component={Simulation}/>
 				</Main>
 			</BrowserRouter>,
 			this._mainSection);

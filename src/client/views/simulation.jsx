@@ -24,7 +24,7 @@ import {SimulationActions, SimulationStore} from '../flux/simulation';
 
 /****************************************************************************************/
 
-class Experiment extends Reflux.Component {
+class Simulation extends Reflux.Component {
 	constructor(props) {
 		super(props);
 
@@ -77,13 +77,13 @@ class Experiment extends Reflux.Component {
 					</Navbar>
 				</header>
 				<main>
-					<div className="fi-experiment-container">
+					<div className="fi-simulation-container">
 						<div className="row">
 							<div className="col s12 l9">
 								<div>
 									<Renderer playIcon={IconPlay} stopIcon={IconStop}/>
 								</div>
-								<div className="fi-experiment-title">
+								<div className="fi-simulation-title">
 									<h5><b>Experimento n1</b></h5>
 								</div>
 							</div>
@@ -117,4 +117,4 @@ class Experiment extends Reflux.Component {
 	}
 }
 
-export { Experiment };
+export { Simulation };
