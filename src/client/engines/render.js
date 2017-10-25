@@ -38,26 +38,34 @@ class RenderEngine {
 
 
 
-		/*var model = new THREE.JSONLoader();
-		model.load('/models/js/table.json', (geo, mat)=>{
-			var fl_table = new THREE.Mesh(geo, mat);
-			this.scene.add(fl_table);
-		});*/
+		var model = new THREE.JSONLoader();
+		model.load('/models/json/mesa.json', (geo, mat)=>{
+			var textureLoader = new THREE.TextureLoader();
+			textureLoader.load('/textures/mesa.png', (texture)=>{
+				var modelMaterial = new THREE.MeshPhongMaterial(
+					{ shininess: 255, map: texture, emissive: 0x151515, specular: 0x050505, color: 0xffffff }
+				);
+
+				var fl_table = new THREE.Mesh(geo, modelMaterial);
+				fl_table.position.y = -1034;
+				this.scene.add(fl_table);
+			});
+		});
 
 		var sphere = new THREE.SphereGeometry(10, 8, 8);
-		this.light1 = new THREE.PointLight(0xffffff, 1, 1000);
-		this.light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xff0040 })));
+		this.light1 = new THREE.PointLight(0xffffff, 1, 10000);
+		this.light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffffff })));
 
 		this.scene.add(this.light1);
-		this.light1.position.y = 200;
+		this.light1.position.y = 2000;
 
-		var groundGeo = new THREE.PlaneBufferGeometry(5000, 1000);
+		/*var groundGeo = new THREE.PlaneBufferGeometry(4702, 1380);
 		var groundMat = new THREE.MeshPhongMaterial({color: 0xffffff, specular: 0x050505});
-		groundMat.color.setHSL(0.095, 1, 0.75);
+		//groundMat.color.setHSL(0.095, 1, 0.75);
 		var ground = new THREE.Mesh(groundGeo, groundMat);
 		ground.rotation.x = -Math.PI/2;
 		ground.position.y = 0;
-		this.scene.add(ground);
+		this.scene.add(ground);*/
 		//ground.receiveShadow = true;
 
 		var boxGeo = new THREE.BoxGeometry(100, 100, 100);
@@ -71,7 +79,7 @@ class RenderEngine {
 
 
 
-		this.renderer = new THREE.WebGLRenderer();
+		this.renderer = new THREE.WebGLRenderer({antialias: true});
 		this.renderer.domElement.classList.add('render-view');
 
 		this.viewElement.appendChild(this.renderer.domElement);
