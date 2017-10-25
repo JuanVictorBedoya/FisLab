@@ -20,6 +20,7 @@ import {IconPlay, IconStop} from '../../both/components/icons.jsx';
 import {AppLogo_0} from '../components/app-logo.jsx';
 
 import {ProfileActions, ProfileStore} from '../flux/profile';
+import {SimulationActions, SimulationStore} from '../flux/simulation';
 
 /****************************************************************************************/
 
@@ -27,12 +28,13 @@ class Experiment extends Reflux.Component {
 	constructor(props) {
 		super(props);
 
-		this.store = ProfileStore;
+		this.stores = [ProfileStore, SimulationStore];
 	}
 
 	componentWillMount() {
 		super.componentWillMount();
 		ProfileActions.load();
+		SimulationActions.load('dfgdf');
 	}
 
 	componentDidMount() {

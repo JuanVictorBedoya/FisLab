@@ -32,7 +32,7 @@ var account = {
 			);
 		},
 	},
-	
+
 	signin: function(data) {
 		return axios.post(origin + '/api/account/signin', data);
 	},
@@ -42,6 +42,13 @@ var account = {
 	},
 };
 
+var simulation = {
+	show: function(data) {
+		return axios.get(origin + '/api/topics/' + data.id + '/simulation/show', {headers: {authorization: data.auth}});
+	}
+};
+
 module.exports = {
-	account: account
+	account: account,
+	simulation: simulation
 };

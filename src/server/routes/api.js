@@ -31,6 +31,8 @@ class ApiRouter {
 
 		this.router.get('/account/:id/show', auth, app.mwValidateParams, api.profile.show);
 
+		this.router.get('/topics/:id/simulation/show', auth, app.mwValidateParams, api.simulation.show);
+
 		this.router.use((req, res)=>{
 			res.status(404).send({msg: 'Recurso no encontrado'});
 		});

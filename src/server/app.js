@@ -30,6 +30,7 @@ import {ExperimentController} from './controllers/web/experiment';
 import {SignUpController} from './controllers/api/signup';
 import {SignInController} from './controllers/api/signin';
 import {ProfileController} from './controllers/api/profile';
+import {SimulationApiController} from './controllers/api/simulation';
 
 /****************************************************************************************/
 
@@ -64,6 +65,7 @@ class App {
 				signup: new SignUpController,
 				signin: new SignInController,
 				profile: new ProfileController,
+				simulation: new SimulationApiController
 			}
 		};
 
@@ -83,7 +85,7 @@ class App {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	mwApp(req, res, next) {
 		req.db = this.db;
