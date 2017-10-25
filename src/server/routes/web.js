@@ -22,7 +22,7 @@ class WebRouter {
 		this.router.get('/login', web.default.index);
 		this.router.get('/perfil', web.default.index);
 
-		this.router.get('/simulacion/:experiment', web.experiment.index);
+		this.router.get('/temas/:id/simulacion', web.experiment.index);
 
 		this.router.use(web.errors.http404);
 	}

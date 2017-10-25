@@ -37,7 +37,7 @@ class App {
 		window.fislab = {
 			title: ''
 		};
-		
+
 		document.addEventListener('DOMContentLoaded', this.onDOMContentLoaded.bind(this));
 	}
 
@@ -57,7 +57,7 @@ class App {
 					<Route exact={true} path="/login" component={SignIn}/>
 					<Route exact={true} path="/perfil" component={Profile}/>
 
-					<Route exact={true} path="/simulacion/:experiment/" component={Experiment}/>
+					<Route exact={true} path="/temas/:id/simulacion" component={Experiment}/>
 				</Main>
 			</BrowserRouter>,
 			this._mainSection);
