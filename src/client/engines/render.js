@@ -79,6 +79,19 @@ class RenderEngine {
 
 
 
+
+
+
+		this.ray1 = new THREE.Raycaster(new THREE.Vector3(100, 500, 0), new THREE.Vector3(-1, 0, 0));
+		this.ray2 = new THREE.Raycaster(new THREE.Vector3(100, 100, 0), new THREE.Vector3(-1, 0, 0));
+		this.ray1.enabled = true;
+		this.ray2.enabled = true;
+		this.tests = {
+			one: opt.onTest1,
+			two: opt.onTest2
+		}
+		//console.log(this.ray1);
+
 		this.renderer = new THREE.WebGLRenderer({antialias: true});
 		this.renderer.domElement.classList.add('render-view');
 
@@ -112,6 +125,28 @@ class RenderEngine {
 	update(data) {
 		this.box.position.copy(data.box1.position);
 		this.box.quaternion.copy(data.box1.quaternion);
+
+
+		if(this.ray1.enabled) {
+			let intersect = this.ray1.intersectObject(this.box);
+			if(intersect.length > 0) {
+				this.ray1.enabled = false;
+				this.tests.one();
+			}
+		}
+		if(this.ray2.enabled) {
+			let intersect = this.ray2.intersectObject(this.box);
+			if(intersect.length > 0) {
+				this.ray2.enabled = false;
+				this.tests.two();
+			}
+		}
+
+	}
+
+	testReset() {
+		this.ray1.enabled = this.ray2.enabled = true;
+
 	}
 }
 

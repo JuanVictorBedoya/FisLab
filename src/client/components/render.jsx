@@ -65,6 +65,10 @@ class Timekeeper extends React.Component {
 		}
 	}
 
+	get() {
+		return this.clock.m + ':' + this.clock.s + ':' + this.clock.c;
+	}
+
 	render() {
 		return (
 			<div className="">
@@ -93,7 +97,11 @@ class Renderer extends React.Component {
 
 			this.setState({status: 'ready'});
 
-			this.renderer.create({viewElement: element});
+			this.renderer.create({
+				viewElement: element,
+				onTest1: this.onTest1.bind(this),
+				onTest2: this.onTest2.bind(this)
+			});
 
 			this.physics.onmessage = this.onPhysicsUpdate.bind(this);
 			this.physics.postMessage({action: 'create', dt: 1/60});
@@ -134,6 +142,7 @@ class Renderer extends React.Component {
 		case 'stop':
 			this.refs.timer.play();
 			this.physics.postMessage({action: 'reset'});
+			this.renderer.testReset();
 			this.setState({status: 'play'});
 			break;
 		default:
@@ -143,6 +152,13 @@ class Renderer extends React.Component {
 
 	onPhysicsUpdate(e) {
 		this.renderer.update(e.data);
+	}
+
+	onTest1() {
+		console.log(this.refs.timer.get());
+	}
+	onTest2() {
+		console.log(this.refs.timer.get());
 	}
 
 	render() {
