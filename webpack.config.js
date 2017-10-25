@@ -80,7 +80,8 @@ var clientConfig = {
 		new ExtractTextPlugin('css/fislab.min.css'),
 		new CopyWebpackPlugin([
 			{ from: './resources/images', to: 'images' },
-			{ from: './resources/models', to: 'models' }
+			{ from: './resources/models', to: 'models' },
+			{ from: './resources/textures', to: 'textures' }
 		])
 	]
 };

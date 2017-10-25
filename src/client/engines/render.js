@@ -39,9 +39,9 @@ class RenderEngine {
 
 
 		var model = new THREE.JSONLoader();
-		model.load('/models/json/mesa.json', (geo, mat)=>{
+		model.load('/models/table.json', (geo, mat)=>{
 			var textureLoader = new THREE.TextureLoader();
-			textureLoader.load('/textures/mesa.png', (texture)=>{
+			textureLoader.load('/textures/table.png', (texture)=>{
 				var modelMaterial = new THREE.MeshPhongMaterial(
 					{ shininess: 255, map: texture, emissive: 0x151515, specular: 0x050505, color: 0xffffff }
 				);
