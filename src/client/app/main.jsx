@@ -10,8 +10,11 @@ import React from 'react';
 import ReactDOM from'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import { Home } from '../views/home.jsx';
+import { Signup, SignupVerify } from '../views/signup.jsx';
+import { SignIn } from '../views/signin.jsx';
+import { Profile } from '../views/profile.jsx';
 import { Experiment } from '../views/experiment.jsx';
-
 
 import MainStyles from '../styles/app.scss';
 
@@ -31,6 +34,10 @@ class Main extends React.Component {
 
 class App {
 	constructor() {
+		window.fislab = {
+			title: ''
+		};
+		
 		document.addEventListener('DOMContentLoaded', this.onDOMContentLoaded.bind(this));
 	}
 
@@ -44,6 +51,12 @@ class App {
 		ReactDOM.render(
 			<BrowserRouter>
 				<Main>
+					<Route exact={true} path="/" component={Home}/>
+					<Route exact={true} path="/registro" component={Signup}/>
+					<Route exact={true} path="/registro/verificar/:session/:uvid/:evid/" component={SignupVerify}/>
+					<Route exact={true} path="/login" component={SignIn}/>
+					<Route exact={true} path="/perfil" component={Profile}/>
+
 					<Route exact={true} path="/simulacion/:experiment/" component={Experiment}/>
 				</Main>
 			</BrowserRouter>,
@@ -53,8 +66,4 @@ class App {
 
 /****************************************************************************************/
 
-var fislabApp = new App();
-
-window.fislab = {
-	title: ''
-};
+var app = new App();

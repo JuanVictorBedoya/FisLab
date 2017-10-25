@@ -8,7 +8,7 @@
 
 import React from 'react';
 
-import {SimulationView} from '../../views/simulation.jsx';
+import {DefaultView} from '../../views/default.jsx';
 
 /****************************************************************************************/
 
@@ -17,7 +17,7 @@ class ExperimentController {
 	}
 
 	index(req, res) {
-		res.render(<SimulationView/>);
+		res.render(<DefaultView/>);
 	}
 }
 

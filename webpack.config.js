@@ -50,8 +50,7 @@ var clientConfig = {
 	entry: {
 		'fislab.physics-engine': './src/client/engines/physics.js',
 		'fislab.render-engine': './src/client/engines/render.js',
-		'fislab.default': './src/client/app/default.jsx',
-		'fislab.simulation': './src/client/app/simulation.jsx',
+		'fislab.main': './src/client/app/main.jsx',
 		//'fislab.demos': './test/demos/client.jsx'
 	},
 
