@@ -85,21 +85,28 @@ class RenderEngine {
 		if(opt.scene.geometries) {
 			let wPerc = 10.0 / parseFloat(opt.scene.geometries.length);
 			opt.scene.geometries.forEach((geo)=>{
+				var geometry, material, mesh;
 				switch(geo.type) {
 				case 'box':
-					var boxGeo = new THREE.BoxGeometry(geo.width, geo.height, geo.depth),
-						boxMat = new THREE.MeshPhongMaterial(geo.material),
-						boxMesh = new THREE.Mesh(boxGeo, boxMat);
+					geometry = new THREE.BoxGeometry(geo.width, geo.height, geo.depth);
+					material = new THREE.MeshPhongMaterial(geo.material);
+					break;
 
-					if(geo.position){
-						let pos = geo.position;
-						boxMesh.position.copy(new THREE.Vector3(pos.x, pos.y, pos.z));
-					}
-
-					this.meshes[geo.name] = boxMesh;
-					this.scene.add(boxMesh);
+				case 'cylinder':
+					geometry = new THREE.CylinderGeometry(geo.radiusTop, geo.radiusBottom, geo.height, geo.radiusSegments, geo.heightSegments, geo.openEnded, geo.thetaStart, geo.thetaLength);
+					material = new THREE.MeshPhongMaterial(geo.material);
 					break;
 				}
+
+				mesh = new THREE.Mesh(geometry, material);
+
+				if(geo.position){
+					let pos = geo.position;
+					mesh.position.copy(new THREE.Vector3(pos[0], pos[1], pos[2]));
+				}
+
+				this.meshes[geo.name] = mesh;
+				this.scene.add(mesh);
 
 				loadPercent += wPerc;
 				onProgress ? onProgress({percent: loadPercent}) : null;

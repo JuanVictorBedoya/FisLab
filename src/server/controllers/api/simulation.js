@@ -45,7 +45,7 @@ class SimulationApiController {
 								height: 100,
 								depth: 100,
 								material: { color: 0xffffff },
-								position: { x:0, y:200, z:0 }
+								position: [0, 200, 0]
 							},
 							{
 								name: 'box2',
@@ -56,6 +56,12 @@ class SimulationApiController {
 								material: {
 									color: 0x0040FF
 								}
+							},
+							{
+								name: 'cyl1',
+								type: 'cylinder',
+								radiusTop: 10, radiusBottom: 100, height: 200, radiusSegments: 32,
+								material: {color: 0xffff00}
 							}
 						],
 						models: [
