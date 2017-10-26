@@ -16,7 +16,7 @@ class RenderEngine {
 
 	}
 
-	create(opt) {
+	create(opt, onProgress) {
 		//let element = document.getElementById(opt.elementID);
 		this.viewElement = opt.viewElement;
 
@@ -34,11 +34,12 @@ class RenderEngine {
 
 		this.trackball = new TrackballControls(this.camera, this.viewElement);
 
+		this.meshes = {};
 
 
 
 
-		var model = new THREE.JSONLoader();
+		/*var model = new THREE.JSONLoader();
 		model.load('/models/table.json', (geo, mat)=>{
 			var textureLoader = new THREE.TextureLoader();
 			textureLoader.load('/textures/table.png', (texture)=>{
@@ -50,7 +51,11 @@ class RenderEngine {
 				fl_table.position.y = -1034;
 				this.scene.add(fl_table);
 			});
-		});
+		},
+		(xhr)=>{
+			console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+		}
+	);*/
 
 		var sphere = new THREE.SphereGeometry(10, 8, 8);
 		this.light1 = new THREE.PointLight(0xffffff, 1, 10000);
@@ -68,14 +73,86 @@ class RenderEngine {
 		this.scene.add(ground);*/
 		//ground.receiveShadow = true;
 
-		var boxGeo = new THREE.BoxGeometry(100, 100, 100);
+		/*var boxGeo = new THREE.BoxGeometry(100, 100, 100);
 		var boxMat = new THREE.MeshPhongMaterial({color: 0xffffff});
 		this.box = new THREE.Mesh(boxGeo, boxMat);
 		//box.castShadow = true;
 		//box.receiveShadow = true;
-		this.scene.add(this.box);
+		this.scene.add(this.box);*/
 
 
+		let loadPercent = 0.0;
+		if(opt.scene.geometries) {
+			let wPerc = 10.0 / parseFloat(opt.scene.geometries.length);
+			opt.scene.geometries.forEach((geo)=>{
+				switch(geo.type) {
+				case 'box':
+					var boxGeo = new THREE.BoxGeometry(geo.width, geo.height, geo.depth),
+						boxMat = new THREE.MeshPhongMaterial(geo.material),
+						boxMesh = new THREE.Mesh(boxGeo, boxMat);
+
+					if(geo.position){
+						let pos = geo.position;
+						boxMesh.position.copy(new THREE.Vector3(pos.x, pos.y, pos.z));
+					}
+
+					this.meshes[geo.name] = boxMesh;
+					this.scene.add(boxMesh);
+					break;
+				}
+
+				loadPercent += wPerc;
+				onProgress ? onProgress({percent: loadPercent}) : null;
+			});
+		} else {
+			loadPercent += 10.0;
+		}
+
+		if(opt.scene.models) {
+			let wPerc = 90.0 / parseFloat(opt.scene.models.length);
+			opt.scene.models.forEach((model)=>{
+				let jsonLoader = new THREE.JSONLoader(),
+					textureLoader = new THREE.TextureLoader(),
+					addMesh = function(world, geo, mat) {
+						let mesh = new THREE.Mesh(geo, mat);
+
+						if(model.position){
+							let pos = model.position;
+							mesh.position.copy(new THREE.Vector3(pos.x, pos.y, pos.z));
+						}
+
+						world.meshes[model.name] = mesh;
+						world.scene.add(mesh);
+					},
+					progress = function(xhr) {
+						loadPercent += xhr.loaded / xhr.total * wPerc;
+						onProgress ? onProgress({percent: loadPercent}) : null;
+					};
+
+				jsonLoader.load(model.resourceName,
+					(geo, mat)=>{
+						if(model.textureMap) {
+							wPerc = wPerc / 2.0;
+							textureLoader.load(model.textureMap,
+								(texture)=>{
+									if(model.material) {
+										model.material.map = texture;
+									}
+									else {
+										model.material = { map: texture };
+									}
+									addMesh(this, geo, new THREE.MeshPhongMaterial(model.material));
+								}, progress, (error)=>{});
+						} else if(model.material) {
+							addMesh(this, geo, new THREE.MeshPhongMaterial(model.material));
+						} else {
+							addMesh(this, geo, mat);
+						}
+					}, progress, (error)=>{});
+			});
+		} else {
+			loadPercent += 90.0;
+		}
 
 
 
@@ -89,7 +166,7 @@ class RenderEngine {
 		this.tests = {
 			one: opt.onTest1,
 			two: opt.onTest2
-		}
+		};
 		//console.log(this.ray1);
 
 		this.renderer = new THREE.WebGLRenderer({antialias: true});
@@ -123,11 +200,11 @@ class RenderEngine {
 	}
 
 	update(data) {
-		this.box.position.copy(data.box1.position);
-		this.box.quaternion.copy(data.box1.quaternion);
+		//this.box.position.copy(data.box1.position);
+		//this.box.quaternion.copy(data.box1.quaternion);
 
 
-		if(this.ray1.enabled) {
+		/*if(this.ray1.enabled) {
 			let intersect = this.ray1.intersectObject(this.box);
 			if(intersect.length > 0) {
 				this.ray1.enabled = false;
@@ -140,7 +217,7 @@ class RenderEngine {
 				this.ray2.enabled = false;
 				this.tests.two();
 			}
-		}
+		}*/
 
 	}
 

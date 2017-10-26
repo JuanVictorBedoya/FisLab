@@ -81,7 +81,10 @@ class Simulation extends Reflux.Component {
 						<div className="row">
 							<div className="col s12 l9">
 								<div>
-									<Simulator playIcon={IconPlay} stopIcon={IconStop}/>
+									{
+										this.state.simulation ?
+											<Simulator simulation={this.state.simulation} playIcon={IconPlay} stopIcon={IconStop}/> : null
+									}
 								</div>
 								<div className="fi-simulation-title">
 									<h5><b>Experimento n1</b></h5>

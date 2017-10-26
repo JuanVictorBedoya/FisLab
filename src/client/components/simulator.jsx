@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /****************************************************************************************/
 
@@ -99,8 +100,14 @@ class Simulator extends React.Component {
 
 			this.renderer.create({
 				viewElement: element,
+				scene: this.props.simulation.scene,
+
+
 				onTest1: this.onTest1.bind(this),
 				onTest2: this.onTest2.bind(this)
+			},
+			(xhr)=>{
+				console.log(xhr.percent + '%');
 			});
 
 			this.physics.onmessage = this.onPhysicsUpdate.bind(this);
@@ -193,5 +200,9 @@ class Simulator extends React.Component {
 		);
 	}
 }
+
+Simulator.propTypes = {
+	simulation: PropTypes.element.isRequired
+};
 
 export {Simulator};
