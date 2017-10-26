@@ -17,7 +17,6 @@ class RenderEngine {
 	}
 
 	create(opt, onProgress) {
-		//let element = document.getElementById(opt.elementID);
 		this.viewElement = opt.viewElement;
 
 		let view = {
@@ -35,7 +34,7 @@ class RenderEngine {
 		this.trackball = new TrackballControls(this.camera, this.viewElement);
 
 		this.meshes = {};
-
+		this.sensors = [];
 
 
 
@@ -105,6 +104,11 @@ class RenderEngine {
 					mesh.position.copy(new THREE.Vector3(pos[0], pos[1], pos[2]));
 				}
 
+				if(geo.rotation) {
+					let rot = geo.rotation;
+					mesh.rotation.x = rot[0], mesh.rotation.y = rot[1], mesh.rotation.z = rot[2];
+				}
+
 				this.meshes[geo.name] = mesh;
 				this.scene.add(mesh);
 
@@ -161,20 +165,23 @@ class RenderEngine {
 			loadPercent += 90.0;
 		}
 
+		if(opt.scene.sensors) {
+			opt.scene.sensors.forEach((sensor)=>{
+				switch(sensor.type) {
+				case 'ray':
+					var origin = sensor.origin, dir = sensor.direction,
+						tSensor = new THREE.Raycaster(new THREE.Vector3(origin[0], origin[1], origin[2]), new THREE.Vector3(dir[0], dir[1], dir[2]));
+					tSensor.name = sensor.name;
+					tSensor.targets = sensor.targets;
+					this.sensors.push(tSensor);
+					break;
+				}
+			});
+		}
 
-
-
-
-
-		this.ray1 = new THREE.Raycaster(new THREE.Vector3(100, 500, 0), new THREE.Vector3(-1, 0, 0));
-		this.ray2 = new THREE.Raycaster(new THREE.Vector3(100, 100, 0), new THREE.Vector3(-1, 0, 0));
-		this.ray1.enabled = true;
-		this.ray2.enabled = true;
-		this.tests = {
-			one: opt.onTest1,
-			two: opt.onTest2
+		this.sensorEvents = {
+			onDetect: opt.onSensorDetect
 		};
-		//console.log(this.ray1);
 
 		this.renderer = new THREE.WebGLRenderer({antialias: true});
 		this.renderer.domElement.classList.add('render-view');
@@ -213,30 +220,18 @@ class RenderEngine {
 			mesh.position.copy(body.position);
 			mesh.quaternion.copy(body.quaternion);
 		});
-		//this.box.position.copy(data.box1.position);
-		//this.box.quaternion.copy(data.box1.quaternion);
 
+		this.sensors.forEach((sensor)=>{
+			let objs = [];
+			sensor.targets.forEach((target)=>{
+				objs.push(this.meshes[target]);
+			});
 
-		/*if(this.ray1.enabled) {
-			let intersect = this.ray1.intersectObject(this.box);
+			let intersect = sensor.intersectObjects(objs);
 			if(intersect.length > 0) {
-				this.ray1.enabled = false;
-				this.tests.one();
+				this.sensorEvents.onDetect(sensor.name);
 			}
-		}
-		if(this.ray2.enabled) {
-			let intersect = this.ray2.intersectObject(this.box);
-			if(intersect.length > 0) {
-				this.ray2.enabled = false;
-				this.tests.two();
-			}
-		}*/
-
-	}
-
-	testReset() {
-		this.ray1.enabled = this.ray2.enabled = true;
-
+		});
 	}
 }
 

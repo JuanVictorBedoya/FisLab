@@ -44,10 +44,10 @@ class SimulationApiController {
 								width: 100,
 								height: 100,
 								depth: 100,
-								material: { color: 0xffffff },
+								material: { emissive: 0x2E2E2E, color: 0xffffff },
 								position: [0, 200, 0]
 							},
-							{
+							/*{
 								name: 'box2',
 								type: 'box',
 								width: 150,
@@ -56,12 +56,30 @@ class SimulationApiController {
 								material: {
 									color: 0x0040FF
 								}
-							},
+							},*/
 							{
 								name: 'cyl1',
 								type: 'cylinder',
-								radiusTop: 10, radiusBottom: 100, height: 200, radiusSegments: 32,
-								material: {color: 0xffff00}
+								radiusTop: 5, radiusBottom: 30, height: 100, radiusSegments: 32,
+								material: { emissive: 0x5E610B, color: 0xffff00},
+								position: [200, 500, 0],
+								rotation: [0, 0, 1.5708]
+							},
+							{
+								name: 'cyl2',
+								type: 'cylinder',
+								radiusTop: 5, radiusBottom: 30, height: 100, radiusSegments: 32,
+								material: { emissive: 0x5E610B, color: 0xffff00},
+								position: [200, 1000, 0],
+								rotation: [0, 0, 1.5708]
+							},
+							{
+								name: 'cyl3',
+								type: 'cylinder',
+								radiusTop: 5, radiusBottom: 30, height: 100, radiusSegments: 32,
+								material: { emissive: 0x5E610B, color: 0xffff00},
+								position: [200, 1500, 0],
+								rotation: [0, 0, 1.5708]
 							}
 						],
 						models: [
@@ -71,6 +89,29 @@ class SimulationApiController {
 								position: { x:0, y:-1034, z:0 },
 								textureMap: '/textures/table.png',
 								material: { shininess: 255, emissive: 0x151515, specular: 0x050505, color: 0xffffff }
+							}
+						],
+						sensors: [
+							{
+								name: 'sensor1',
+								type: 'ray',
+								origin: [100, 500, 0],
+								direction: [-1, 0, 0],
+								targets: ['box1']
+							},
+							{
+								name: 'sensor2',
+								type: 'ray',
+								origin: [100, 1000, 0],
+								direction: [-1, 0, 0],
+								targets: ['box1']
+							},
+							{
+								name: 'sensor3',
+								type: 'ray',
+								origin: [100, 1500, 0],
+								direction: [-1, 0, 0],
+								targets: ['box1']
 							}
 						]
 					},

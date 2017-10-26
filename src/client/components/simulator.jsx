@@ -101,10 +101,7 @@ class Simulator extends React.Component {
 			this.renderer.create({
 				viewElement: element,
 				scene: this.props.simulation.scene,
-
-
-				onTest1: this.onTest1.bind(this),
-				onTest2: this.onTest2.bind(this)
+				onSensorDetect: this.onSensorDetect.bind(this)
 			},
 			(xhr)=>{
 				console.log(xhr.percent + '%');
@@ -151,7 +148,6 @@ class Simulator extends React.Component {
 		case 'stop':
 			this.refs.timer.play();
 			this.physics.postMessage({action: 'reset'});
-			this.renderer.testReset();
 			this.setState({status: 'play'});
 			break;
 		default:
@@ -163,11 +159,8 @@ class Simulator extends React.Component {
 		this.renderer.update(e.data);
 	}
 
-	onTest1() {
-		console.log(this.refs.timer.get());
-	}
-	onTest2() {
-		console.log(this.refs.timer.get());
+	onSensorDetect(sensorName) {
+		console.log(sensorName, this.refs.timer.get());
 	}
 
 	render() {
