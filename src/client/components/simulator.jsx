@@ -80,7 +80,7 @@ class Timekeeper extends React.Component {
 	}
 }
 
-class Renderer extends React.Component {
+class Simulator extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -194,4 +194,4 @@ class Renderer extends React.Component {
 	}
 }
 
-export {Renderer};
+export {Simulator};

@@ -13,7 +13,7 @@ import {Button} from '../components/button.jsx';
 import {TextInput} from '../components/text-input.jsx';
 
 import {Navbar, NavBrand, NavLink, NavUser, NavUserLink, NavUserActionButton} from '../components/navbar.jsx';
-import {Renderer} from '../components/render.jsx';
+import {Simulator} from '../components/simulator.jsx';
 
 import {IconPlay, IconStop} from '../../both/components/icons.jsx';
 
@@ -81,7 +81,7 @@ class Simulation extends Reflux.Component {
 						<div className="row">
 							<div className="col s12 l9">
 								<div>
-									<Renderer playIcon={IconPlay} stopIcon={IconStop}/>
+									<Simulator playIcon={IconPlay} stopIcon={IconStop}/>
 								</div>
 								<div className="fi-simulation-title">
 									<h5><b>Experimento n1</b></h5>
