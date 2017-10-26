@@ -200,6 +200,12 @@ class RenderEngine {
 	}
 
 	update(data) {
+
+		data.bodies.forEach((body)=>{
+			let mesh = this.meshes[body.ref];
+			mesh.position.copy(body.position);
+			mesh.quaternion.copy(body.quaternion);
+		});
 		//this.box.position.copy(data.box1.position);
 		//this.box.quaternion.copy(data.box1.quaternion);
 

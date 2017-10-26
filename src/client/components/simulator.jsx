@@ -110,8 +110,10 @@ class Simulator extends React.Component {
 				console.log(xhr.percent + '%');
 			});
 
+
+			this.props.simulation.physics.action = 'create';
 			this.physics.onmessage = this.onPhysicsUpdate.bind(this);
-			this.physics.postMessage({action: 'create', dt: 1/60});
+			this.physics.postMessage(this.props.simulation.physics);
 		});
 	}
 
