@@ -115,7 +115,7 @@ class SimulationApiController {
 							}
 						]
 					},
-					physics: {
+					physics: { //NOTE: "s" does not mean plural, therefore it is not an array 
 						world: {
 							timestep: 1/100,
 							iterations: 8,
