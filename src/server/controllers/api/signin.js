@@ -35,7 +35,7 @@ class SignInController {
 			});
 
 			let user = yield req.db.models.user.auth(req.body);
-			let token = yield req.auth.sign({id: user.sessionId, firstName: user.firstName, email: user.email.email});
+			let token = yield req.authenticator.sign({id: user.sessionId, firstName: user.firstName, email: user.email.email});
 		
 			return {
 				user: { id: user.sessionId, status: user.status, },

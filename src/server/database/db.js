@@ -13,6 +13,8 @@ import {UserModel} from './models/user';
 
 /****************************************************************************************/
 
+mongoose.Promise = global.Promise;
+
 class DB {
 	constructor(config) {
 		let cnnstr = 'mongodb://',

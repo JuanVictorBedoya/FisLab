@@ -79,7 +79,18 @@ class Profile extends Reflux.Component {
 				</header>
 				<main>
 					<div className="container fi-profile-container">
-						{ e ? <AppError data={e}/> : null }
+						{
+							e ?
+								<div>
+									<AppError data={e}/>
+									<div className="row" style={{marginTop: '2rem'}}>
+										<div className="col s12 m9 l4">
+											<Button text="Volver" onClick={this.onLogoutClick.bind(this)}/>
+										</div>
+									</div>
+								</div>
+								: null
+						}
 						{
 							u ?
 								<div className="row">

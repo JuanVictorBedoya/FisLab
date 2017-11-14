@@ -1,7 +1,7 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
@@ -15,7 +15,7 @@ import jsonfile from 'jsonfile';
 import bodyParser from 'body-parser';
 
 import {Validator} from './security/validator';
-import {Auth} from './security/auth';
+import {Authenticator} from './security/auth';
 import {Mailer} from './common/mailer';
 
 import {WebRouter} from './routes/web';
@@ -29,6 +29,7 @@ import {DefaultController} from './controllers/web/default';
 import {SignUpController} from './controllers/api/signup';
 import {SignInController} from './controllers/api/signin';
 import {ProfileController} from './controllers/api/profile';
+import {SimulationApiController} from './controllers/api/simulation';
 
 /****************************************************************************************/
 
@@ -51,7 +52,7 @@ class App {
 	onLoad() {
 		this.db = new DB(this.config.db);
 		this.mailer = new Mailer(this.config.mail);
-		this.auth = new Auth(this.config.auth);
+		this.authenticator = new Authenticator(this, this.config.auth);
 
 		this.controllers = {
 			web: {
@@ -62,6 +63,7 @@ class App {
 				signup: new SignUpController,
 				signin: new SignInController,
 				profile: new ProfileController,
+				simulation: new SimulationApiController
 			}
 		};
 
@@ -81,12 +83,12 @@ class App {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	mwApp(req, res, next) {
 		req.db = this.db;
 		req.mailer = this.mailer;
-		req.auth = this.auth;
+		req.authenticator = this.authenticator;
 
 		req.body.validate = function(options) {
 			let validator = new Validator(options);

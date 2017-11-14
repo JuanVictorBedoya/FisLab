@@ -14,6 +14,7 @@ import { Home } from '../views/home.jsx';
 import { Signup, SignupVerify } from '../views/signup.jsx';
 import { SignIn } from '../views/signin.jsx';
 import { Profile } from '../views/profile.jsx';
+import { Simulation } from '../views/simulation.jsx';
 
 import MainStyles from '../styles/app.scss';
 
@@ -33,6 +34,10 @@ class Main extends React.Component {
 
 class App {
 	constructor() {
+		window.fislab = {
+			title: ''
+		};
+
 		document.addEventListener('DOMContentLoaded', this.onDOMContentLoaded.bind(this));
 	}
 
@@ -51,6 +56,8 @@ class App {
 					<Route exact={true} path="/registro/verificar/:session/:uvid/:evid/" component={SignupVerify}/>
 					<Route exact={true} path="/login" component={SignIn}/>
 					<Route exact={true} path="/perfil" component={Profile}/>
+
+					<Route exact={true} path="/temas/:id/simulacion" component={Simulation}/>
 				</Main>
 			</BrowserRouter>,
 			this._mainSection);

@@ -25,7 +25,7 @@ class DefaultView extends React.Component {
 				</head>
 				<body>
 					<div id="app-main"></div>
-					<script src="/js/fislab.default.min.js"/>
+					<script src="/js/fislab.main.min.js"/>
 				</body>
 			</html>
 		);

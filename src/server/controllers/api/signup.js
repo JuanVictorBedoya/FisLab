@@ -94,7 +94,7 @@ class SignUpController {
 			});
 
 			let user = yield req.db.models.user.verify(req.params.id, req.body),
-				token = yield req.auth.sign({id: user.sessionId, firstName: user.firstName, email: user.email.email});
+				token = yield req.authenticator.sign({id: user.sessionId, firstName: user.firstName, email: user.email.email});
 			return {
 				user: { id: user.sessionId, status: user.status, },
 				authorization: token

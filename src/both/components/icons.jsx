@@ -16,45 +16,29 @@ class IconFislab extends React.Component {
 	}
 
 	render() {
-		let pathstyle = {fill:'none', stroke:'url(#linearGradient1000'+this.props.id+')', strokeWidth:2.5, strokeLinecap:'butt', strokeLinejoin:'miter', strokeMiterlimit:4, strokeDasharray:'none', strokeOpacity:1};
-		let svgdefsstr = '<linearGradient id="linearGradient998'+this.props.id+'"><stop offset="0" style="stop-color:#6a389b;stop-opacity:0.98895025"/><stop style="stop-color:#1292ad;stop-opacity:1" offset="0.7500695"/><stop offset="1" style="stop-color:#22b9ce;stop-opacity:1"/></linearGradient><linearGradient gradientUnits="userSpaceOnUse" y2="68.224701" x2="52.538692" y1="11.528274" x1="52.72768" id="linearGradient1000'+this.props.id+'" xlink:href="#linearGradient998'+this.props.id+'"/>';
-
+		let pathstyle = {fill:'none', stroke:'url(#'+this.props.id+'linearGradient1000)', strokeWidth:2.5, strokeLinecap:'butt', strokeLinejoin:'miter', strokeMiterlimit:4, strokeDasharray:'none', strokeOpacity:1};
 		return (
 			<svg viewBox="0 0 31.220833 33.866668" style={this.props.style}>
-				<defs dangerouslySetInnerHTML={{__html:svgdefsstr}}></defs>
-				<g
-					style={{display: 'inline'}}
-					transform="translate(0 -263.13)">
-					<g style={{strokeWidth:1, strokeMiterlimit:4, strokeDasharray:'none'}}
-						transform="matrix(.57867 0 0 .58471 -14.783 256.77)">
-						<g style={{stroke:'url(#linearGradient1000'+this.props.id+')'}}>
-							<path
-								d="m26.458 53.862-0.18899-27.97 26.458-14.363 26.08 14.552v27.781l-26.269 14.363z"
-								style={pathstyle}/>
-							<path
-								d="m26.458 53.862 13.04-6.9926 25.891 14.363"
-								style={pathstyle}/>
-							<path
-								d="m78.808 53.862-13.229-7.1815-25.702 14.363"
-								style={pathstyle}/>
-							<path
-								d="m26.269 39.499 26.269-13.607 26.08 13.607"
-								style={pathstyle}/>
-							<path
-								d="m39.499 46.869-0.37798-28.159"
-								style={pathstyle}/>
-							<path
-								d="m65.579 46.68 0.18899-27.781"
-								style={pathstyle}/>
-							<path
-								d="m52.539 25.891 0.18899-14.363"
-								style={pathstyle}/>
-							<path
-								d="m39.121 32.506 13.796 7.3705 13.04-7.1815"
-								style={pathstyle}/>
-							<path
-								d="m52.917 39.876-0.37798 14.174"
-								style={pathstyle}/>
+				<defs>
+					<linearGradient id={this.props.id+'linearGradient998'}>
+						<stop stopColor="#6a389b" stopOpacity="0.98895025" offset="0"/>
+						<stop stopColor="#1292ad" stopOpacity="1" offset="0.7500695"/>
+						<stop stopColor="#22b9ce" stopOpacity="1" offset="1"/>
+					</linearGradient>
+					<linearGradient gradientUnits="userSpaceOnUse" y2="68.224701" x2="52.538692" y1="11.528274" x1="52.72768" id={this.props.id+'linearGradient1000'} xlinkHref={'#'+this.props.id+'linearGradient998'}/>
+				</defs>
+				<g style={{display: 'inline'}} transform="translate(0 -263.13)">
+					<g style={{strokeWidth:1, strokeMiterlimit:4, strokeDasharray:'none'}} transform="matrix(.57867 0 0 .58471 -14.783 256.77)">
+						<g style={{stroke:'url(#'+this.props.id+'linearGradient1000)'}}>
+							<path d="m26.458 53.862-0.18899-27.97 26.458-14.363 26.08 14.552v27.781l-26.269 14.363z" style={pathstyle}/>
+							<path d="m26.458 53.862 13.04-6.9926 25.891 14.363" style={pathstyle}/>
+							<path d="m78.808 53.862-13.229-7.1815-25.702 14.363" style={pathstyle}/>
+							<path d="m26.269 39.499 26.269-13.607 26.08 13.607" style={pathstyle}/>
+							<path d="m39.499 46.869-0.37798-28.159" style={pathstyle}/>
+							<path d="m65.579 46.68 0.18899-27.781" style={pathstyle}/>
+							<path d="m52.539 25.891 0.18899-14.363" style={pathstyle}/>
+							<path d="m39.121 32.506 13.796 7.3705 13.04-7.1815" style={pathstyle}/>
+							<path d="m52.917 39.876-0.37798 14.174" style={pathstyle}/>
 						</g>
 					</g>
 				</g>
@@ -105,4 +89,32 @@ class IconWork extends React.Component {
 	}
 }
 
-export {IconFislab, IconCancel, IconMail, IconWork};
+class IconPlay extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<svg viewBox="0 0 320 512" className={this.props.className} style={this.props.style}>
+				<path d="M309 233c7 6 11 14 11 23s-4 17-11 23L31 445c-4 2-7 3-11 3-11 0-20-9-20-20V84c0-11 9-20 20-20 4 0 8 1 11 3z"></path>
+			</svg>
+		);
+	}
+}
+
+class IconStop extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<svg viewBox="0 0 1064.428 1234" className={this.props.className} style={this.props.style}>
+				<path d="M168.428 5h768q53 0 90.5 37.5t37.5 90.5v768q0 53-37.5 90.5t-90.5 37.5h-768q-53 0-90.5-37.5t-37.5-90.5V133q0-53 37.5-90.5t90.5-37.5z"></path>
+			</svg>
+		);
+	}
+}
+
+export {IconFislab, IconCancel, IconMail, IconWork, IconPlay, IconStop};

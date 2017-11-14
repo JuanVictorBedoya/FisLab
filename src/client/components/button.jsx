@@ -25,7 +25,7 @@ class Button extends React.Component {
 				</button>
 			) :
 			(
-				<button className="btn" type={this.props.type}>
+				<button className="btn" type={this.props.type} onClick={this.props.onClick}>
 					{this.props.text}
 				</button>
 			);

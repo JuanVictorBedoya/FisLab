@@ -20,7 +20,7 @@ var serverConfig = {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name]'
 	},
-	
+
 	module: {
 		loaders: [
 			{
@@ -48,8 +48,9 @@ var clientConfig = {
 	},
 
 	entry: {
-		'fislab.default': './src/client/app/default.jsx',
-
+		'fislab.physics-engine': './src/client/engines/physics.js',
+		'fislab.render-engine': './src/client/engines/render.js',
+		'fislab.main': './src/client/app/main.jsx',
 		//'fislab.demos': './test/demos/client.jsx'
 	},
 
@@ -77,7 +78,9 @@ var clientConfig = {
 	plugins: [
 		new ExtractTextPlugin('css/fislab.min.css'),
 		new CopyWebpackPlugin([
-			{ from: './resources/images', to: 'images' }
+			{ from: './resources/images', to: 'images' },
+			{ from: './resources/models', to: 'models' },
+			{ from: './resources/textures', to: 'textures' }
 		])
 	]
 };

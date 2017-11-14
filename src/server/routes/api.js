@@ -1,7 +1,7 @@
 
 /****************************************************************************************
 
-	Copyright (c) 2016-2017, Juan Carlos Labrandero.
+	Copyright (c) 2017, Juan Carlos Labrandero.
 	For conditions of distribution and use, see copyright notice in LICENSE
 
 ****************************************************************************************/
@@ -20,7 +20,7 @@ class ApiRouter {
 		});
 
 		let api = app.controllers.api,
-			auth = passport.authenticate('jwt', {session: false});
+			auth = app.auth;
 
 		this.router.post('/account/create', api.signup.create);
 		this.router.put('/account/:id/verify', app.mwValidateParams, api.signup.verify);
@@ -30,6 +30,8 @@ class ApiRouter {
 		this.router.post('/account/signin', api.signin.login);
 
 		this.router.get('/account/:id/show', auth, app.mwValidateParams, api.profile.show);
+
+		this.router.get('/topics/:id/simulation/show', auth, app.mwValidateParams, api.simulation.show);
 
 		this.router.use((req, res)=>{
 			res.status(404).send({msg: 'Recurso no encontrado'});

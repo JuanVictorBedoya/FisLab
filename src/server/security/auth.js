@@ -13,8 +13,10 @@ import co from 'co';
 
 /****************************************************************************************/
 
-class Auth {
-	constructor(config) {
+class Authenticator {
+	constructor(app, config) {
+		app.auth = this.auth;
+
 		this.rsa = config.rsa;
 		this.algorithm = config.algorithm;
 
@@ -41,7 +43,18 @@ class Auth {
 		});
 	}
 
-
+	auth(req, res, next) {
+		passport.authenticate('jwt', function(err, user, info) {
+			if(err) {
+				return res.status(500).json(err);
+			}
+			if(!user) {
+				return res.status(401).json(info);
+			}
+			next();
+			return user;
+		})(req, res, next);
+	}
 
 	authorize(req, callback) {
 		//console.log('AUTH HEADERS -->', req.headers);
@@ -57,34 +70,24 @@ class Auth {
 		}
 	}
 
-
-
 	onAuthenticate(req, jwt_payload, callback) {
 		let self = this,
 			cnn = req.db;
 
 		co(function*() {
 			let user = yield cnn.models.user.findOneWithEmail({sessionId: jwt_payload.id});
-			if(user) {
-				callback(null, user);
-			} else {
-				self.onUnauthorized(
-					{message: 'El usuario tiene credenciales válidos pero no se encontró registro de sus datos'},
-					callback
-				);
-			}
-			return {}
-		}).then(result=>{
-			// need't to resoleve anything
-		}).catch(err=>{
-			callback(err);
+			return user;
+		}).then(user=>{
+			callback(null, user);
+		}).catch(info=>{
+			self.onUnauthorized(info, callback);
 		});
 	}
 
-	onUnauthorized(msg, callback) {
-		console.log('ADVERTENCIA:', msg);
-		callback(null, false, msg);
+	onUnauthorized(info, callback) {
+		console.log('ADVERTENCIA:', info);
+		callback(null, false, info);
 	}
 }
 
-export {Auth};
+export {Authenticator};
